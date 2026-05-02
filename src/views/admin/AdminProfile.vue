@@ -99,7 +99,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getProfile, updateProfile } from '@/api'
+import { getProfile, updateProfile, testBackend } from '@/api'
 
 const formData = ref({
   name: '',

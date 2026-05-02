@@ -97,7 +97,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getAwards, addAward, updateAward, deleteAward } from '@/api'
+import { getAwards, addAward, updateAward, deleteAward, testBackend } from '@/api'
 
 const awards = ref([])
 const loading = ref(true)
@@ -172,7 +172,8 @@ const doDelete = async () => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await testBackend()
   loadAwards()
 })
 </script>
