@@ -13,10 +13,12 @@ export async function testBackend() {
     if (response.ok) {
       useMock = false
       console.log('后端连接成功，使用真实 API')
+      return 'success'
     }
   } catch (e) {
     console.log('后端不可用，使用 Mock 数据')
     useMock = true
+    return 'failed'
   }
 }
 

@@ -192,6 +192,13 @@
         <span class="text-xs font-bold">{{ locale === 'zh' ? 'EN' : '中' }}</span>
       </button>
 
+      <!-- 后端连接状态 -->
+      <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center" :title="backendStatus === 'success' ? '后端已连接' : backendStatus === 'failed' ? '使用本地数据' : '连接中...'">
+        <span v-if="backendStatus === 'success'" class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
+        <span v-else-if="backendStatus === 'failed'" class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span v-else class="w-3 h-3 rounded-full bg-gray-400 animate-pulse"></span>
+      </div>
+
       <!-- 回到顶部 -->
       <button 
         v-if="showBackToTop"
@@ -613,7 +620,8 @@ onMounted(async () => {
   window.addEventListener('scroll', handleScroll)
   
   // 测试后端连接
-  await testBackend()
+  const status = await testBackend()
+  backendStatus.value = status
   
   const [profileData, projectsData, awardsData, experienceData, resumeData] = await Promise.all([
     getProfile(),
