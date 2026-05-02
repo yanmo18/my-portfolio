@@ -73,7 +73,7 @@
         <div class="pt-6 pb-4 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
             <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
-              <img v-lazy="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
+              <img :src="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
           <div class="text-center">
@@ -302,7 +302,7 @@
                 <div class="h-32 md:h-40 bg-gray-100 overflow-hidden relative">
                   <img 
                     v-if="project.cover" 
-                    v-lazy="project.cover" 
+                    :src="project.cover" 
                     :alt="project.title + '项目封面'"
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
