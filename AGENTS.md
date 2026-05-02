@@ -21,9 +21,28 @@ my-portfolio 是一个基于 Vue 3 + Vite 的个人作品集网站，用于展�
 | 次要文字 | #6B7280 |
 
 ## 后端服务
-- **地址**: https://yfusw1tpgp.sealoshzh.site/api
-- **类型**: Laf 云函数
-- **状态**: 已就绪，代码会自动降级到 Mock 数据
+- **地址**: https://yfusw1tpgp.sealoshzh.site
+- **类型**: Laf 云函数（已发布）
+- **状态**: 已连接，API 自动降级到 Mock 数据
+
+### 接口列表（直接使用函数名，无需 /api/ 前缀）
+| 接口 | 方法 | 说明 |
+|------|------|------|
+| /get-profile | GET | 获取个人信息 |
+| /update-profile | PUT | 更新个人信息 |
+| /get-projects | GET | 获取项目列表 ⚠️ 有 bug |
+| /add-project | POST | 添加项目 |
+| /update-project | PUT | 更新项目 |
+| /delete-project | DELETE | 删除项目 |
+| /get-awards | GET | 获取奖项列表 |
+| /add-award | POST | 添加奖项 |
+| /update-award | PUT | 更新奖项 |
+| /delete-award | DELETE | 删除奖项 |
+| /get-experience | GET | 获取经历列表 |
+| /add-experience | POST | 添加经历 |
+| /update-experience | PUT | 更新经历 |
+| /delete-experience | DELETE | 删除经历 |
+| /upload-resume | POST | 上传简历 |
 
 ## 目录结构
 ```

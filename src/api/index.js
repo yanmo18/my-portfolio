@@ -1,15 +1,17 @@
 /**
  * API 适配层
  * 优先使用后端 API，后端不可用时自动降级到 Mock 数据
+ * Laf 后端地址: https://yfusw1tpgp.sealoshzh.site
  */
 import { getData, saveData, generateId } from './mockData'
 
-let useMock = true // 默认使用 mock 数据
+const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
+let useMock = false // 默认尝试使用后端
 
 // 测试后端连接
 export async function testBackend() {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/profile`)
+    const response = await fetch(`${API_BASE}/get-profile`)
     if (response.ok) {
       useMock = false
       console.log('后端连接成功，使用真实 API')
@@ -30,11 +32,13 @@ export async function getProfile() {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/profile`)
+    const res = await fetch(`${API_BASE}/get-profile`)
+    if (!res.ok) throw new Error('API error')
     const data = await res.json()
     return data.data || data
   } catch (error) {
     console.error('获取个人信息失败，使用默认数据:', error)
+    useMock = true
     return getData().profile
   }
 }
@@ -48,7 +52,7 @@ export async function updateProfile(profileData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/profile`, {
+    const res = await fetch(`${API_BASE}/update-profile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profileData)
@@ -68,11 +72,13 @@ export async function getProjects() {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/projects`)
+    const res = await fetch(`${API_BASE}/get-projects`)
+    if (!res.ok) throw new Error('API error')
     const data = await res.json()
     return data.data || data || []
   } catch (error) {
     console.error('获取项目列表失败:', error)
+    useMock = true
     return []
   }
 }
@@ -87,7 +93,7 @@ export async function addProject(projectData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/projects`, {
+    const res = await fetch(`${API_BASE}/add-project`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(projectData)
@@ -111,10 +117,10 @@ export async function updateProject(id, projectData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/projects/${id}`, {
+    const res = await fetch(`${API_BASE}/update-project`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(projectData)
+      body: JSON.stringify({ _id: id, ...projectData })
     })
     return await res.json()
   } catch (error) {
@@ -132,8 +138,10 @@ export async function deleteProject(id) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/projects/${id}`, {
-      method: 'DELETE'
+    const res = await fetch(`${API_BASE}/delete-project`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _id: id })
     })
     return await res.json()
   } catch (error) {
@@ -150,11 +158,13 @@ export async function getAwards() {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/awards`)
+    const res = await fetch(`${API_BASE}/get-awards`)
+    if (!res.ok) throw new Error('API error')
     const data = await res.json()
     return data.data || data || []
   } catch (error) {
     console.error('获取奖项列表失败:', error)
+    useMock = true
     return []
   }
 }
@@ -169,7 +179,7 @@ export async function addAward(awardData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/awards`, {
+    const res = await fetch(`${API_BASE}/add-award`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(awardData)
@@ -193,10 +203,10 @@ export async function updateAward(id, awardData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/awards/${id}`, {
+    const res = await fetch(`${API_BASE}/update-award`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(awardData)
+      body: JSON.stringify({ _id: id, ...awardData })
     })
     return await res.json()
   } catch (error) {
@@ -214,8 +224,10 @@ export async function deleteAward(id) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/awards/${id}`, {
-      method: 'DELETE'
+    const res = await fetch(`${API_BASE}/delete-award`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _id: id })
     })
     return await res.json()
   } catch (error) {
@@ -232,11 +244,13 @@ export async function getExperience() {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/experience`)
+    const res = await fetch(`${API_BASE}/get-experience`)
+    if (!res.ok) throw new Error('API error')
     const data = await res.json()
     return data.data || data || []
   } catch (error) {
     console.error('获取经历列表失败:', error)
+    useMock = true
     return []
   }
 }
@@ -251,7 +265,7 @@ export async function addExperience(expData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/experience`, {
+    const res = await fetch(`${API_BASE}/add-experience`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(expData)
@@ -275,10 +289,10 @@ export async function updateExperience(id, expData) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/experience/${id}`, {
+    const res = await fetch(`${API_BASE}/update-experience`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(expData)
+      body: JSON.stringify({ _id: id, ...expData })
     })
     return await res.json()
   } catch (error) {
@@ -296,8 +310,10 @@ export async function deleteExperience(id) {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/experience/${id}`, {
-      method: 'DELETE'
+    const res = await fetch(`${API_BASE}/delete-experience`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _id: id })
     })
     return await res.json()
   } catch (error) {
@@ -314,11 +330,13 @@ export async function getResume() {
   }
   
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/resume`)
+    const res = await fetch(`${API_BASE}/get-resume`)
+    if (!res.ok) throw new Error('API error')
     const data = await res.json()
     return data.data || data
   } catch (error) {
     console.error('获取简历失败:', error)
+    useMock = true
     return null
   }
 }
@@ -347,7 +365,7 @@ export async function uploadResume(file) {
   try {
     const formData = new FormData()
     formData.append('file', file)
-    const res = await fetch(`${import.meta.env.VITE_API_BASE || 'https://yfusw1tpgp.sealoshzh.site'}/api/resume/upload`, {
+    const res = await fetch(`${API_BASE}/upload-resume`, {
       method: 'POST',
       body: formData
     })
