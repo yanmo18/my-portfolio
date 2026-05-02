@@ -90,19 +90,19 @@
             <div class="space-y-2 text-xs">
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">💬</span>
-                <span class="truncate">{{ profile.contact?.wechat }}</span>
+                <span class="truncate">{{ profile.contact?.wechat || 'Seren450' }}</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">📧</span>
-                <span class="truncate text-[10px]">{{ profile.contact?.email }}</span>
+                <span class="truncate text-[10px]">{{ profile.contact?.email || 'yanqing@outlook.com' }}</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">📱</span>
-                <span class="truncate">{{ profile.contact?.phone }}</span>
+                <span class="truncate">17377665272</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">🐙</span>
-                <span class="truncate text-[10px]">{{ profile.contact?.github }}</span>
+                <span class="truncate text-[10px]">{{ profile.contact?.github || 'github.com/zhangyalanzyl' }}</span>
               </div>
             </div>
           </div>
@@ -153,11 +153,8 @@
 
     <!-- 右侧固定导航栏 - 悬浮在背景上 -->
     <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1">
-      <!-- 垂直虚线 + 菱形标记 -->
-      <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0">
-        <div class="w-px h-full bg-gray-300 border-dashed"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e63946] rotate-45"></div>
-      </div>
+      <!-- 菱形标记 -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e63946] rotate-45 -ml-4"></div>
       
       <!-- 导航图标 -->
       <button 
