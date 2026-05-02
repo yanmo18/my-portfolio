@@ -526,6 +526,7 @@ const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
 const resumeUrl = ref('')
+const backendStatus = ref('connecting')
 
 // 下载简历
 const downloadResume = () => {
@@ -635,9 +636,9 @@ onMounted(async () => {
     getResume()
   ])
   profile.value = profileData
-  projects.value = projectsData
-  awards.value = awardsData
-  experience.value = experienceData
+  projects.value = projectsData?.filter(p => p.title) || []
+  awards.value = awardsData?.filter(a => a.title) || []
+  experience.value = experienceData?.filter(e => e.period) || []
   if (resumeData?.url) {
     resumeUrl.value = resumeData.url
   }
