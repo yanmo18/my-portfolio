@@ -47,7 +47,7 @@
     </aside>
 
     <!-- 左侧固定信息卡片 - 参考图片样式 -->
-    <aside class="hidden md:block fixed left-6 top-1/2 -translate-y-1/2 w-72 z-40">
+    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[680px] z-40">
       <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden">
         
         <!-- 头像区域 -->
@@ -202,7 +202,7 @@
     </nav>
 
     <!-- 中间主内容区 -->
-    <main class="md:ml-80 md:mr-24 pt-16 md:pt-0">
+    <main class="md:ml-[420px] md:mr-24 pt-16 md:pt-0">
       <div class="p-4 md:p-8 space-y-6 md:space-y-8">
 
         <!-- 关于我 -->
