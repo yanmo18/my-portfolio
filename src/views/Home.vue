@@ -199,8 +199,8 @@
     </nav>
 
     <!-- 中间主内容区 -->
-    <main class="md:ml-72 md:mr-20 pt-16 md:pt-0">
-      <div class="p-4 md:p-6 space-y-5 md:space-y-6">
+    <main class="md:ml-80 md:mr-24 pt-16 md:pt-0">
+      <div class="p-4 md:p-8 space-y-6 md:space-y-8">
 
         <!-- 关于我 -->
         <section id="about" ref="aboutRef" class="scroll-mt-10 transition-all duration-700"
