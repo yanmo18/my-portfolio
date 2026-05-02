@@ -49,6 +49,52 @@
   }
 }
 
+/* 菱形浮动动画 */
+@keyframes floatDiamond {
+  0%, 100% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-20px) rotate(45deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes floatDiamond2 {
+  0%, 100% {
+    transform: translateY(0) rotate(45deg) scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(15px) rotate(45deg) scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+@keyframes floatDiamond3 {
+  0%, 100% {
+    transform: translateY(0) rotate(45deg) scale(1.2);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-25px) rotate(45deg) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.diamond-float-1 {
+  animation: floatDiamond 4s ease-in-out infinite;
+}
+
+.diamond-float-2 {
+  animation: floatDiamond2 5s ease-in-out infinite;
+}
+
+.diamond-float-3 {
+  animation: floatDiamond3 6s ease-in-out infinite;
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0);

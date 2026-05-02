@@ -1,5 +1,17 @@
 <template>
-  <div class="min-h-screen bg-[#FAF8F5]">
+  <div class="min-h-screen bg-[#FAF8F5] relative overflow-hidden">
+    
+    <!-- 浮动菱形装饰 -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="absolute diamond-float-1 w-3 h-3 bg-red-400/30 rotate-45" style="top: 15%; left: 5%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/40 rotate-45" style="top: 25%; right: 8%;"></div>
+      <div class="absolute diamond-float-3 w-4 h-4 bg-red-400/20 rotate-45" style="top: 45%; left: 3%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/30 rotate-45" style="top: 60%; right: 5%; animation-delay: 1s;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 75%; left: 8%; animation-delay: 2s;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/35 rotate-45" style="top: 35%; right: 3%; animation-delay: 0.5s;"></div>
+      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/15 rotate-45" style="bottom: 20%; right: 10%; animation-delay: 1.5s;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/25 rotate-45" style="bottom: 35%; left: 6%; animation-delay: 2.5s;"></div>
+    </div>
 
     <!-- 移动端顶部导航 -->
     <header class="md:hidden fixed top-0 left-0 right-0 bg-white shadow-sm z-50 px-4 py-3 flex items-center justify-between">
@@ -53,7 +65,7 @@
         <!-- 头像区域 -->
         <div class="pt-6 pb-4 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
-            <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md">
+            <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
               <img v-lazy="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
@@ -153,8 +165,11 @@
 
     <!-- 右侧固定导航栏 - 悬浮在背景上 -->
     <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1">
-      <!-- 菱形标记 -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e63946] rotate-45 -ml-4"></div>
+      <!-- 垂直虚线 + 菱形标记 -->
+      <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0">
+        <div class="w-px h-full bg-gray-300 border-dashed"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e63946] rotate-45"></div>
+      </div>
       
       <!-- 导航图标 -->
       <button 
@@ -392,7 +407,7 @@
                   </svg>
                 </div>
                 <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">Phone</h3>
-                <p class="text-xs text-gray-400 break-all text-center leading-tight">{{ profile.contact?.phone }}</p>
+                <p class="text-xs text-gray-400 break-all text-center leading-tight">17377665272</p>
               </a>
             </div>
           </div>
