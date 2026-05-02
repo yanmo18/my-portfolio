@@ -53,7 +53,11 @@
             <label class="block text-sm font-medium mb-2">邮箱</label>
             <input v-model="formData.contact.email" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" />
           </div>
-          <div class="col-span-2">
+          <div>
+            <label class="block text-sm font-medium mb-2">电话</label>
+            <input v-model="formData.contact.phone" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" />
+          </div>
+          <div>
             <label class="block text-sm font-medium mb-2">GitHub</label>
             <input v-model="formData.contact.github" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" />
           </div>
@@ -106,6 +110,7 @@ const formData = ref({
   contact: {
     wechat: '',
     email: '',
+    phone: '',
     github: ''
   },
   skills: []
@@ -146,6 +151,7 @@ onMounted(async () => {
     contact: {
       wechat: data.contact?.wechat || '',
       email: data.contact?.email || '',
+      phone: data.contact?.phone || '',
       github: data.contact?.github || ''
     },
     skills: data.skills || []

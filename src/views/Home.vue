@@ -94,11 +94,15 @@
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">📧</span>
-                <span class="truncate">yanqing@outlook.com</span>
+                <span class="truncate text-[10px]">{{ profile.contact?.email }}</span>
+              </div>
+              <div class="flex items-center gap-2 text-gray-600">
+                <span class="w-4 text-center">📱</span>
+                <span class="truncate">{{ profile.contact?.phone }}</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">🐙</span>
-                <span class="truncate text-[10px]">github.com/zhangyalanzyl</span>
+                <span class="truncate text-[10px]">{{ profile.contact?.github }}</span>
               </div>
             </div>
           </div>
@@ -337,7 +341,7 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <!-- GitHub -->
               <a 
-                :href="'https://github.com/zhangyalanzyl'" 
+                :href="'https://' + profile.contact?.github" 
                 target="_blank"
                 class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-red-50/30"
                 style="animation-delay: 0ms"
@@ -348,11 +352,11 @@
                   </svg>
                 </div>
                 <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">GitHub</h3>
-                <p class="text-xs text-gray-400 break-all text-center leading-tight">zhangyalanzyl</p>
+                <p class="text-xs text-gray-400 break-all text-center leading-tight">{{ profile.contact?.github }}</p>
               </a>
               <!-- 邮箱 -->
               <a 
-                :href="'mailto:yanqing@outlook.com'" 
+                :href="'mailto:' + profile.contact?.email" 
                 target="_blank"
                 class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-red-50/30"
                 style="animation-delay: 100ms"
@@ -363,7 +367,7 @@
                   </svg>
                 </div>
                 <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">Email</h3>
-                <p class="text-xs text-gray-400 break-all text-center leading-tight">yanqing@outlook.com</p>
+                <p class="text-xs text-gray-400 break-all text-center leading-tight">{{ profile.contact?.email }}</p>
               </a>
               <!-- 微信 -->
               <button 
@@ -381,7 +385,7 @@
               </button>
               <!-- 手机 -->
               <a 
-                :href="'tel:17377665272'" 
+                :href="'tel:' + profile.contact?.phone" 
                 class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-red-50/30"
                 style="animation-delay: 300ms"
               >
@@ -391,7 +395,7 @@
                   </svg>
                 </div>
                 <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">Phone</h3>
-                <p class="text-xs text-gray-400 break-all text-center leading-tight">17377665272</p>
+                <p class="text-xs text-gray-400 break-all text-center leading-tight">{{ profile.contact?.phone }}</p>
               </a>
             </div>
           </div>
