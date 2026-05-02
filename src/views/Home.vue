@@ -46,92 +46,79 @@
       </div>
     </aside>
 
-    <!-- 左侧固定信息卡片 - 参考图片样式 -->
-    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] z-40">
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500">
+    <!-- 左侧固定信息卡片 -->
+    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[680px] z-40">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 h-full flex flex-col">
         
         <!-- 头像区域 -->
-        <div class="pt-8 pb-4 px-6 bg-white">
-          <div class="flex justify-center mb-3">
-            <div class="w-24 h-24 rounded-full border-4 border-pink-200 p-1 hover:border-pink-300 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg">
+        <div class="pt-6 pb-3 px-6 bg-white shrink-0">
+          <div class="flex justify-center mb-2">
+            <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md">
               <img src="/张雅岚202302030319.jpg" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
-
-          <!-- 姓名 -->
-          <div class="text-center mb-2">
-            <h1 class="text-xl font-bold text-gray-800">{{ profile.name }}</h1>
-            <span class="inline-block mt-1 px-3 py-0.5 bg-pink-100 text-pink-600 text-xs rounded-full">前端开发者</span>
+          <div class="text-center">
+            <h1 class="text-lg font-bold text-gray-800">{{ profile.name }}</h1>
+            <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
           </div>
         </div>
 
-        <!-- 基本信息区域 -->
-        <div class="px-6 pb-4 bg-white">
-          <div class="w-full h-px bg-gray-100 mb-4"></div>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between hover:bg-gray-50 px-2 py-1 rounded transition-colors duration-200">
-              <span class="text-gray-500">学历</span>
-              <span class="text-gray-700 font-medium">{{ profile.education }}</span>
-            </div>
-            <div class="flex justify-between hover:bg-gray-50 px-2 py-1 rounded transition-colors duration-200">
-              <span class="text-gray-500">政治面貌</span>
-              <span class="text-gray-700 font-medium">{{ profile.politicalStatus }}</span>
-            </div>
-            <div class="flex justify-between hover:bg-gray-50 px-2 py-1 rounded transition-colors duration-200">
-              <span class="text-gray-500">出生日期</span>
-              <span class="text-gray-700 font-medium">2004.11.13</span>
+        <!-- 基本信息区域 - 可滚动 -->
+        <div class="flex-1 overflow-y-auto px-6 py-2">
+          <div class="bg-gray-50 rounded-xl p-3 mb-2">
+            <div class="w-full h-px bg-gray-200 mb-2"></div>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex justify-between"><span class="text-gray-500">学历</span><span class="text-gray-700 font-medium">{{ profile.education }}</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">政治面貌</span><span class="text-gray-700 font-medium">{{ profile.politicalStatus }}</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">出生日期</span><span class="text-gray-700 font-medium">2004.11.13</span></div>
             </div>
           </div>
-        </div>
 
-        <!-- 联系方式区域 -->
-        <div class="px-6 pb-4 bg-white">
-          <div class="w-full h-px bg-gray-100 mb-4"></div>
-          <div class="space-y-2 text-xs">
-            <div class="flex items-center gap-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 px-2 py-1 rounded transition-all duration-200">
-              <span class="w-5 text-center">💬</span>
-              <span class="truncate">{{ profile.contact?.wechat }}</span>
-            </div>
-            <a href="mailto:yanqing@outlook.com" class="flex items-center gap-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 px-2 py-1 rounded transition-all duration-200">
-              <span class="w-5 text-center">📧</span>
-              <span class="truncate text-xs">{{ profile.contact?.email }}</span>
-            </a>
-            <a :href="'https://github.com/zhangyalanzyl'" target="_blank" class="flex items-center gap-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 px-2 py-1 rounded transition-all duration-200">
-              <span class="w-5 text-center">🐙</span>
-              <span class="truncate text-xs hover:text-gray-800">{{ profile.contact?.github }}</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 技能区域 - 浅灰色背景 -->
-        <div class="px-6 py-4 bg-gray-50 rounded-b-2xl">
-          <h3 class="text-gray-700 font-bold text-sm mb-3">Skills</h3>
-          <div class="grid grid-cols-3 gap-3">
-            <div v-for="(skill, index) in profile.skills" :key="skill.name" 
-                 class="flex flex-col items-center opacity-0 animate-fadeInUp"
-                 :style="{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }">
-              <div class="relative w-10 h-10 hover:scale-110 transition-transform duration-300">
-                <svg class="w-10 h-10 -rotate-90" viewBox="0 0 56 56">
-                  <circle cx="28" cy="28" r="24" fill="none" stroke="#fecdd3" stroke-width="4" />
-                  <circle cx="28" cy="28" r="24" fill="none" stroke="#f43f5e" stroke-width="4" stroke-linecap="round" 
-                    :stroke-dasharray="150.8" 
-                    :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)"
-                    class="transition-all duration-1000 animate-progress" 
-                    :style="{ animationDelay: `${index * 150 + 300}ms` }" />
-                </svg>
-                <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-pink-500">{{ skill.level }}%</span>
+          <div class="bg-gray-50 rounded-xl p-3 mb-2">
+            <div class="w-full h-px bg-gray-200 mb-2"></div>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex items-center gap-2 text-gray-600">
+                <span class="w-4 text-center">💬</span>
+                <span class="truncate">{{ profile.contact?.wechat }}</span>
               </div>
-              <span class="text-xs text-gray-600 mt-1 hover:text-pink-500 transition-colors duration-200">{{ skill.name }}</span>
+              <div class="flex items-center gap-2 text-gray-600">
+                <span class="w-4 text-center">📧</span>
+                <span class="truncate">yanqing@outlook.com</span>
+              </div>
+              <div class="flex items-center gap-2 text-gray-600">
+                <span class="w-4 text-center">🐙</span>
+                <span class="truncate text-[10px]">github.com/zhangyalanzyl</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能区域 -->
+          <div class="bg-gray-50 rounded-xl p-3">
+            <h3 class="text-gray-700 font-bold text-xs mb-2">Skills</h3>
+            <div class="grid grid-cols-3 gap-2">
+              <div v-for="(skill, index) in profile.skills" :key="skill.name" class="flex flex-col items-center">
+                <div class="relative w-9 h-9">
+                  <svg class="w-9 h-9 -rotate-90" viewBox="0 0 56 56">
+                    <circle cx="28" cy="28" r="24" fill="none" stroke="#fecaca" stroke-width="3" />
+                    <circle cx="28" cy="28" r="24" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" 
+                      :stroke-dasharray="150.8" 
+                      :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)"
+                      class="transition-all duration-1000" />
+                  </svg>
+                  <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-red-600">{{ skill.level }}%</span>
+                </div>
+                <span class="text-[10px] text-gray-600 mt-0.5">{{ skill.name }}</span>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- 下载简历按钮 -->
-        <div class="px-6 pb-6 bg-white">
+        <div class="px-6 pb-4 bg-white shrink-0">
           <button 
             v-if="resumeUrl"
             @click="downloadResume"
-            class="w-full bg-pink-400 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-pink-500 transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+            class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
             {{ $t('hero.downloadResume') }}
@@ -139,7 +126,7 @@
           <router-link 
             v-else
             to="/admin/resume"
-            class="w-full bg-pink-400 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-pink-500 transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+            class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
             上传简历
@@ -225,7 +212,7 @@
           :class="aboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded mb-6 md:mb-8"></div>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
             <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
           </div>
         </section>
@@ -235,7 +222,7 @@
           :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded mb-6 md:mb-8"></div>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
             <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
               <div 
                 v-for="(award, index) in awards" :key="award._id"
@@ -244,10 +231,10 @@
                 :style="{ transitionDelay: `${index * 100}ms` }"
                 :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
               >
-                <div class="w-3 h-3 rounded-full bg-pink-400 mt-1 shrink-0 group-hover:bg-rose-500 transition-colors"></div>
+                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
                 <div>
-                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-gray-900 transition-colors">{{ award.title }}</h3>
-                  <p class="text-pink-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
+                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
+                  <p class="text-red-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
                 </div>
               </div>
             </div>
@@ -260,13 +247,13 @@
           :class="projectsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.projects') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded mb-6 md:mb-8"></div>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
             <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               <div 
                 v-for="(project, index) in projects" :key="project._id"
                 @click="selectedProject = project"
                 :ref="el => setProjectRef(el, index)"
-                class="rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group border border-gray-200 hover:border-pink-200 hover:bg-pink-50/30"
+                class="rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group border border-gray-200 hover:border-red-200 hover:bg-red-50/30"
                 :style="{ transitionDelay: `${index * 100}ms` }"
                 :class="getProjectVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
               >
@@ -277,16 +264,16 @@
                     :alt="project.title + '项目封面'"
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div v-else class="w-full h-full flex items-center justify-center text-pink-200 text-3xl md:text-4xl font-bold">
+                  <div v-else class="w-full h-full flex items-center justify-center text-red-200 text-3xl md:text-4xl font-bold">
                     {{ project.title?.charAt(0) }}
                   </div>
                 </div>
                 <div class="p-3 md:p-5">
-                  <h3 class="text-gray-800 font-bold text-sm md:text-base mb-2 group-hover:text-pink-600 transition-colors">{{ project.title }}</h3>
+                  <h3 class="text-gray-800 font-bold text-sm md:text-base mb-2 group-hover:text-red-600 transition-colors">{{ project.title }}</h3>
                   <div class="flex flex-wrap gap-1">
                     <span 
                       v-for="tech in project.techStack" :key="tech"
-                      class="text-xs px-1.5 md:px-2 py-0.5 rounded bg-pink-50 text-pink-500"
+                      class="text-xs px-1.5 md:px-2 py-0.5 rounded bg-red-50 text-red-500"
                     >{{ tech }}</span>
                   </div>
                 </div>
@@ -301,16 +288,16 @@
           :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.experience') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded mb-6 md:mb-8"></div>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
             <div v-if="experience.length > 0" class="relative pl-6 md:pl-8">
-              <div class="absolute left-0 top-2 bottom-2 w-0.5 bg-gradient-to-b from-pink-400 to-rose-400"></div>
+              <div class="absolute left-0 top-2 bottom-2 w-0.5 bg-gradient-to-b from-red-400 to-red-600"></div>
               <div class="space-y-4 md:space-y-6">
                 <div v-for="(exp, index) in experience" :key="exp._id" class="relative"
                   :ref="el => setExpRef(el, index)"
                   :class="getExpVisible(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'">
-                  <div class="absolute -left-6 md:-left-8 top-1 w-3 h-3 rounded-full bg-pink-400 border-2 border-white -translate-x-[5px] transition-all duration-300 hover:scale-125 hover:bg-rose-500"></div>
+                  <div class="absolute -left-6 md:-left-8 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 border-2 border-white -translate-x-[5px] transition-all duration-300 hover:scale-125"></div>
                   <div class="rounded-xl p-4 md:p-6 border border-gray-200 transition-all duration-500 hover:shadow-md bg-gray-50 hover:bg-white">
-                    <span class="text-pink-500 text-xs md:text-sm font-medium">{{ exp.period }}</span>
+                    <span class="text-red-500 text-xs md:text-sm font-medium">{{ exp.period }}</span>
                     <h3 class="text-gray-800 font-bold text-base md:text-lg mt-1">{{ exp.organization }}</h3>
                     <p class="text-gray-600 text-xs md:text-sm">{{ exp.role }}</p>
                     <p class="text-gray-400 text-xs md:text-sm mt-1">{{ exp.description }}</p>
@@ -327,64 +314,64 @@
           :class="contactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.contact') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded mb-6 md:mb-8"></div>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <!-- GitHub -->
               <a 
                 :href="'https://github.com/zhangyalanzyl'" 
                 target="_blank"
-                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-pink-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-pink-50/30"
+                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-red-50/30"
                 style="animation-delay: 0ms"
               >
-                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-pink-400 group-hover:bg-pink-50 group-hover:scale-110 transition-all duration-300">
-                  <svg class="w-6 h-6 text-gray-500 group-hover:text-pink-500 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-red-400 group-hover:bg-red-50 group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-6 h-6 text-gray-500 group-hover:text-red-500 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
                 </div>
-                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-pink-500 transition-colors">GitHub</h3>
+                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">GitHub</h3>
                 <p class="text-xs text-gray-400 break-all text-center leading-tight">zhangyalanzyl</p>
               </a>
               <!-- 邮箱 -->
               <a 
                 :href="'mailto:yanqing@outlook.com'" 
                 target="_blank"
-                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-pink-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-pink-50/30"
+                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-red-50/30"
                 style="animation-delay: 100ms"
               >
-                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-pink-400 group-hover:bg-pink-50 group-hover:scale-110 transition-all duration-300">
-                  <svg class="w-6 h-6 text-gray-500 group-hover:text-pink-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-red-400 group-hover:bg-red-50 group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-6 h-6 text-gray-500 group-hover:text-red-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                 </div>
-                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-pink-500 transition-colors">Email</h3>
+                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">Email</h3>
                 <p class="text-xs text-gray-400 break-all text-center leading-tight">yanqing@outlook.com</p>
               </a>
               <!-- 微信 -->
               <button 
                 @click="copyWechat"
-                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-pink-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp w-full bg-white hover:bg-pink-50/30"
+                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp w-full bg-white hover:bg-red-50/30"
                 style="animation-delay: 200ms"
               >
-                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-pink-400 group-hover:bg-pink-50 group-hover:scale-110 transition-all duration-300">
-                  <svg class="w-6 h-6 text-gray-500 group-hover:text-pink-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-red-400 group-hover:bg-red-50 group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-6 h-6 text-gray-500 group-hover:text-red-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                   </svg>
                 </div>
-                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-pink-500 transition-colors">WeChat</h3>
-                <p class="text-xs text-gray-400 group-hover:text-pink-500 transition-colors">{{ showWechatCopied ? '已复制!' : '点击复制' }}</p>
+                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">WeChat</h3>
+                <p class="text-xs text-gray-400 group-hover:text-red-500 transition-colors">{{ showWechatCopied ? '已复制!' : '点击复制' }}</p>
               </button>
               <!-- 手机 -->
               <a 
                 :href="'tel:17377665272'" 
-                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-pink-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-pink-50/30"
+                class="group flex flex-col items-center p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-md hover:-translate-y-1 transition-all duration-300 animate-fadeInUp bg-white hover:bg-red-50/30"
                 style="animation-delay: 300ms"
               >
-                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-pink-400 group-hover:bg-pink-50 group-hover:scale-110 transition-all duration-300">
-                  <svg class="w-6 h-6 text-gray-500 group-hover:text-pink-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3 group-hover:border-red-400 group-hover:bg-red-50 group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-6 h-6 text-gray-500 group-hover:text-red-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                   </svg>
                 </div>
-                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-pink-500 transition-colors">Phone</h3>
+                <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">Phone</h3>
                 <p class="text-xs text-gray-400 break-all text-center leading-tight">17377665272</p>
               </a>
             </div>
