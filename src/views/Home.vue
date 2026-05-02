@@ -51,7 +51,7 @@
       <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 h-full flex flex-col">
         
         <!-- 头像区域 -->
-        <div class="pt-6 pb-3 px-6 bg-white shrink-0">
+        <div class="pt-6 pb-4 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
             <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md">
               <img src="/张雅岚202302030319.jpg" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
@@ -63,20 +63,31 @@
           </div>
         </div>
 
-        <!-- 基本信息区域 - 可滚动 -->
-        <div class="flex-1 overflow-y-auto px-6 py-2">
-          <div class="bg-gray-50 rounded-xl p-3 mb-2">
-            <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="space-y-1.5 text-xs">
-              <div class="flex justify-between"><span class="text-gray-500">学历</span><span class="text-gray-700 font-medium">{{ profile.education }}</span></div>
-              <div class="flex justify-between"><span class="text-gray-500">政治面貌</span><span class="text-gray-700 font-medium">{{ profile.politicalStatus }}</span></div>
-              <div class="flex justify-between"><span class="text-gray-500">出生日期</span><span class="text-gray-700 font-medium">2004.11.13</span></div>
+        <!-- 基本信息区域 -->
+        <div class="flex-1 overflow-y-auto px-6 py-2 space-y-3">
+          <!-- 基础信息 -->
+          <div class="py-2">
+            <div class="w-full h-px bg-gray-200 mb-3"></div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500">学历</span>
+                <span class="text-gray-700 font-medium">{{ profile.education }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500">政治面貌</span>
+                <span class="text-gray-700 font-medium">{{ profile.politicalStatus }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500">出生日期</span>
+                <span class="text-gray-700 font-medium">2004.11.13</span>
+              </div>
             </div>
           </div>
 
-          <div class="bg-gray-50 rounded-xl p-3 mb-2">
-            <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="space-y-1.5 text-xs">
+          <!-- 联系方式 -->
+          <div class="py-2">
+            <div class="w-full h-px bg-gray-200 mb-3"></div>
+            <div class="space-y-2 text-xs">
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center">💬</span>
                 <span class="truncate">{{ profile.contact?.wechat }}</span>
@@ -93,12 +104,13 @@
           </div>
 
           <!-- 技能区域 -->
-          <div class="bg-gray-50 rounded-xl p-3">
-            <h3 class="text-gray-700 font-bold text-xs mb-2">Skills</h3>
-            <div class="grid grid-cols-3 gap-2">
+          <div class="py-2">
+            <div class="w-full h-px bg-gray-200 mb-3"></div>
+            <h3 class="text-gray-700 font-bold text-xs mb-3">Skills</h3>
+            <div class="grid grid-cols-3 gap-3">
               <div v-for="(skill, index) in profile.skills" :key="skill.name" class="flex flex-col items-center">
-                <div class="relative w-9 h-9">
-                  <svg class="w-9 h-9 -rotate-90" viewBox="0 0 56 56">
+                <div class="relative w-10 h-10">
+                  <svg class="w-10 h-10 -rotate-90" viewBox="0 0 56 56">
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#fecaca" stroke-width="3" />
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" 
                       :stroke-dasharray="150.8" 
@@ -107,7 +119,7 @@
                   </svg>
                   <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-red-600">{{ skill.level }}%</span>
                 </div>
-                <span class="text-[10px] text-gray-600 mt-0.5">{{ skill.name }}</span>
+                <span class="text-[10px] text-gray-600 mt-1">{{ skill.name }}</span>
               </div>
             </div>
           </div>
