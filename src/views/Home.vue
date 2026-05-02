@@ -207,45 +207,46 @@
 
         <!-- 关于我 -->
         <section id="about" ref="aboutRef" class="scroll-mt-10 transition-all duration-700"
-          :class="aboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200">
-            <h2 class="text-3xl md:text-5xl font-bold text-black mb-2">{{ $t('about.title') }}</h2>
+          :class="aboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-sm">
+            <h2 class="text-2xl md:text-4xl font-bold text-black mb-2">{{ $t('about.title') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-[#e63946] rounded mb-6 md:mb-8"></div>
-            <p class="text-gray-600 text-sm md:text-lg leading-relaxed">{{ profile.bio }}</p>
+            <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
           </div>
         </section>
 
         <!-- 获奖证书 -->
         <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
-          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200">
-            <h2 class="text-3xl md:text-5xl font-bold text-black mb-2">{{ $t('nav.awards') }}</h2>
+          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-sm">
+            <h2 class="text-2xl md:text-4xl font-bold text-black mb-2">{{ $t('nav.awards') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-[#e63946] rounded mb-6 md:mb-8"></div>
-            <div class="space-y-3 md:space-y-4">
+            <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
               <div 
                 v-for="(award, index) in awards" :key="award._id"
                 :ref="el => setAwardRef(el, index)"
                 class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-lg hover:-translate-y-1"
                 :style="{ transitionDelay: `${index * 100}ms` }"
-                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
               >
                 <div class="w-2 h-2 rounded-full bg-[#e63946] mt-2 shrink-0"></div>
                 <div>
-                  <h3 class="text-black font-bold text-sm md:text-lg">{{ award.title }}</h3>
+                  <h3 class="text-black font-bold text-sm md:text-base">{{ award.title }}</h3>
                   <p class="text-[#e63946] text-xs md:text-sm mt-1">{{ award.level }}</p>
                 </div>
               </div>
             </div>
+            <p v-else class="text-gray-400 text-center py-8">暂无获奖证书</p>
           </div>
         </section>
 
         <!-- 项目展示 -->
         <section id="projects" ref="projectsRef" class="scroll-mt-10 transition-all duration-700"
-          :class="projectsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200">
-            <h2 class="text-3xl md:text-5xl font-bold text-black mb-2">{{ $t('nav.projects') }}</h2>
+          :class="projectsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-sm">
+            <h2 class="text-2xl md:text-4xl font-bold text-black mb-2">{{ $t('nav.projects') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-[#e63946] rounded mb-6 md:mb-8"></div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               <div 
                 v-for="(project, index) in projects" :key="project._id"
                 @click="selectedProject = project"
@@ -275,21 +276,22 @@
                 </div>
               </div>
             </div>
+            <p v-else class="text-gray-400 text-center py-8">暂无项目</p>
           </div>
         </section>
 
         <!-- 校园经历 -->
         <section id="experience" ref="experienceRef" class="scroll-mt-10 transition-all duration-700"
-          :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200">
-            <h2 class="text-3xl md:text-5xl font-bold text-black mb-2">{{ $t('nav.experience') }}</h2>
+          :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-sm">
+            <h2 class="text-2xl md:text-4xl font-bold text-black mb-2">{{ $t('nav.experience') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-[#e63946] rounded mb-6 md:mb-8"></div>
-            <div class="relative pl-6 md:pl-8">
+            <div v-if="experience.length > 0" class="relative pl-6 md:pl-8">
               <div class="absolute left-0 top-2 bottom-2 w-0.5 bg-[#e63946]"></div>
               <div class="space-y-4 md:space-y-6">
                 <div v-for="(exp, index) in experience" :key="exp._id" class="relative"
                   :ref="el => setExpRef(el, index)"
-                  :class="getExpVisible(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'">
+                  :class="getExpVisible(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'">
                   <div class="absolute -left-6 md:-left-8 top-1 w-3 h-3 rounded-full bg-[#e63946] border-2 border-white -translate-x-[5px] transition-all duration-300 hover:scale-125"></div>
                   <div class="rounded-xl p-4 md:p-6 border border-gray-200 transition-all duration-500 hover:shadow-lg bg-gray-50">
                     <span class="text-[#e63946] text-xs md:text-sm font-medium">{{ exp.period }}</span>
@@ -300,14 +302,15 @@
                 </div>
               </div>
             </div>
+            <p v-else class="text-gray-400 text-center py-8">暂无校园经历</p>
           </div>
         </section>
 
         <!-- 联系方式 -->
         <section id="contact" ref="contactRef" class="scroll-mt-10 transition-all duration-700"
-          :class="contactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200">
-            <h2 class="text-3xl md:text-5xl font-bold text-black mb-2">{{ $t('nav.contact') }}</h2>
+          :class="contactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-sm">
+            <h2 class="text-2xl md:text-4xl font-bold text-black mb-2">{{ $t('nav.contact') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-[#e63946] rounded mb-6 md:mb-8"></div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <!-- GitHub -->
@@ -455,11 +458,11 @@ const projectsRef = ref(null)
 const experienceRef = ref(null)
 const contactRef = ref(null)
 
-const aboutVisible = ref(false)
-const awardsVisible = ref(false)
-const projectsVisible = ref(false)
-const experienceVisible = ref(false)
-const contactVisible = ref(false)
+const aboutVisible = ref(true)
+const awardsVisible = ref(true)
+const projectsVisible = ref(true)
+const experienceVisible = ref(true)
+const contactVisible = ref(true)
 
 const awardRefs = reactive([])
 const projectRefs = reactive([])
@@ -481,9 +484,9 @@ const setExpRef = (el, index) => {
   if (el) expRefs[index] = el
 }
 
-const getAwardVisible = (index) => awardItemVisible[index] ?? false
-const getProjectVisible = (index) => projectItemVisible[index] ?? false
-const getExpVisible = (index) => expItemVisible[index] ?? false
+const getAwardVisible = (index) => awardItemVisible[index] ?? true
+const getProjectVisible = (index) => projectItemVisible[index] ?? true
+const getExpVisible = (index) => expItemVisible[index] ?? true
 
 const profile = ref({})
 const projects = ref([])
