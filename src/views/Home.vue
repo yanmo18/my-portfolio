@@ -46,87 +46,90 @@
       </div>
     </aside>
 
-    <!-- 左侧固定信息卡片 - 垂直居中 - 不规则切角 -->
-    <aside class="hidden md:block fixed left-6 top-1/2 -translate-y-1/2 w-1/4 max-w-72 min-w-56 z-40">
-      <div class="relative bg-white p-5 shadow-lg hover:shadow-xl transition-all duration-300">
-        <!-- 不规则切角装饰 -->
-        <div class="absolute top-0 right-0 w-12 h-12 overflow-hidden">
-          <div class="absolute top-0 right-0 w-16 h-16 bg-[#FAF8F5] transform rotate-45 -translate-x-6 -translate-y-6"></div>
-        </div>
-        <!-- 左侧装饰线 -->
-        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#e63946] via-[#e63946] to-transparent rounded-l-2xl"></div>
+    <!-- 左侧固定信息卡片 - 参考图片样式 -->
+    <aside class="hidden md:block fixed left-6 top-1/2 -translate-y-1/2 w-72 z-40">
+      <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden">
         
-        <!-- 头像 -->
-        <div class="flex justify-center mb-3">
-          <div class="w-20 h-20 rounded-full border-2 border-[#e63946] p-1 hover:scale-105 transition-transform duration-300">
-            <img src="/张雅岚202302030319.jpg" :alt="profile.name" class="w-full h-full rounded-full object-cover" />
+        <!-- 头像区域 -->
+        <div class="pt-8 pb-4 px-6 bg-white">
+          <div class="flex justify-center mb-3">
+            <div class="w-24 h-24 rounded-full border-4 border-[#e63946] p-1 hover:scale-105 transition-transform duration-300">
+              <img src="/张雅岚202302030319.jpg" :alt="profile.name" class="w-full h-full rounded-full object-cover" />
+            </div>
+          </div>
+
+          <!-- 姓名 -->
+          <div class="text-center mb-2">
+            <h1 class="text-xl font-bold text-black">{{ profile.name }}</h1>
+            <span class="inline-block mt-1 px-3 py-0.5 bg-[#e63946] text-white text-xs rounded-full">前端开发者</span>
           </div>
         </div>
 
-        <!-- 姓名 -->
-        <div class="text-center mb-2">
-          <h1 class="text-base font-bold text-black">{{ profile.name }}</h1>
-          <span class="text-[#e63946] text-xs">前端开发者</span>
-        </div>
-
-        <!-- 分割线 -->
-        <div class="w-full h-px bg-gray-200 my-3"></div>
-
-        <!-- 基本信息 -->
-        <div class="space-y-1.5 text-xs mb-3">
-          <div class="flex justify-between"><span class="text-black font-medium">学历</span><span class="text-gray-400">{{ profile.education }}</span></div>
-          <div class="flex justify-between"><span class="text-black font-medium">政治面貌</span><span class="text-gray-400">{{ profile.politicalStatus }}</span></div>
-          <div class="flex justify-between"><span class="text-black font-medium">出生日期</span><span class="text-gray-400">2004.11.13</span></div>
-        </div>
-
-        <!-- 分割线 -->
-        <div class="w-full h-px bg-gray-200 my-3"></div>
-
-        <!-- 联系方式 -->
-        <div class="space-y-1 text-xs mb-3">
-          <div class="flex items-center gap-2 text-gray-500">
-            <span class="text-[#e63946]">💬</span>
-            <span class="truncate">{{ profile.contact?.wechat }}</span>
-          </div>
-          <div class="flex items-center gap-2 text-gray-500">
-            <span class="text-[#e63946]">📧</span>
-            <span class="truncate">{{ profile.contact?.email }}</span>
-          </div>
-          <div class="flex items-center gap-2 text-gray-500">
-            <span class="text-[#e63946]">🐙</span>
-            <a :href="'https://' + profile.contact?.github" target="_blank" class="hover:text-[#e63946] truncate">{{ profile.contact?.github }}</a>
+        <!-- 基本信息区域 -->
+        <div class="px-6 pb-4 bg-white">
+          <div class="w-full h-px bg-gray-100 mb-4"></div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-500">学历</span><span class="text-black font-medium">{{ profile.education }}</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">政治面貌</span><span class="text-black font-medium">{{ profile.politicalStatus }}</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">出生日期</span><span class="text-black font-medium">2004.11.13</span></div>
           </div>
         </div>
 
-        <!-- 分割线 -->
-        <div class="w-full h-px bg-gray-200 my-3"></div>
+        <!-- 联系方式区域 -->
+        <div class="px-6 pb-4 bg-white">
+          <div class="w-full h-px bg-gray-100 mb-4"></div>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center gap-2 text-gray-600">
+              <span class="w-5 text-center">💬</span>
+              <span class="truncate">{{ profile.contact?.wechat }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600">
+              <span class="w-5 text-center">📧</span>
+              <span class="truncate text-xs">{{ profile.contact?.email }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600">
+              <span class="w-5 text-center">🐙</span>
+              <a :href="'https://' + profile.contact?.github" target="_blank" class="hover:text-[#e63946] truncate text-xs">{{ profile.contact?.github }}</a>
+            </div>
+          </div>
+        </div>
 
-        <!-- 技能 -->
-        <div class="mb-3">
-          <h3 class="text-black font-bold text-xs mb-2">Skills</h3>
-          <div class="grid grid-cols-3 gap-2">
+        <!-- 技能区域 - 浅灰色背景 -->
+        <div class="px-6 py-4 bg-gray-50">
+          <h3 class="text-black font-bold text-sm mb-3">Skills</h3>
+          <div class="grid grid-cols-3 gap-3">
             <div v-for="skill in profile.skills" :key="skill.name" class="flex flex-col items-center">
-              <div class="relative w-9 h-9">
-                <svg class="w-9 h-9 -rotate-90" viewBox="0 0 56 56">
-                  <circle cx="28" cy="28" r="24" fill="none" stroke="#eee" stroke-width="3" />
-                  <circle cx="28" cy="28" r="24" fill="none" stroke="#e63946" stroke-width="3" stroke-linecap="round" :stroke-dasharray="150.8" :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)" class="transition-all duration-1000" />
+              <div class="relative w-10 h-10">
+                <svg class="w-10 h-10 -rotate-90" viewBox="0 0 56 56">
+                  <circle cx="28" cy="28" r="24" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                  <circle cx="28" cy="28" r="24" fill="none" stroke="#e63946" stroke-width="4" stroke-linecap="round" :stroke-dasharray="150.8" :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)" class="transition-all duration-1000" />
                 </svg>
                 <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-[#e63946]">{{ skill.level }}%</span>
               </div>
-              <span class="text-xs text-black mt-0.5">{{ skill.name }}</span>
+              <span class="text-xs text-gray-600 mt-1">{{ skill.name }}</span>
             </div>
           </div>
         </div>
 
         <!-- 下载简历按钮 -->
-        <button 
-          v-if="resumeUrl"
-          @click="downloadResume"
-          class="w-full bg-[#e63946] text-white py-2 rounded-lg font-bold text-xs hover:bg-[#d62839] transition-colors flex items-center justify-center gap-2"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
-          {{ $t('hero.downloadResume') }}
-        </button>
+        <div class="px-6 pb-6 bg-white">
+          <button 
+            v-if="resumeUrl"
+            @click="downloadResume"
+            class="w-full bg-[#e63946] text-white py-2.5 rounded-lg font-medium text-sm hover:bg-[#d62839] transition-colors flex items-center justify-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
+            {{ $t('hero.downloadResume') }}
+          </button>
+          <router-link 
+            v-else
+            to="/admin/resume"
+            class="w-full bg-[#e63946] text-white py-2.5 rounded-lg font-medium text-sm hover:bg-[#d62839] transition-colors flex items-center justify-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+            上传简历
+          </router-link>
+        </div>
       </div>
     </aside>
 
