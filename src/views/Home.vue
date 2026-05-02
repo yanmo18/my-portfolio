@@ -47,7 +47,7 @@
     </aside>
 
     <!-- 左侧固定信息卡片 - 垂直居中 - 不规则切角 -->
-    <aside class="hidden md:block fixed left-6 top-1/2 -translate-y-1/2 w-56 z-40">
+    <aside class="hidden md:block fixed left-6 top-1/2 -translate-y-1/2 w-1/4 max-w-72 min-w-56 z-40">
       <div class="relative bg-white p-5 shadow-lg hover:shadow-xl transition-all duration-300">
         <!-- 不规则切角装饰 -->
         <div class="absolute top-0 right-0 w-12 h-12 overflow-hidden">
@@ -119,7 +119,11 @@
         </div>
 
         <!-- 下载简历按钮 -->
-        <button class="w-full bg-[#e63946] text-white py-2 rounded-lg font-bold text-xs hover:bg-[#d62839] transition-colors flex items-center justify-center gap-2">
+        <button 
+          v-if="resumeUrl"
+          @click="downloadResume"
+          class="w-full bg-[#e63946] text-white py-2 rounded-lg font-bold text-xs hover:bg-[#d62839] transition-colors flex items-center justify-center gap-2"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
           {{ $t('hero.downloadResume') }}
         </button>
@@ -424,7 +428,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getProfile, getProjects, getAwards, getExperience } from '@/api'
+import { getProfile, getProjects, getAwards, getExperience, getResume } from '@/api'
 
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
@@ -485,6 +489,19 @@ const experience = ref([])
 const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
+const resumeUrl = ref('')
+
+// 下载简历
+const downloadResume = () => {
+  if (resumeUrl.value) {
+    const link = document.createElement('a')
+    link.href = resumeUrl.value
+    link.download = 'resume.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+}
 
 const navItems = [
   { id: 'about', label: '关于我', icon: '👤' },
@@ -570,16 +587,20 @@ const setupAnimations = () => {
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll)
   
-  const [profileData, projectsData, awardsData, experienceData] = await Promise.all([
+  const [profileData, projectsData, awardsData, experienceData, resumeData] = await Promise.all([
     getProfile(),
     getProjects(),
     getAwards(),
-    getExperience()
+    getExperience(),
+    getResume()
   ])
   profile.value = profileData
   projects.value = projectsData
   awards.value = awardsData
   experience.value = experienceData
+  if (resumeData?.url) {
+    resumeUrl.value = resumeData.url
+  }
 
   await nextTick()
   setTimeout(setupAnimations, 100)
