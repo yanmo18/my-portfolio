@@ -17,7 +17,7 @@
         class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all"
       >
         <div class="h-40 bg-gray-100 overflow-hidden">
-          <img v-if="project.cover" :src="project.cover" class="w-full h-full object-cover" />
+          <img v-if="project.cover" loading="lazy" :src="project.cover" class="w-full h-full object-cover" />
           <div v-else class="w-full h-full flex items-center justify-center text-gray-300 text-5xl font-bold">
             {{ project.title?.charAt(0) }}
           </div>
