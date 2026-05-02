@@ -3,14 +3,21 @@
     
     <!-- 浮动菱形装饰 -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      <div class="absolute diamond-float-1 w-3 h-3 bg-red-400/30 rotate-45" style="top: 15%; left: 5%;"></div>
-      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/40 rotate-45" style="top: 25%; right: 8%;"></div>
-      <div class="absolute diamond-float-3 w-4 h-4 bg-red-400/20 rotate-45" style="top: 45%; left: 3%;"></div>
-      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/30 rotate-45" style="top: 60%; right: 5%; animation-delay: 1s;"></div>
-      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 75%; left: 8%; animation-delay: 2s;"></div>
-      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/35 rotate-45" style="top: 35%; right: 3%; animation-delay: 0.5s;"></div>
-      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/15 rotate-45" style="bottom: 20%; right: 10%; animation-delay: 1.5s;"></div>
-      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/25 rotate-45" style="bottom: 35%; left: 6%; animation-delay: 2.5s;"></div>
+      <div class="absolute diamond-float-1 w-3 h-3 bg-red-400/30 rotate-45" style="top: 10%; left: 3%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/40 rotate-45" style="top: 20%; right: 6%;"></div>
+      <div class="absolute diamond-float-3 w-4 h-4 bg-red-400/20 rotate-45" style="top: 35%; left: 2%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/30 rotate-45" style="top: 50%; right: 4%;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 65%; left: 5%;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/35 rotate-45" style="top: 80%; right: 3%;"></div>
+      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/15 rotate-45" style="bottom: 15%; right: 8%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/25 rotate-45" style="bottom: 30%; left: 4%;"></div>
+      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/30 rotate-45" style="top: 5%; right: 10%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/20 rotate-45" style="top: 40%; left: 8%;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 70%; right: 6%;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/30 rotate-45" style="bottom: 5%; left: 10%;"></div>
+      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/20 rotate-45" style="top: 25%; left: 12%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/35 rotate-45" style="top: 55%; right: 12%;"></div>
+      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/25 rotate-45" style="bottom: 45%; left: 6%;"></div>
     </div>
 
     <!-- 移动端顶部导航 -->
@@ -60,7 +67,7 @@
 
     <!-- 左侧固定信息卡片 -->
     <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[680px] z-40">
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 h-full flex flex-col">
+      <div class="bg-white rounded-2xl shadow-lg h-full flex flex-col border border-gray-100" style="box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);">
         
         <!-- 头像区域 -->
         <div class="pt-6 pb-4 px-6 bg-white shrink-0">
