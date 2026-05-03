@@ -3,21 +3,30 @@
     
     <!-- 浮动菱形装饰 -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      <div class="absolute diamond-float-1 w-3 h-3 bg-red-400/30 rotate-45" style="top: 10%; left: 3%;"></div>
-      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/40 rotate-45" style="top: 20%; right: 6%;"></div>
-      <div class="absolute diamond-float-3 w-4 h-4 bg-red-400/20 rotate-45" style="top: 35%; left: 2%;"></div>
-      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/30 rotate-45" style="top: 50%; right: 4%;"></div>
-      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 65%; left: 5%;"></div>
-      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/35 rotate-45" style="top: 80%; right: 3%;"></div>
-      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/15 rotate-45" style="bottom: 15%; right: 8%;"></div>
-      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/25 rotate-45" style="bottom: 30%; left: 4%;"></div>
-      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/30 rotate-45" style="top: 5%; right: 10%;"></div>
-      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/20 rotate-45" style="top: 40%; left: 8%;"></div>
-      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 70%; right: 6%;"></div>
-      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/30 rotate-45" style="bottom: 5%; left: 10%;"></div>
-      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/20 rotate-45" style="top: 25%; left: 12%;"></div>
-      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/35 rotate-45" style="top: 55%; right: 12%;"></div>
-      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/25 rotate-45" style="bottom: 45%; left: 6%;"></div>
+      <div class="absolute diamond-float-1 w-3 h-3 bg-red-400/30 rotate-45" style="top: 5%; left: 2%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/40 rotate-45" style="top: 12%; right: 5%;"></div>
+      <div class="absolute diamond-float-3 w-4 h-4 bg-red-400/20 rotate-45" style="top: 20%; left: 4%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/30 rotate-45" style="top: 28%; right: 3%;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 35%; left: 6%;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/35 rotate-45" style="top: 42%; right: 6%;"></div>
+      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/15 rotate-45" style="top: 50%; left: 2%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/25 rotate-45" style="top: 58%; right: 4%;"></div>
+      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/30 rotate-45" style="top: 65%; left: 5%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/20 rotate-45" style="top: 72%; right: 7%;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/25 rotate-45" style="top: 80%; right: 3%;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/30 rotate-45" style="bottom: 10%; left: 3%;"></div>
+      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/20 rotate-45" style="bottom: 18%; right: 5%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/35 rotate-45" style="bottom: 25%; left: 7%;"></div>
+      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/25 rotate-45" style="top: 8%; left: 10%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/30 rotate-45" style="top: 18%; right: 12%;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/20 rotate-45" style="top: 38%; left: 3%;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/25 rotate-45" style="top: 48%; right: 8%;"></div>
+      <div class="absolute diamond-float-1 w-4 h-4 bg-red-400/30 rotate-45" style="top: 55%; left: 8%;"></div>
+      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/35 rotate-45" style="top: 68%; right: 12%;"></div>
+      <div class="absolute diamond-float-3 w-3 h-3 bg-red-400/25 rotate-45" style="top: 78%; left: 4%;"></div>
+      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/20 rotate-45" style="bottom: 8%; right: 10%;"></div>
+      <div class="absolute diamond-float-2 w-3 h-3 bg-red-400/30 rotate-45" style="bottom: 30%; left: 10%;"></div>
+      <div class="absolute diamond-float-3 w-2 h-2 bg-red-500/25 rotate-45" style="top: 15%; left: 6%;"></div>
     </div>
 
     <!-- 移动端顶部导航 -->
@@ -72,7 +81,7 @@
         <!-- 头像区域 -->
         <div class="pt-6 pb-4 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
-            <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
+            <div class="w-24 h-24 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
               <img loading="lazy" :src="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
