@@ -79,24 +79,24 @@
       <div class="bg-white rounded-2xl shadow-lg h-full flex flex-col border border-gray-100" style="box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);">
         
         <!-- 头像区域 -->
-        <div class="pt-6 pb-4 px-6 bg-white shrink-0">
+        <div class="pt-5 pb-3 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
-            <div class="w-24 h-24 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
+            <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
               <img loading="lazy" :src="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
           <div class="text-center">
-            <h1 class="text-lg font-bold text-gray-800">{{ profile.name }}</h1>
-            <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
+            <h1 class="text-base font-bold text-gray-800">{{ profile.name }}</h1>
+            <span class="inline-block mt-1 px-2 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
           </div>
         </div>
 
         <!-- 基本信息区域 -->
-        <div class="flex-1 overflow-y-auto px-6 py-2 space-y-3">
+        <div class="flex-1 px-6 space-y-2">
           <!-- 基础信息 -->
-          <div class="py-2">
-            <div class="w-full h-px bg-gray-200 mb-3"></div>
-            <div class="space-y-2 text-sm">
+          <div class="py-1">
+            <div class="w-full h-px bg-gray-200 mb-2"></div>
+            <div class="space-y-1.5 text-xs">
               <div class="flex justify-between items-center">
                 <span class="text-gray-500">学历</span>
                 <span class="text-gray-700 font-medium">{{ profile.education }}</span>
@@ -113,52 +113,52 @@
           </div>
 
           <!-- 联系方式 -->
-          <div class="py-2">
-            <div class="w-full h-px bg-gray-200 mb-3"></div>
-            <div class="space-y-2 text-xs">
+          <div class="py-1">
+            <div class="w-full h-px bg-gray-200 mb-2"></div>
+            <div class="space-y-1 text-[11px]">
               <div class="flex items-center gap-2 text-gray-600">
-                <span class="w-4 text-center">💬</span>
+                <span class="w-4 text-center shrink-0">💬</span>
                 <span class="truncate">{{ profile.contact?.wechat || 'Seren450' }}</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
-                <span class="w-4 text-center">📧</span>
-                <span class="truncate text-[10px]">{{ profile.contact?.email || 'yanqing@outlook.com' }}</span>
+                <span class="w-4 text-center shrink-0">📧</span>
+                <span class="truncate">yanqing@outlook.com</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
-                <span class="w-4 text-center">📱</span>
+                <span class="w-4 text-center shrink-0">📱</span>
                 <span class="truncate">17377665272</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
-                <span class="w-4 text-center">🐙</span>
-                <span class="truncate text-[10px]">{{ profile.contact?.github || 'github.com/zhangyalanzyl' }}</span>
+                <span class="w-4 text-center shrink-0">🐙</span>
+                <span class="truncate">github.com/zhangyalanzyl</span>
               </div>
             </div>
           </div>
 
           <!-- 技能区域 -->
-          <div class="py-2">
-            <div class="w-full h-px bg-gray-200 mb-3"></div>
-            <h3 class="text-gray-700 font-bold text-xs mb-3">Skills</h3>
-            <div class="grid grid-cols-3 gap-3">
+          <div class="py-1">
+            <div class="w-full h-px bg-gray-200 mb-2"></div>
+            <h3 class="text-gray-700 font-bold text-xs mb-2">Skills</h3>
+            <div class="grid grid-cols-3 gap-2">
               <div v-for="(skill, index) in profile.skills" :key="skill.name" class="flex flex-col items-center">
-                <div class="relative w-10 h-10">
-                  <svg class="w-10 h-10 -rotate-90" viewBox="0 0 56 56">
+                <div class="relative w-8 h-8">
+                  <svg class="w-8 h-8 -rotate-90" viewBox="0 0 56 56">
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#fecaca" stroke-width="3" />
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" 
                       :stroke-dasharray="150.8" 
                       :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)"
                       class="transition-all duration-1000" />
                   </svg>
-                  <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-red-600">{{ skill.level }}%</span>
+                  <span class="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-red-600">{{ skill.level }}%</span>
                 </div>
-                <span class="text-[10px] text-gray-600 mt-1">{{ skill.name }}</span>
+                <span class="text-[9px] text-gray-600 mt-0.5">{{ skill.name }}</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 下载简历按钮 -->
-        <div class="px-6 pb-4 bg-white shrink-0">
+        <div class="px-6 py-3 bg-white shrink-0">
           <button 
             v-if="resumeUrl"
             @click="downloadResume"
