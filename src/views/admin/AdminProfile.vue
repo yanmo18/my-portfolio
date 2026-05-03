@@ -70,10 +70,6 @@
         <div class="space-y-3">
           <div v-for="(skill, index) in formData.skills" :key="index" class="flex items-center gap-4">
             <input v-model="skill.name" type="text" placeholder="技能名称" class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" />
-            <div class="flex items-center gap-2">
-              <input v-model.number="skill.level" type="number" min="0" max="100" class="w-20 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" />
-              <span class="text-gray-500">%</span>
-            </div>
             <button @click="removeSkill(index)" class="text-red-500 hover:text-red-600">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -85,6 +81,27 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
             添加技能
+          </button>
+        </div>
+      </div>
+
+      <!-- 获奖证书 -->
+      <div>
+        <h3 class="text-lg font-bold mb-4 border-b pb-2">获奖证书</h3>
+        <div class="space-y-3">
+          <div v-for="(cert, index) in formData.certifications" :key="index" class="flex items-center gap-4">
+            <input v-model="cert.title" type="text" placeholder="证书名称，如：英语四级证书" class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" />
+            <button @click="removeCertification(index)" class="text-red-500 hover:text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <button @click="addCertification" class="text-[#e63946] hover:underline flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            添加证书
           </button>
         </div>
       </div>
@@ -113,18 +130,27 @@ const formData = ref({
     phone: '',
     github: ''
   },
-  skills: []
+  skills: [],
+  certifications: []
 })
 
 const saving = ref(false)
 const showSuccess = ref(false)
 
 const addSkill = () => {
-  formData.value.skills.push({ name: '', level: 50 })
+  formData.value.skills.push({ name: '' })
 }
 
 const removeSkill = (index) => {
   formData.value.skills.splice(index, 1)
+}
+
+const addCertification = () => {
+  formData.value.certifications.push({ title: '' })
+}
+
+const removeCertification = (index) => {
+  formData.value.certifications.splice(index, 1)
 }
 
 const saveProfile = async () => {
@@ -141,6 +167,7 @@ const saveProfile = async () => {
 }
 
 onMounted(async () => {
+  await testBackend()
   const data = await getProfile()
   formData.value = {
     name: data.name || '',
@@ -154,7 +181,8 @@ onMounted(async () => {
       phone: data.contact?.phone || '',
       github: data.contact?.github || ''
     },
-    skills: data.skills || []
+    skills: data.skills || [],
+    certifications: data.certifications || []
   }
 })
 </script>
