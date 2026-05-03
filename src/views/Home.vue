@@ -141,17 +141,17 @@
             <h3 class="text-gray-700 font-bold text-xs mb-2">Skills</h3>
             <div class="grid grid-cols-3 gap-2">
               <div v-for="(skill, index) in profile.skills" :key="skill.name" class="flex flex-col items-center">
-                <div class="relative w-8 h-8">
-                  <svg class="w-8 h-8 -rotate-90" viewBox="0 0 56 56">
+                <div class="relative w-10 h-10">
+                  <svg class="w-10 h-10 -rotate-90" viewBox="0 0 56 56">
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#fecaca" stroke-width="3" />
                     <circle cx="28" cy="28" r="24" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" 
                       :stroke-dasharray="150.8" 
                       :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)"
                       class="transition-all duration-1000" />
                   </svg>
-                  <span class="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-red-600">{{ skill.level }}%</span>
+                  <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-red-600">{{ skill.level }}%</span>
                 </div>
-                <span class="text-[9px] text-gray-600 mt-0.5">{{ skill.name }}</span>
+                <span class="text-[10px] text-gray-600 mt-1">{{ skill.name }}</span>
               </div>
             </div>
           </div>
