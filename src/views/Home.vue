@@ -75,13 +75,13 @@
     </aside>
 
     <!-- 左侧固定信息卡片 -->
-    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[560px] z-40">
+    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[600px] z-40">
       <div class="bg-white rounded-2xl shadow-lg h-full flex flex-col border border-gray-100" style="box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);">
         
         <!-- 头像区域 -->
-        <div class="pt-4 pb-2 px-6 bg-white shrink-0">
+        <div class="pt-5 pb-3 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
-            <div class="w-20 h-20 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
+            <div class="w-24 h-24 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
               <img loading="lazy" :src="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
@@ -92,11 +92,11 @@
         </div>
 
         <!-- 基本信息区域 -->
-        <div class="flex-1 px-6 space-y-1.5">
+        <div class="px-6 space-y-2">
           <!-- 基础信息 -->
-          <div class="py-0.5">
+          <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="space-y-1 text-sm">
+            <div class="space-y-2 text-sm">
               <div class="flex justify-between items-center">
                 <span class="text-gray-500">学历</span>
                 <span class="text-gray-700 font-medium">{{ profile.education }}</span>
@@ -113,9 +113,9 @@
           </div>
 
           <!-- 联系方式 -->
-          <div class="py-0.5">
+          <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="space-y-1 text-xs">
+            <div class="space-y-1.5 text-xs">
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center shrink-0">💬</span>
                 <span class="truncate">{{ profile.contact?.wechat || 'Seren450' }}</span>
@@ -136,7 +136,7 @@
           </div>
 
           <!-- 技能区域 -->
-          <div class="py-0.5">
+          <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
             <div class="overflow-hidden">
               <div class="flex animate-marquee whitespace-nowrap">
@@ -161,7 +161,7 @@
         </div>
 
         <!-- 下载简历按钮 -->
-        <div class="px-6 py-2 bg-white shrink-0">
+        <div class="px-6 py-3 mt-auto bg-white shrink-0">
           <button 
             v-if="resumeUrl"
             @click="downloadResume"
