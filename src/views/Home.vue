@@ -138,20 +138,15 @@
           <!-- 技能区域 -->
           <div class="py-1">
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <h3 class="text-gray-700 font-bold text-xs mb-2">Skills</h3>
-            <div class="grid grid-cols-3 gap-2">
-              <div v-for="(skill, index) in profile.skills" :key="skill.name" class="flex flex-col items-center">
-                <div class="relative w-10 h-10">
-                  <svg class="w-10 h-10 -rotate-90" viewBox="0 0 56 56">
-                    <circle cx="28" cy="28" r="24" fill="none" stroke="#fecaca" stroke-width="3" />
-                    <circle cx="28" cy="28" r="24" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" 
-                      :stroke-dasharray="150.8" 
-                      :stroke-dashoffset="150.8 - (150.8 * skill.level / 100)"
-                      class="transition-all duration-1000" />
-                  </svg>
-                  <span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-red-600">{{ skill.level }}%</span>
-                </div>
-                <span class="text-[10px] text-gray-600 mt-1">{{ skill.name }}</span>
+            <div class="overflow-x-auto scrollbar-hide">
+              <div class="flex gap-2 whitespace-nowrap">
+                <span 
+                  v-for="skill in profile.skills" 
+                  :key="skill.name"
+                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-50 to-red-100 text-red-600 text-xs font-medium rounded-full border border-red-200"
+                >
+                  {{ skill.name }}
+                </span>
               </div>
             </div>
           </div>
