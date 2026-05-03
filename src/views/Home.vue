@@ -158,10 +158,26 @@
               </div>
             </div>
           </div>
+
+          <!-- 获奖证书 -->
+          <div>
+            <div class="w-full h-px bg-gray-200 mb-2"></div>
+            <h3 class="text-gray-700 font-bold text-xs mb-2">Certifications</h3>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs">
+                <span class="w-5 h-5 bg-red-100 text-red-600 rounded flex items-center justify-center text-[10px]">🏆</span>
+                <span class="text-gray-600">英语四级证书</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs">
+                <span class="w-5 h-5 bg-red-100 text-red-600 rounded flex items-center justify-center text-[10px]">🏆</span>
+                <span class="text-gray-600">计算机二级 MS Office</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- 下载简历按钮 -->
-        <div class="px-6 pt-5 pb-3 bg-white shrink-0">
+        <div class="px-6 pt-3 pb-3 bg-white shrink-0">
           <button 
             v-if="resumeUrl"
             @click="downloadResume"
