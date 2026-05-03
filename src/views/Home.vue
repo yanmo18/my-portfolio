@@ -161,7 +161,7 @@
         </div>
 
         <!-- 下载简历按钮 -->
-        <div class="px-6 py-3 mt-auto bg-white shrink-0">
+        <div class="px-6 pt-5 pb-3 bg-white shrink-0">
           <button 
             v-if="resumeUrl"
             @click="downloadResume"
