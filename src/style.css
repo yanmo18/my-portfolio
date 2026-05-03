@@ -145,6 +145,20 @@
   animation: progressFill 1.5s ease-out forwards;
 }
 
+/* 横向滚动动画 */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 15s linear infinite;
+}
+
 /* 隐藏滚动条 */
 .scrollbar-hide {
   -ms-overflow-style: none;

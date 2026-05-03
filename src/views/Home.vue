@@ -138,12 +138,20 @@
           <!-- 技能区域 -->
           <div class="py-1">
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="overflow-x-auto scrollbar-hide">
-              <div class="flex gap-2 whitespace-nowrap">
+            <div class="overflow-hidden">
+              <div class="flex animate-marquee whitespace-nowrap">
                 <span 
                   v-for="skill in profile.skills" 
-                  :key="skill.name"
-                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-50 to-red-100 text-red-600 text-xs font-medium rounded-full border border-red-200"
+                  :key="skill.name + '-1'"
+                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2"
+                >
+                  {{ skill.name }}
+                </span>
+                <!-- 重复一份实现无缝滚动 -->
+                <span 
+                  v-for="skill in profile.skills" 
+                  :key="skill.name + '-2'"
+                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2"
                 >
                   {{ skill.name }}
                 </span>
