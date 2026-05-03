@@ -1,4 +1,4 @@
-# 张雅岚 - 个人作品集网站
+#  简历-个人作品集网站
 
 > 🔥 A modern, responsive portfolio website built with Vue 3
 
@@ -228,7 +228,7 @@ MIT License - 欢迎使用！
 ## 👤 作者
 
 **张雅岚**
-- GitHub: [@zhangyalanzyl](https://github.com/zhangyalanzyl)
+- GitHub: [@yanmo18](https://github.com/yanmo18)
 - Email: yanqing@outlook.com
 
 ---
