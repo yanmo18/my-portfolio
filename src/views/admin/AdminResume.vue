@@ -138,6 +138,13 @@ const uploadResume = async () => {
     // 清空已选文件
     selectedFile.value = null
     if (fileInput.value) fileInput.value.value = ''
+    
+    // 提示用户刷新首页查看
+    setTimeout(() => {
+      if (confirm('简历上传成功！是否跳转到首页查看？')) {
+        window.location.href = '/'
+      }
+    }, 1500)
   } catch (error) {
     console.error('上传失败:', error)
     alert('上传失败，请重试')

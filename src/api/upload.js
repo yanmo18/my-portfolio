@@ -11,20 +11,27 @@ const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
  * @returns {Promise<string|null>}
  */
 export async function getResume() {
+  // 优先从 localStorage 读取（包含刚上传的）
+  const localData = getData()
+  if (localData.resumeUrl) {
+    return localData.resumeUrl
+  }
+  
   try {
     const res = await fetch(`${API_BASE}/get-resume`)
     if (res.ok) {
       const data = await res.json()
       if (data.success && data.url) {
+        // 同步到 localStorage
+        localData.resumeUrl = data.url
+        saveData(localData)
         return data.url
       }
     }
   } catch (error) {
     console.error('获取简历失败:', error)
   }
-  // 降级到 localStorage
-  const data = getData()
-  return data.resumeUrl || null
+  return null
 }
 
 /**
@@ -37,26 +44,28 @@ export async function uploadResume(file) {
   const resumeUrl = `data:${file.type};base64,${base64}`
 
   try {
-    const res = await fetch(`${API_BASE}/upload-resume`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: resumeUrl })
+    const res = await fetch(`${API_BASE}/upload-resume?url=${encodeURIComponent(resumeUrl)}`, {
+      method: 'POST'
     })
     
     if (res.ok) {
       const data = await res.json()
       if (data.success) {
-        return resumeUrl
+        // 同时保存到 localStorage
+        const localData = getData()
+        localData.resumeUrl = resumeUrl
+        saveData(localData)
+        return { url: resumeUrl }
       }
     }
     throw new Error('上传失败')
   } catch (error) {
     console.error('简历上传到服务器失败，保存到本地:', error)
-    // 同时保存到 localStorage 作为备份
-    const data = getData()
-    data.resumeUrl = resumeUrl
-    saveData(data)
-    return resumeUrl
+    // 保存到 localStorage 作为备份
+    const localData = getData()
+    localData.resumeUrl = resumeUrl
+    saveData(localData)
+    return { url: resumeUrl }
   }
 }
 
