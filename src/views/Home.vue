@@ -578,7 +578,7 @@ const backendStatus = ref('connecting')
 
 // 检测本地简历（每次显示按钮时调用）
 const checkLocalResume = () => {
-  const localData = localStorage.getItem('mockData')
+  const localData = localStorage.getItem('portfolio_data')
   if (localData) {
     try {
       const data = JSON.parse(localData)
