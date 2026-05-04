@@ -138,11 +138,6 @@ const uploadResume = async () => {
     // 清空已选文件
     selectedFile.value = null
     if (fileInput.value) fileInput.value.value = ''
-    
-    // 3秒后自动跳转到首页
-    setTimeout(() => {
-      window.location.href = '/'
-    }, 2000)
   } catch (error) {
     console.error('上传失败:', error)
     alert('上传失败，请重试')
