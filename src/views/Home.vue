@@ -512,7 +512,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getProfile, getProjects, getAwards, getExperience, getResume, testBackend } from '@/api'
+import { getProfile, getProjects, getAwards, getExperience, testBackend } from '@/api'
 
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
