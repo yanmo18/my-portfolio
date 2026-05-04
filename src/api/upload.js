@@ -1,32 +1,34 @@
 /**
  * 简历管理 API
- * 使用 profile 表的 resumeUrl 字段存储简历
+ * 使用 Laf 云函数存储简历
  */
-import { getProfile, updateProfile } from './index.js'
 import { getData, saveData } from './mockData'
 
+const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
+
 /**
- * 获取简历 URL（独立请求，不影响页面加载）
+ * 获取简历 URL
  * @returns {Promise<string|null>}
  */
 export async function getResume() {
   try {
-    const profile = await getProfile()
-    if (profile?.resumeUrl) {
-      return profile.resumeUrl
+    const res = await fetch(`${API_BASE}/get-resume`)
+    if (res.ok) {
+      const data = await res.json()
+      if (data.success && data.url) {
+        return data.url
+      }
     }
-    // 降级到 localStorage
-    const data = getData()
-    return data.resumeUrl || null
   } catch (error) {
     console.error('获取简历失败:', error)
-    const data = getData()
-    return data.resumeUrl || null
   }
+  // 降级到 localStorage
+  const data = getData()
+  return data.resumeUrl || null
 }
 
 /**
- * 上传简历（更新 profile 的 resumeUrl 字段）
+ * 上传简历到 Laf
  * @param {File} file - 文件
  * @returns {Promise<string>} 简历 URL
  */
@@ -35,14 +37,22 @@ export async function uploadResume(file) {
   const resumeUrl = `data:${file.type};base64,${base64}`
 
   try {
-    const profile = await getProfile()
-    await updateProfile({
-      ...profile,
-      resumeUrl: resumeUrl
+    const res = await fetch(`${API_BASE}/upload-resume`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: resumeUrl })
     })
-    return resumeUrl
+    
+    if (res.ok) {
+      const data = await res.json()
+      if (data.success) {
+        return resumeUrl
+      }
+    }
+    throw new Error('上传失败')
   } catch (error) {
     console.error('简历上传到服务器失败，保存到本地:', error)
+    // 同时保存到 localStorage 作为备份
     const data = getData()
     data.resumeUrl = resumeUrl
     saveData(data)
