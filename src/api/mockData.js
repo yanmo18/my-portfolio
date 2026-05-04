@@ -28,8 +28,13 @@ const defaultData = {
       { name: 'CSS', level: 75 },
       { name: 'Node', level: 60 },
       { name: 'Python', level: 55 }
+    ],
+    certifications: [
+      { title: '英语四级证书' },
+      { title: '计算机二级 MS Office' }
     ]
   },
+  resumeUrl: null,
   projects: [
     {
       _id: 'proj_1',
