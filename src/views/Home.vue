@@ -61,7 +61,7 @@
         
         <div class="flex flex-col items-center">
           <div class="w-28 h-28 rounded-full border-2 border-[#e63946] p-1 mb-4">
-            <img src="/张雅岚202302030319.jpg" :alt="profile.name" class="w-full h-full rounded-full object-cover" />
+            <img src="/avatar.jpg" :alt="profile.name" class="w-full h-full rounded-full object-cover" />
           </div>
           <h1 class="text-lg font-bold text-black mb-1">{{ profile.name }}</h1>
           <span class="text-[#e63946] text-sm mb-4">前端开发者</span>
@@ -82,7 +82,7 @@
         <div class="pt-5 pb-3 px-6 bg-white shrink-0">
           <div class="flex justify-center mb-2">
             <div class="w-24 h-24 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
-              <img loading="lazy" :src="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
+              <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
             </div>
           </div>
           <div class="text-center">
