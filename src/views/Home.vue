@@ -676,19 +676,26 @@ onMounted(async () => {
   const status = await testBackend()
   backendStatus.value = status
   
-  const [profileData, projectsData, awardsData, experienceData, resumeData] = await Promise.all([
+  // 并行获取数据（简历请求独立，不阻塞页面加载）
+  const [profileData, projectsData, awardsData, experienceData] = await Promise.all([
     getProfile(),
     getProjects(),
     getAwards(),
-    getExperience(),
-    getResume()
+    getExperience()
   ])
   profile.value = profileData
   projects.value = projectsData?.filter(p => p.title) || []
   awards.value = awardsData?.filter(a => a.title) || []
   experience.value = experienceData?.filter(e => e.period) || []
-  if (resumeData?.url) {
-    resumeUrl.value = resumeData.url
+  
+  // 简历单独请求，不阻塞页面
+  try {
+    const resumeData = await getResume()
+    if (resumeData) {
+      resumeUrl.value = resumeData
+    }
+  } catch (e) {
+    console.log('简历加载失败')
   }
 
   await nextTick()
