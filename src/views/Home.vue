@@ -176,7 +176,7 @@
           </div>
         </div>
 
-        <!-- 下载简历按钮 -->
+        <!-- 简历按钮 -->
         <div class="px-6 pt-3 pb-3 bg-white shrink-0">
           <button 
             v-if="resumeUrl"
@@ -186,14 +186,14 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
             {{ $t('hero.downloadResume') }}
           </button>
-          <router-link 
+          <button 
             v-else
-            to="/admin/resume"
+            @click="goToUploadResume"
             class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
             上传简历
-          </router-link>
+          </button>
         </div>
       </div>
     </aside>
@@ -576,6 +576,29 @@ const showBackToTop = ref(false)
 const resumeUrl = ref('')
 const backendStatus = ref('connecting')
 
+// 检测本地简历（每次显示按钮时调用）
+const checkLocalResume = () => {
+  const localData = localStorage.getItem('mockData')
+  if (localData) {
+    try {
+      const data = JSON.parse(localData)
+      if (data.resumeUrl) {
+        resumeUrl.value = data.resumeUrl
+      }
+    } catch (e) {}
+  }
+}
+
+// 跳转到上传简历（先检测本地是否有简历）
+const goToUploadResume = () => {
+  checkLocalResume()
+  if (resumeUrl.value) {
+    downloadResume()
+  } else {
+    window.location.href = '/admin/resume'
+  }
+}
+
 // 下载简历
 const downloadResume = () => {
   if (resumeUrl.value) {
@@ -689,6 +712,8 @@ onMounted(async () => {
   experience.value = experienceData?.filter(e => e.period) || []
   
   // 简历单独请求，不阻塞页面
+  // 同时检测本地简历
+  checkLocalResume()
   try {
     const resumeData = await getResume()
     if (resumeData) {
