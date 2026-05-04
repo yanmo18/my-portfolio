@@ -179,20 +179,11 @@
         <!-- 简历按钮 -->
         <div class="px-6 pt-3 pb-3 bg-white shrink-0">
           <button 
-            v-if="resumeUrl"
             @click="downloadResume"
             class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
-            {{ $t('hero.downloadResume') }}
-          </button>
-          <button 
-            v-else
-            @click="goToUploadResume"
-            class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-            上传简历
+            下载简历
           </button>
         </div>
       </div>
@@ -512,7 +503,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getProfile, getProjects, getAwards, getExperience, testBackend } from '@/api'
+import { getProfile, getProjects, getAwards, getExperience, getResume, testBackend } from '@/api'
 
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
@@ -573,41 +564,26 @@ const experience = ref([])
 const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
-const resumeUrl = ref('')
 const backendStatus = ref('connecting')
 
-// 检测本地简历（每次显示按钮时调用）
-const checkLocalResume = () => {
-  const localData = localStorage.getItem('portfolio_data')
-  if (localData) {
-    try {
-      const data = JSON.parse(localData)
-      if (data.resumeUrl) {
-        resumeUrl.value = data.resumeUrl
-      }
-    } catch (e) {}
-  }
-}
-
-// 跳转到上传简历（先检测本地是否有简历）
-const goToUploadResume = () => {
-  checkLocalResume()
-  if (resumeUrl.value) {
-    downloadResume()
-  } else {
-    window.location.href = '/admin/resume'
-  }
-}
-
 // 下载简历
-const downloadResume = () => {
-  if (resumeUrl.value) {
-    const link = document.createElement('a')
-    link.href = resumeUrl.value
-    link.download = 'resume.pdf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+const downloadResume = async () => {
+  try {
+    const resumeData = await getResume()
+    if (resumeData) {
+      const link = document.createElement('a')
+      link.href = resumeData
+      link.download = 'resume.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } else {
+      alert('暂无简历，请先在管理后台上传')
+      window.location.href = '/admin/resume'
+    }
+  } catch (e) {
+    console.error('下载简历失败:', e)
+    alert('下载简历失败')
   }
 }
 
@@ -710,18 +686,6 @@ onMounted(async () => {
   projects.value = projectsData?.filter(p => p.title) || []
   awards.value = awardsData?.filter(a => a.title) || []
   experience.value = experienceData?.filter(e => e.period) || []
-  
-  // 简历单独请求，不阻塞页面
-  // 同时检测本地简历
-  checkLocalResume()
-  try {
-    const resumeData = await getResume()
-    if (resumeData) {
-      resumeUrl.value = resumeData
-    }
-  } catch (e) {
-    console.log('简历加载失败')
-  }
 
   await nextTick()
   setTimeout(setupAnimations, 100)
