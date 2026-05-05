@@ -89,13 +89,21 @@
           <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-red-100/50 to-transparent rounded-br-full"></div>
           
           <!-- 头像区域 -->
-          <div class="pt-5 pb-3 px-6 bg-white shrink-0">
-            <div class="flex justify-center mb-2">
-              <div class="w-32 h-32 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
-                <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
+          <div class="pt-5 pb-3 px-6 bg-white shrink-0 relative">
+            <div class="flex justify-center">
+              <!-- 头像外框 - 渐变边框设计 -->
+              <div class="relative">
+                <!-- 外圈渐变 -->
+                <div class="absolute inset-0 rounded-full bg-gradient-to-br from-red-400 via-red-500 to-orange-400 p-[3px]">
+                  <div class="w-full h-full rounded-full bg-white"></div>
+                </div>
+                <!-- 头像 -->
+                <div class="relative w-32 h-32 rounded-full overflow-hidden ml-[3px] mt-[3px]">
+                  <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full object-cover" />
+                </div>
               </div>
             </div>
-            <div class="text-center">
+            <div class="text-center mt-2">
               <h1 class="text-xl font-bold text-gray-800">{{ profile.name }}</h1>
               <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
             </div>
