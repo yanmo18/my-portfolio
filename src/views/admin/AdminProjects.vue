@@ -271,23 +271,61 @@ const clearCover = () => {
 
 // 上传图片到图床
 const uploadImageToCloud = async (file) => {
-  // 使用 FileReader 转 base64
   return new Promise((resolve, reject) => {
-    // 检查文件大小（限制 2MB）
-    if (file.size > 2 * 1024 * 1024) {
-      alert('图片大小不能超过 2MB')
+    // 检查文件大小（限制 3MB）
+    if (file.size > 3 * 1024 * 1024) {
+      alert('图片大小不能超过 3MB')
       reject(new Error('图片太大'))
       return
     }
     
     const reader = new FileReader()
-    reader.onload = () => {
-      resolve(reader.result)
+    reader.onload = async (e) => {
+      try {
+        // 压缩图片
+        const compressed = await compressImage(e.target.result)
+        resolve(compressed)
+      } catch (err) {
+        // 压缩失败就用原图
+        resolve(e.target.result)
+      }
     }
     reader.onerror = () => {
       reject(new Error('读取文件失败'))
     }
     reader.readAsDataURL(file)
+  })
+}
+
+// 压缩图片
+const compressImage = async (dataUrl) => {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      
+      // 最大宽度/高度 800px
+      let { width, height } = img
+      const maxSize = 800
+      if (width > maxSize || height > maxSize) {
+        if (width > height) {
+          height = (height / width) * maxSize
+          width = maxSize
+        } else {
+          width = (width / height) * maxSize
+          height = maxSize
+        }
+      }
+      
+      canvas.width = width
+      canvas.height = height
+      ctx.drawImage(img, 0, 0, width, height)
+      
+      // 压缩为 70% 质量
+      resolve(canvas.toDataURL('image/jpeg', 0.7))
+    }
+    img.src = dataUrl
   })
 }
 
