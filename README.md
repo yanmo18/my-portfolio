@@ -11,7 +11,7 @@
 
 这是一个基于 **Vue 3** 的个人作品集网站，展示个人简历、项目作品、获奖经历和校园经历。采用前后端分离架构，支持中英双语切换，响应式设计适配多端设备。
 
-**[👉 在线预览](https://your-domain.vercel.app)** | **[👤 管理后台](https://your-domain.vercel.app/admin)**
+**[👉 在线预览](https://my-portfolio-galxgagi.edgeone.cool/)** | **[👤 管理后台](https://my-portfolio-galxgagi.edgeone.cool/admin/projects)**
 
 ![首页预览](https://img.freepik.com/free-vector/portfolio-concept-illustration_114360-151.jpg)
 
