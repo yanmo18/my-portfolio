@@ -271,32 +271,22 @@ const clearCover = () => {
 
 // 上传图片到图床
 const uploadImageToCloud = async (file) => {
-  const formData = new FormData()
-  formData.append('file', file)
-  formData.append('key', '5b2e8c1e1a88a8e8c8a8e8c1a88a8e8c') // imgbb 匿名 API key
-  
-  try {
-    // 方案1: imgbb 图床
-    const res = await fetch('https://api.imgbb.com/1/upload', {
-      method: 'POST',
-      body: formData
-    })
-    const data = await res.json()
-    
-    if (data.success) {
-      return data.data.url
-    }
-  } catch (e) {
-    console.error('imgbb 上传失败:', e)
-  }
-  
-  // 方案2: 使用 base64（兜底方案）
+  // 使用 FileReader 转 base64
   return new Promise((resolve, reject) => {
+    // 检查文件大小（限制 2MB）
+    if (file.size > 2 * 1024 * 1024) {
+      alert('图片大小不能超过 2MB')
+      reject(new Error('图片太大'))
+      return
+    }
+    
     const reader = new FileReader()
     reader.onload = () => {
       resolve(reader.result)
     }
-    reader.onerror = reject
+    reader.onerror = () => {
+      reject(new Error('读取文件失败'))
+    }
     reader.readAsDataURL(file)
   })
 }
