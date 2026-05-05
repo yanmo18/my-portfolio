@@ -89,16 +89,13 @@
           <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-red-100/50 to-transparent rounded-br-full"></div>
           
           <!-- 头像区域 -->
-          <div class="pt-5 pb-3 px-6 bg-white shrink-0 relative">
+          <div class="pt-5 pb-3 px-6 bg-white shrink-0">
             <div class="flex justify-center">
-              <!-- 头像外框 - 渐变边框设计 -->
+              <!-- 头像 - 简洁圆形设计 -->
               <div class="relative">
-                <!-- 外圈渐变 -->
-                <div class="absolute inset-0 rounded-full bg-gradient-to-br from-red-400 via-red-500 to-orange-400 p-[3px]">
-                  <div class="w-full h-full rounded-full bg-white"></div>
-                </div>
-                <!-- 头像 -->
-                <div class="relative w-32 h-32 rounded-full overflow-hidden ml-[3px] mt-[3px]">
+                <!-- 外圈装饰 -->
+                <div class="absolute -inset-2 rounded-full bg-gradient-to-br from-red-100 to-red-50 -z-10"></div>
+                <div class="w-28 h-28 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
                   <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full object-cover" />
                 </div>
               </div>
