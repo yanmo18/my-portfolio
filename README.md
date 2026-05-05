@@ -13,7 +13,7 @@
 
 **[👉 在线预览](https://my-portfolio-galxgagi.edgeone.cool/)** | **[👤 管理后台](https://my-portfolio-galxgagi.edgeone.cool/admin/projects)**
 
-![首页预览](assets\show (1).png)
+![首页预览](assets/show%20(1).png)
 
 ## ✨ 功能特点
 
