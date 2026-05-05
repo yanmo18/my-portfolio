@@ -1,48 +1,82 @@
 /**
  * 简历管理 API
+ * 使用 Laf 云函数存储简历
  */
-import { API_BASE } from './request'
+import { getData, saveData } from './mockData'
+
+const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
 
 /**
- * 上传简历 PDF
- * @param {File} file - PDF 文件
- * @returns {Promise<string>} 简历 URL
+ * 获取简历 URL
+ * @returns {Promise<string|null>}
  */
-export async function uploadResume(file) {
-  const formData = new FormData()
-  formData.append('file', file)
-
-  const response = await fetch(`${API_BASE}/api/resume/upload`, {
-    method: 'POST',
-    body: formData,
-  })
-
-  if (!response.ok) {
-    throw new Error('简历上传失败')
+export async function getResume() {
+  // 优先从 localStorage 读取（包含刚上传的）
+  const localData = getData()
+  if (localData.resumeUrl) {
+    return localData.resumeUrl
   }
-
-  const res = await response.json()
-  return res.url || res.data?.url
+  
+  try {
+    const res = await fetch(`${API_BASE}/get-resume`)
+    if (res.ok) {
+      const data = await res.json()
+      if (data.success && data.url) {
+        // 同步到 localStorage
+        localData.resumeUrl = data.url
+        saveData(localData)
+        return data.url
+      }
+    }
+  } catch (error) {
+    console.error('获取简历失败:', error)
+  }
+  return null
 }
 
 /**
- * 通用图片上传
- * @param {File} file - 图片文件
- * @returns {Promise<string>} 图片 URL
+ * 上传简历到 Laf
+ * @param {File} file - 文件
+ * @returns {Promise<string>} 简历 URL
  */
-export async function uploadImage(file) {
-  const formData = new FormData()
-  formData.append('file', file)
+export async function uploadResume(file) {
+  const base64 = await fileToBase64(file)
+  const resumeUrl = `data:${file.type};base64,${base64}`
 
-  const response = await fetch(`${API_BASE}/api/upload`, {
-    method: 'POST',
-    body: formData,
-  })
-
-  if (!response.ok) {
-    throw new Error('图片上传失败')
+  try {
+    const res = await fetch(`${API_BASE}/upload-resume?url=${encodeURIComponent(resumeUrl)}`, {
+      method: 'POST'
+    })
+    
+    if (res.ok) {
+      const data = await res.json()
+      if (data.success) {
+        // 同时保存到 localStorage
+        const localData = getData()
+        localData.resumeUrl = resumeUrl
+        saveData(localData)
+        return { url: resumeUrl }
+      }
+    }
+    throw new Error('上传失败')
+  } catch (error) {
+    console.error('简历上传到服务器失败，保存到本地:', error)
+    // 保存到 localStorage 作为备份
+    const localData = getData()
+    localData.resumeUrl = resumeUrl
+    saveData(localData)
+    return { url: resumeUrl }
   }
+}
 
-  const res = await response.json()
-  return res.url || res.data?.url
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1]
+      resolve(base64)
+    }
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
 }

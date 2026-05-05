@@ -8,7 +8,7 @@ import { get, put } from './request'
  */
 export async function getProfile() {
   try {
-    const res = await get('/api/profile')
+    const res = await get('/get-profile')
     return res.data || res
   } catch (error) {
     // 返回默认数据
@@ -37,8 +37,8 @@ export async function getProfile() {
 }
 
 /**
- * 更新个人信息
+ * 更新个人信息（包含简历 URL）
  */
 export async function updateProfile(data) {
-  return put('/api/profile', data)
+  return put('/update-profile', data)
 }

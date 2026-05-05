@@ -64,7 +64,13 @@
           </div>
           <div>
             <label class="block text-sm font-medium mb-2">封面图片URL</label>
-            <input v-model="formData.cover" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" placeholder="https://..." />
+            <input 
+              v-model="formData.cover" 
+              type="text" 
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" 
+              placeholder="输入图片URL，如 https://..." 
+            />
+            <p class="text-xs text-gray-400 mt-1">提示：可以去QQ空间发一条说说，右键图片复制链接</p>
           </div>
           <div>
             <label class="block text-sm font-medium mb-2">GitHub链接</label>

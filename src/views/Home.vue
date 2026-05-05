@@ -61,7 +61,7 @@
         
         <div class="flex flex-col items-center">
           <div class="w-28 h-28 rounded-full border-2 border-[#e63946] p-1 mb-4">
-            <img src="/张雅岚202302030319.jpg" :alt="profile.name" class="w-full h-full rounded-full object-cover" />
+            <img src="/avatar.jpg" :alt="profile.name" class="w-full h-full rounded-full object-cover" />
           </div>
           <h1 class="text-lg font-bold text-black mb-1">{{ profile.name }}</h1>
           <span class="text-[#e63946] text-sm mb-4">前端开发者</span>
@@ -76,20 +76,35 @@
 
     <!-- 左侧固定信息卡片 -->
     <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[600px] z-40">
-      <div class="bg-white rounded-2xl shadow-lg h-full flex flex-col border border-gray-100" style="box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);">
+      <!-- 卡片外层装饰 -->
+      <div class="relative h-full">
+        <!-- 顶部渐变装饰条 -->
+        <div class="absolute -top-1 left-0 right-0 h-2 bg-gradient-to-r from-red-400 via-red-500 to-red-600 rounded-t-2xl"></div>
         
-        <!-- 头像区域 -->
-        <div class="pt-5 pb-3 px-6 bg-white shrink-0">
-          <div class="flex justify-center mb-2">
-            <div class="w-24 h-24 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
-              <img loading="lazy" :src="'/张雅岚202302030319.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
+        <!-- 主卡片 -->
+        <div class="relative bg-white/95 backdrop-blur-sm h-full flex flex-col rounded-2xl shadow-xl border border-gray-100 overflow-hidden" style="box-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);">
+          
+          <!-- 顶部装饰图案 -->
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-50 to-transparent rounded-bl-full opacity-60"></div>
+          <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-red-100/50 to-transparent rounded-br-full"></div>
+          
+          <!-- 头像区域 -->
+          <div class="pt-5 pb-3 px-6 bg-white shrink-0">
+            <div class="flex justify-center">
+              <!-- 头像 - 简洁圆形设计 -->
+              <div class="relative">
+                <!-- 外圈装饰 -->
+                <div class="absolute -inset-2 rounded-full bg-gradient-to-br from-red-100 to-red-50 -z-10"></div>
+                <div class="w-28 h-28 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
+                  <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-2">
+              <h1 class="text-xl font-bold text-gray-800">{{ profile.name }}</h1>
+              <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
             </div>
           </div>
-          <div class="text-center">
-            <h1 class="text-xl font-bold text-gray-800">{{ profile.name }}</h1>
-            <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
-          </div>
-        </div>
 
         <!-- 基本信息区域 -->
         <div class="px-6 space-y-2">
@@ -138,20 +153,13 @@
           <!-- 技能区域 -->
           <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="overflow-hidden">
-              <div class="flex animate-marquee whitespace-nowrap">
+            <div class="relative overflow-hidden">
+              <div class="skills-track flex animate-track whitespace-nowrap">
+                <!-- 技能内容会通过JS动态复制 -->
                 <span 
                   v-for="skill in profile.skills" 
                   :key="skill.name + '-1'"
-                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2"
-                >
-                  {{ skill.name }}
-                </span>
-                <!-- 重复一份实现无缝滚动 -->
-                <span 
-                  v-for="skill in profile.skills" 
-                  :key="skill.name + '-2'"
-                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2"
+                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2 shrink-0"
                 >
                   {{ skill.name }}
                 </span>
@@ -176,24 +184,16 @@
           </div>
         </div>
 
-        <!-- 下载简历按钮 -->
+        <!-- 简历按钮 -->
         <div class="px-6 pt-3 pb-3 bg-white shrink-0">
           <button 
-            v-if="resumeUrl"
             @click="downloadResume"
             class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
-            {{ $t('hero.downloadResume') }}
+            下载简历
           </button>
-          <router-link 
-            v-else
-            to="/admin/resume"
-            class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-            上传简历
-          </router-link>
+        </div>
         </div>
       </div>
     </aside>
@@ -243,13 +243,6 @@
         <span class="text-xs font-bold">{{ locale === 'zh' ? 'EN' : '中' }}</span>
       </button>
 
-      <!-- 后端连接状态 -->
-      <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center" :title="backendStatus === 'success' ? '后端已连接' : backendStatus === 'failed' ? '使用本地数据' : '连接中...'">
-        <span v-if="backendStatus === 'success'" class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
-        <span v-else-if="backendStatus === 'failed'" class="w-3 h-3 rounded-full bg-yellow-500"></span>
-        <span v-else class="w-3 h-3 rounded-full bg-gray-400 animate-pulse"></span>
-      </div>
-
       <!-- 回到顶部 -->
       <button 
         v-if="showBackToTop"
@@ -284,31 +277,6 @@
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
             <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
-          </div>
-        </section>
-
-        <!-- 获奖证书 -->
-        <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
-          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
-              <div 
-                v-for="(award, index) in awards" :key="award._id"
-                :ref="el => setAwardRef(el, index)"
-                class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
-                :style="{ transitionDelay: `${index * 100}ms` }"
-                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
-              >
-                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
-                <div>
-                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
-                  <p class="text-red-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
-                </div>
-              </div>
-            </div>
-            <p v-else class="text-gray-400 text-center py-8">暂无获奖证书</p>
           </div>
         </section>
 
@@ -377,6 +345,31 @@
               </div>
             </div>
             <p v-else class="text-gray-400 text-center py-8">暂无校园经历</p>
+          </div>
+        </section>
+
+        <!-- 获奖证书 -->
+        <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
+          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
+            <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
+              <div 
+                v-for="(award, index) in awards" :key="award._id"
+                :ref="el => setAwardRef(el, index)"
+                class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
+                :style="{ transitionDelay: `${index * 100}ms` }"
+                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+              >
+                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
+                <div>
+                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
+                  <p class="text-red-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
+                </div>
+              </div>
+            </div>
+            <p v-else class="text-gray-400 text-center py-8">暂无获奖证书</p>
           </div>
         </section>
 
@@ -512,7 +505,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getProfile, getProjects, getAwards, getExperience, getResume, testBackend } from '@/api'
+import { getProfile, getProjects, getAwards, getExperience, getResume } from '@/api'
 
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
@@ -573,26 +566,33 @@ const experience = ref([])
 const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
-const resumeUrl = ref('')
-const backendStatus = ref('connecting')
 
 // 下载简历
-const downloadResume = () => {
-  if (resumeUrl.value) {
-    const link = document.createElement('a')
-    link.href = resumeUrl.value
-    link.download = 'resume.pdf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+const downloadResume = async () => {
+  try {
+    const resumeData = await getResume()
+    if (resumeData) {
+      const link = document.createElement('a')
+      link.href = resumeData
+      link.download = 'resume.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } else {
+      alert('暂无简历，请先在管理后台上传')
+      window.location.href = '/admin/resume'
+    }
+  } catch (e) {
+    console.error('下载简历失败:', e)
+    alert('下载简历失败')
   }
 }
 
 const navItems = [
   { id: 'about', label: '关于我', icon: '👤' },
-  { id: 'awards', label: '获奖证书', icon: '🏆' },
   { id: 'projects', label: '项目展示', icon: '📁' },
   { id: 'experience', label: '校园经历', icon: '📅' },
+  { id: 'awards', label: '获奖证书', icon: '🏆' },
   { id: 'contact', label: '联系方式', icon: '💬' }
 ]
 
@@ -672,26 +672,31 @@ const setupAnimations = () => {
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll)
   
-  // 测试后端连接
-  const status = await testBackend()
-  backendStatus.value = status
-  
-  const [profileData, projectsData, awardsData, experienceData, resumeData] = await Promise.all([
+  // 并行获取所有数据（API层会自动处理降级到Mock）
+  const [profileData, projectsData, awardsData, experienceData] = await Promise.all([
     getProfile(),
     getProjects(),
     getAwards(),
-    getExperience(),
-    getResume()
+    getExperience()
   ])
   profile.value = profileData
   projects.value = projectsData?.filter(p => p.title) || []
   awards.value = awardsData?.filter(a => a.title) || []
   experience.value = experienceData?.filter(e => e.period) || []
-  if (resumeData?.url) {
-    resumeUrl.value = resumeData.url
-  }
 
   await nextTick()
+  
+  // 复制技能标签实现无缝履带式滚动
+  setTimeout(() => {
+    const track = document.querySelector('.skills-track')
+    if (track && profile.value?.skills?.length > 0) {
+      const skillsHtml = profile.value.skills.map(skill => 
+        `<span class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2 shrink-0">${skill.name}</span>`
+      ).join('')
+      track.innerHTML = skillsHtml + skillsHtml
+    }
+  }, 100)
+
   setTimeout(setupAnimations, 100)
 })
 
