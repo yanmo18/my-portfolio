@@ -280,31 +280,6 @@
           </div>
         </section>
 
-        <!-- 获奖证书 -->
-        <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
-          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
-              <div 
-                v-for="(award, index) in awards" :key="award._id"
-                :ref="el => setAwardRef(el, index)"
-                class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
-                :style="{ transitionDelay: `${index * 100}ms` }"
-                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
-              >
-                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
-                <div>
-                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
-                  <p class="text-red-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
-                </div>
-              </div>
-            </div>
-            <p v-else class="text-gray-400 text-center py-8">暂无获奖证书</p>
-          </div>
-        </section>
-
         <!-- 项目展示 -->
         <section id="projects" ref="projectsRef" class="scroll-mt-10 transition-all duration-700"
           :class="projectsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
@@ -370,6 +345,31 @@
               </div>
             </div>
             <p v-else class="text-gray-400 text-center py-8">暂无校园经历</p>
+          </div>
+        </section>
+
+        <!-- 获奖证书 -->
+        <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
+          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
+            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
+            <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
+              <div 
+                v-for="(award, index) in awards" :key="award._id"
+                :ref="el => setAwardRef(el, index)"
+                class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
+                :style="{ transitionDelay: `${index * 100}ms` }"
+                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+              >
+                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
+                <div>
+                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
+                  <p class="text-red-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
+                </div>
+              </div>
+            </div>
+            <p v-else class="text-gray-400 text-center py-8">暂无获奖证书</p>
           </div>
         </section>
 
@@ -590,9 +590,9 @@ const downloadResume = async () => {
 
 const navItems = [
   { id: 'about', label: '关于我', icon: '👤' },
-  { id: 'awards', label: '获奖证书', icon: '🏆' },
   { id: 'projects', label: '项目展示', icon: '📁' },
   { id: 'experience', label: '校园经历', icon: '📅' },
+  { id: 'awards', label: '获奖证书', icon: '🏆' },
   { id: 'contact', label: '联系方式', icon: '💬' }
 ]
 
