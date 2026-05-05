@@ -243,13 +243,6 @@
         <span class="text-xs font-bold">{{ locale === 'zh' ? 'EN' : '中' }}</span>
       </button>
 
-      <!-- 后端连接状态 -->
-      <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center" :title="backendStatus === 'success' ? '后端已连接' : backendStatus === 'failed' ? '使用本地数据' : '连接中...'">
-        <span v-if="backendStatus === 'success'" class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
-        <span v-else-if="backendStatus === 'failed'" class="w-3 h-3 rounded-full bg-yellow-500"></span>
-        <span v-else class="w-3 h-3 rounded-full bg-gray-400 animate-pulse"></span>
-      </div>
-
       <!-- 回到顶部 -->
       <button 
         v-if="showBackToTop"
@@ -512,7 +505,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getProfile, getProjects, getAwards, getExperience, getResume, testBackend } from '@/api'
+import { getProfile, getProjects, getAwards, getExperience, getResume } from '@/api'
 
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
@@ -573,7 +566,6 @@ const experience = ref([])
 const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
-const backendStatus = ref('connecting')
 
 // 下载简历
 const downloadResume = async () => {
@@ -680,11 +672,7 @@ const setupAnimations = () => {
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll)
   
-  // 测试后端连接
-  const status = await testBackend()
-  backendStatus.value = status
-  
-  // 并行获取数据（简历请求独立，不阻塞页面加载）
+  // 并行获取所有数据（API层会自动处理降级到Mock）
   const [profileData, projectsData, awardsData, experienceData] = await Promise.all([
     getProfile(),
     getProjects(),
