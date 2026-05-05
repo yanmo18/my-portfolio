@@ -63,9 +63,40 @@
             <input v-model="techStackInput" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" placeholder="Vue, React, Node.js" />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-2">封面图片URL</label>
-            <input v-model="formData.cover" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" placeholder="https://..." />
+            <label class="block text-sm font-medium mb-2">封面图片</label>
+            <div class="flex items-center gap-3">
+              <div 
+                class="w-24 h-24 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-[#e63946] transition-colors overflow-hidden"
+                @click="coverInput?.click()"
+                @dragover.prevent
+                @drop.prevent="handleCoverDrop"
+              >
+                <img v-if="coverPreview" :src="coverPreview" class="w-full h-full object-cover" />
+                <div v-else class="text-center text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="text-xs">点击上传</span>
+                </div>
+              </div>
+              <div v-if="coverPreview" class="flex-1">
+                <p class="text-sm text-gray-500 mb-1">已选择图片</p>
+                <button @click="clearCover" class="text-sm text-red-500 hover:text-red-600">清除图片</button>
+              </div>
+              <div v-else class="flex-1 text-sm text-gray-500">
+                支持 JPG、PNG、GIF 格式<br/>
+                自动上传到云端
+              </div>
+            </div>
+            <input 
+              ref="coverInput"
+              type="file" 
+              accept="image/*" 
+              class="hidden" 
+              @change="handleCoverSelect"
+            />
           </div>
+          <div class="text-sm text-gray-500 -mt-2">提示：也可以直接输入图片URL</div>
           <div>
             <label class="block text-sm font-medium mb-2">GitHub链接</label>
             <input v-model="formData.github" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent" placeholder="https://github.com/..." />
@@ -117,6 +148,9 @@ const showDeleteConfirm = ref(false)
 const isEditing = ref(false)
 const editingId = ref(null)
 const deleteTarget = ref(null)
+const coverPreview = ref('')
+const coverInput = ref(null)
+const uploadingCover = ref(false)
 
 const formData = ref({
   title: '',
@@ -147,6 +181,7 @@ const openAddModal = () => {
   formData.value = { title: '', cover: '', github: '' }
   techStackInput.value = ''
   featuresInput.value = ''
+  coverPreview.value = ''
   showModal.value = true
 }
 
@@ -156,6 +191,7 @@ const openEditModal = (project) => {
   formData.value = { ...project }
   techStackInput.value = project.techStack?.join(', ') || ''
   featuresInput.value = project.features?.map((f, i) => `${i + 1}. ${f}`).join('\n') || ''
+  coverPreview.value = project.cover || ''
   showModal.value = true
 }
 
@@ -186,6 +222,75 @@ const saveProject = async () => {
 }
 
 const showSuccess = ref(false)
+
+// 处理封面图片选择
+const handleCoverSelect = async (e) => {
+  const file = e.target.files?.[0]
+  if (!file) return
+  
+  uploadingCover.value = true
+  try {
+    const url = await uploadImageToCloud(file)
+    formData.value.cover = url
+    coverPreview.value = url
+  } catch (error) {
+    console.error('上传失败:', error)
+    alert('图片上传失败，请重试')
+  } finally {
+    uploadingCover.value = false
+  }
+}
+
+// 处理拖拽上传
+const handleCoverDrop = async (e) => {
+  const file = e.dataTransfer.files?.[0]
+  if (!file || !file.type.startsWith('image/')) {
+    alert('请拖拽图片文件')
+    return
+  }
+  
+  uploadingCover.value = true
+  try {
+    const url = await uploadImageToCloud(file)
+    formData.value.cover = url
+    coverPreview.value = url
+  } catch (error) {
+    console.error('上传失败:', error)
+    alert('图片上传失败，请重试')
+  } finally {
+    uploadingCover.value = false
+  }
+}
+
+// 清除封面
+const clearCover = () => {
+  formData.value.cover = ''
+  coverPreview.value = ''
+  if (coverInput.value) coverInput.value.value = ''
+}
+
+// 上传图片到图床
+const uploadImageToCloud = async (file) => {
+  const formData = new FormData()
+  formData.append('image', file)
+  
+  // 使用 sm.ms 免费图床
+  const res = await fetch('https://sm.ms/api/v2/upload', {
+    method: 'POST',
+    headers: {
+      'Authorization': '' // sm.ms 无需 token 也可以上传
+    },
+    body: formData
+  })
+  
+  const data = await res.json()
+  
+  if (data.success) {
+    return data.data.url
+  } else {
+    throw new Error(data.message || '上传失败')
+  }
+}
 
 const confirmDelete = (project) => {
   deleteTarget.value = project
