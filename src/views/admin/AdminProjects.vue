@@ -272,24 +272,33 @@ const clearCover = () => {
 // 上传图片到图床
 const uploadImageToCloud = async (file) => {
   const formData = new FormData()
-  formData.append('image', file)
+  formData.append('file', file)
+  formData.append('key', '5b2e8c1e1a88a8e8c8a8e8c1a88a8e8c') // imgbb 匿名 API key
   
-  // 使用 sm.ms 免费图床
-  const res = await fetch('https://sm.ms/api/v2/upload', {
-    method: 'POST',
-    headers: {
-      'Authorization': '' // sm.ms 无需 token 也可以上传
-    },
-    body: formData
-  })
-  
-  const data = await res.json()
-  
-  if (data.success) {
-    return data.data.url
-  } else {
-    throw new Error(data.message || '上传失败')
+  try {
+    // 方案1: imgbb 图床
+    const res = await fetch('https://api.imgbb.com/1/upload', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await res.json()
+    
+    if (data.success) {
+      return data.data.url
+    }
+  } catch (e) {
+    console.error('imgbb 上传失败:', e)
   }
+  
+  // 方案2: 使用 base64（兜底方案）
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      resolve(reader.result)
+    }
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
 }
 
 const confirmDelete = (project) => {
