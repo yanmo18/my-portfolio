@@ -76,20 +76,30 @@
 
     <!-- 左侧固定信息卡片 -->
     <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[600px] z-40">
-      <div class="bg-white rounded-2xl shadow-lg h-full flex flex-col border border-gray-100" style="box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);">
+      <!-- 卡片外层装饰 -->
+      <div class="relative h-full">
+        <!-- 顶部渐变装饰条 -->
+        <div class="absolute -top-1 left-0 right-0 h-2 bg-gradient-to-r from-red-400 via-red-500 to-red-600 rounded-t-2xl"></div>
         
-        <!-- 头像区域 -->
-        <div class="pt-5 pb-3 px-6 bg-white shrink-0">
-          <div class="flex justify-center mb-2">
-            <div class="w-24 h-24 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
-              <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
+        <!-- 主卡片 -->
+        <div class="relative bg-white/95 backdrop-blur-sm h-full flex flex-col rounded-2xl shadow-xl border border-gray-100 overflow-hidden" style="box-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);">
+          
+          <!-- 顶部装饰图案 -->
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-50 to-transparent rounded-bl-full opacity-60"></div>
+          <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-red-100/50 to-transparent rounded-br-full"></div>
+          
+          <!-- 头像区域 -->
+          <div class="pt-5 pb-3 px-6 bg-white shrink-0">
+            <div class="flex justify-center mb-2">
+              <div class="w-32 h-32 rounded-full border-4 border-red-400 p-0.5 hover:scale-105 hover:border-red-500 transition-all duration-300 shadow-md overflow-hidden">
+                <img loading="lazy" :src="'/avatar.jpg'" :alt="profile.name + '的头像'" class="w-full h-full rounded-full object-cover" />
+              </div>
+            </div>
+            <div class="text-center">
+              <h1 class="text-xl font-bold text-gray-800">{{ profile.name }}</h1>
+              <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
             </div>
           </div>
-          <div class="text-center">
-            <h1 class="text-xl font-bold text-gray-800">{{ profile.name }}</h1>
-            <span class="inline-block mt-1 px-2.5 py-0.5 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs rounded-full">前端开发者</span>
-          </div>
-        </div>
 
         <!-- 基本信息区域 -->
         <div class="px-6 space-y-2">
@@ -138,20 +148,13 @@
           <!-- 技能区域 -->
           <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <div class="overflow-hidden">
-              <div class="flex animate-marquee whitespace-nowrap">
+            <div class="relative overflow-hidden">
+              <div class="skills-track flex animate-track whitespace-nowrap">
+                <!-- 技能内容会通过JS动态复制 -->
                 <span 
                   v-for="skill in profile.skills" 
                   :key="skill.name + '-1'"
-                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2"
-                >
-                  {{ skill.name }}
-                </span>
-                <!-- 重复一份实现无缝滚动 -->
-                <span 
-                  v-for="skill in profile.skills" 
-                  :key="skill.name + '-2'"
-                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2"
+                  class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2 shrink-0"
                 >
                   {{ skill.name }}
                 </span>
@@ -185,6 +188,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
             下载简历
           </button>
+        </div>
         </div>
       </div>
     </aside>
@@ -688,6 +692,18 @@ onMounted(async () => {
   experience.value = experienceData?.filter(e => e.period) || []
 
   await nextTick()
+  
+  // 复制技能标签实现无缝履带式滚动
+  setTimeout(() => {
+    const track = document.querySelector('.skills-track')
+    if (track && profile.value?.skills?.length > 0) {
+      const skillsHtml = profile.value.skills.map(skill => 
+        `<span class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-400 to-red-500 text-white text-xs font-medium rounded-full mr-2 shrink-0">${skill.name}</span>`
+      ).join('')
+      track.innerHTML = skillsHtml + skillsHtml
+    }
+  }, 100)
+
   setTimeout(setupAnimations, 100)
 })
 

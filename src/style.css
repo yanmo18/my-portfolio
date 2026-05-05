@@ -145,18 +145,23 @@
   animation: progressFill 1.5s ease-out forwards;
 }
 
-/* 横向滚动动画 */
-@keyframes marquee {
+/* 履带式横向滚动动画 - 无缝循环 */
+@keyframes track-scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
-.animate-marquee {
-  animation: marquee 15s linear infinite;
+.animate-track {
+  animation: track-scroll 12s linear infinite;
+}
+
+/* 确保滚动不闪回 */
+.animate-track:hover {
+  animation-play-state: paused;
 }
 
 /* 隐藏滚动条 */
