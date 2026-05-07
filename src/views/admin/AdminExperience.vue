@@ -101,7 +101,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getExperience, addExperience, updateExperience, deleteExperience, testBackend } from '@/api'
+import { getExperience, addExperience, updateExperience, deleteExperience, initAPI } from '@/api'
 
 const experience = ref([])
 const loading = ref(true)
@@ -179,7 +179,7 @@ const doDelete = async () => {
 }
 
 onMounted(async () => {
-  await testBackend()
+  await initAPI()
   loadExperience()
 })
 </script>

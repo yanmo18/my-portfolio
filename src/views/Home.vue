@@ -505,7 +505,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getProfile, getProjects, getAwards, getExperience, getResume } from '@/api'
+import { getProfile, getProjects, getAwards, getExperience, getResume, initAPI } from '@/api'
 
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
@@ -672,7 +672,10 @@ const setupAnimations = () => {
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll)
   
-  // 并行获取所有数据（API层会自动处理降级到Mock）
+  // 初始化 API（尝试连接后端，失败则使用缓存）
+  await initAPI()
+  
+  // 并行获取所有数据（API层会自动处理降级到Mock/缓存）
   const [profileData, projectsData, awardsData, experienceData] = await Promise.all([
     getProfile(),
     getProjects(),

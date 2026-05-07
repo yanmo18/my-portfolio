@@ -114,7 +114,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { getProjects, addProject, updateProject, deleteProject, testBackend } from '@/api'
+import { getProjects, addProject, updateProject, deleteProject, initAPI } from '@/api'
 
 const projects = ref([])
 const loading = ref(true)
@@ -212,7 +212,7 @@ const doDelete = async () => {
 }
 
 onMounted(async () => {
-  await testBackend() // 先测试后端连接
+  await initAPI()
   loadProjects()
 })
 </script>

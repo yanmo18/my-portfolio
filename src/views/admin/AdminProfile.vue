@@ -116,7 +116,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getProfile, updateProfile, testBackend } from '@/api'
+import { getProfile, updateProfile, initAPI } from '@/api'
 
 const formData = ref({
   name: '',
@@ -167,7 +167,7 @@ const saveProfile = async () => {
 }
 
 onMounted(async () => {
-  await testBackend()
+  await initAPI()
   const data = await getProfile()
   formData.value = {
     name: data.name || '',
