@@ -6,7 +6,7 @@
 import { getData, saveData, generateId } from './mockData'
 
 const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
-let useMock = false // 默认尝试使用后端
+let useMock = true // 临时禁用后端，全部使用 Mock 数据
 
 // 测试后端连接
 export async function testBackend() {
