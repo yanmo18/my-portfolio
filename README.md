@@ -231,7 +231,7 @@ MIT License - 欢迎使用！
 
 ## 👤 作者
 
-**张雅岚**
+**Fernoa**
 - GitHub: [@yanmo18](https://github.com/yanmo18)
 - Email: yanqing@outlook.com
 
