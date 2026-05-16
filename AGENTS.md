@@ -1,5 +1,5 @@
 ## 项目概述
-my-portfolio 是一个基于 Vue 3 + Vite 的个人作品集网站，用于展示张雅岚的个人简历、项目作品和获奖经历。采用 Tailwind CSS 进行样式管理，支持国际化 (vue-i18n) 和路由 (vue-router)。
+my-portfolio 是一个基于 Vue 3 + Vite 的个人作品集网站，用于展示Fernoa的个人简历、项目作品和获奖经历。采用 Tailwind CSS 进行样式管理，支持国际化 (vue-i18n) 和路由 (vue-router)。
 
 ## 技术栈
 | 技术 | 版本 | 用途 |
