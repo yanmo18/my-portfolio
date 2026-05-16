@@ -191,8 +191,8 @@ pnpm preview  # 预览构建产物
 ## 当前数据
 | 项目 | 内容 |
 |------|------|
-| 姓名 | 张雅岚 |
+| 姓名 | Fernoa|
 | 微信 | Seren450 |
 | 邮箱 | yanqing@outlook.com |
-| GitHub | github.com/zhangyalanzyl |
+| GitHub | https://github.com/yanmo18 |
 | 手机 | 17377665272 |
