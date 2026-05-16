@@ -9,7 +9,7 @@ const STORAGE_KEY = 'portfolio_data'
 const defaultData = {
   profile: {
     _id: 'profile_1',
-    name: '张雅岚',
+    name: 'Fernoa',
     education: '本科在读',
     politicalStatus: '团员',
     birthDate: '2004.11.13',

@@ -186,7 +186,7 @@ pnpm preview
 <!-- ## 📊 项目数据
 
 ### 个人信息
-- **姓名**：张雅岚
+- **姓名**：Fernoa
 - **微信**：Seren450
 - **邮箱**：yanqing@outlook.com
 - **GitHub**：github.com/zhangyalanzyl

@@ -13,7 +13,7 @@ export async function getProfile() {
   } catch (error) {
     // 返回默认数据
     return {
-      name: '张雅岚',
+      name: 'Fernoa',
       education: '本科在读',
       politicalStatus: '群众',
       birthDate: '2004.11.13',

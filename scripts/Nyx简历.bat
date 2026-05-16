@@ -10,7 +10,7 @@ set "PORT=5000"
 set "URL=http://localhost:%PORT%"
 
 echo ========================================
-echo   Nyx简历 - 张雅岚个人作品集
+echo   Nyx简历 - Fernoa个人作品集
 echo ========================================
 echo.
 

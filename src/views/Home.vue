@@ -31,7 +31,7 @@
 
     <!-- 移动端顶部导航 -->
     <header class="md:hidden fixed top-0 left-0 right-0 bg-white shadow-sm z-50 px-4 py-3 flex items-center justify-between">
-      <h1 class="font-bold text-lg">{{ profile.name || '张雅岚' }}</h1>
+      <h1 class="font-bold text-lg">{{ profile.name || 'Fernoa' }}</h1>
       <div class="flex items-center gap-3">
         <button @click="toggleLang" class="px-3 py-1 text-sm border border-gray-300 rounded-full">
           {{ locale === 'zh' ? 'EN' : '中' }}
