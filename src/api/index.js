@@ -10,7 +10,7 @@
  */
 import { getData, saveData, generateId } from './mockData'
 
-const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
+const API_BASE = 'https://lcnmaohntx.sealosbja.site'
 const CACHE_KEY = 'portfolio_api_cache'
 let useMock = false // 默认尝试使用后端
 
