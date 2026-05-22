@@ -157,6 +157,23 @@ const saveProfile = async () => {
   saving.value = true
   try {
     await updateProfile(formData.value)
+    // 保存后重新获取最新数据
+    const data = await getProfile()
+    formData.value = {
+      name: data.name || '',
+      education: data.education || '',
+      politicalStatus: data.politicalStatus || '',
+      birthDate: data.birthDate || '',
+      bio: data.bio || '',
+      contact: {
+        wechat: data.contact?.wechat || '',
+        email: data.contact?.email || '',
+        phone: data.contact?.phone || '',
+        github: data.contact?.github || ''
+      },
+      skills: data.skills || [],
+      certifications: data.certifications || []
+    }
     showSuccess.value = true
     setTimeout(() => { showSuccess.value = false }, 3000)
   } catch (error) {
