@@ -6,20 +6,21 @@
  * 
  * 成功获取后端数据时会自动更新 localStorage 缓存
  * 
- * Express 后端 API 地址: https://your-express-backend.com
+ * 切换后端：改 API_BASE 地址即可
  */
 import { getData, saveData, generateId } from './mockData'
 
 // ============ API 配置 ============
 // 切换后端时只需要改这里
-// 
-// 当前：Laf 后端（无 /api 前缀）
+//
+// 当前：Laf 后端
 const API_BASE = 'https://lcnmaohntx.sealosbja.site'
 //
 // 未来切换到 Express 后端时：
 // 1. 把 API_BASE 改为 Express 地址
 // 2. 所有路径加上 /api 前缀
-// 示例：'/get-profile' → '/api/api/profile'
+//    '/get-projects' → '/api/project'
+//    '/add-project' → '/api/project'
 
 const CACHE_KEY = 'portfolio_api_cache'
 let useMock = false // 默认尝试使用后端
@@ -53,7 +54,7 @@ function getFromCache(key) {
 // 初始化：尝试连接后端，如果失败则加载缓存
 export async function initAPI() {
   try {
-    const response = await fetch(`${API_BASE}/api/api/profile`, { 
+    const response = await fetch(`${API_BASE}/get-profile`, { 
       timeout: 5000 
     })
     if (response.ok) {
@@ -86,7 +87,7 @@ export async function getProfile() {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/api/profile`)
+    const res = await fetch(`${API_BASE}/get-profile`)
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const profile = data.data || data
@@ -110,7 +111,7 @@ export async function updateProfile(profileData) {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/api/profile`, {
+    const res = await fetch(`${API_BASE}/update-profile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profileData)
@@ -133,7 +134,7 @@ export async function getProjects() {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/project`)
+    const res = await fetch(`${API_BASE}/get-projects`)
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const projects = data.data || data || []
@@ -150,24 +151,23 @@ export async function getProjects() {
 
 export async function addProject(projectData) {
   if (useMock === true) {
-    const allData = getData()
     const newProject = { _id: generateId(), ...projectData }
-    allData.projects.unshift(newProject)
+    const allData = getData()
+    allData.projects.push(newProject)
     saveData(allData)
     return { success: true, data: newProject }
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/project`, {
+    const res = await fetch(`${API_BASE}/add-project`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(projectData)
     })
     const result = await res.json()
-    // 更新缓存
-    const cached = getFromCache('projects') || []
-    const newProject = { _id: generateId(), ...projectData }
-    setCache('projects', [newProject, ...cached])
+    // 刷新列表并更新缓存
+    const projects = await getProjects()
+    setCache('projects', projects)
     return result
   } catch (error) {
     console.error('添加项目失败:', error)
@@ -175,10 +175,10 @@ export async function addProject(projectData) {
   }
 }
 
-export async function updateProject(id, projectData) {
+export async function updateProject(projectData) {
   if (useMock === true) {
     const allData = getData()
-    const index = allData.projects.findIndex(p => p._id === id)
+    const index = allData.projects.findIndex(p => p._id === projectData._id)
     if (index !== -1) {
       allData.projects[index] = { ...allData.projects[index], ...projectData }
       saveData(allData)
@@ -187,16 +187,15 @@ export async function updateProject(id, projectData) {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/project`, {
+    const res = await fetch(`${API_BASE}/update-project`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: id, ...projectData })
+      body: JSON.stringify(projectData)
     })
     const result = await res.json()
-    // 更新缓存
-    const cached = getFromCache('projects') || []
-    const updated = cached.map(p => p._id === id ? { ...p, ...projectData } : p)
-    setCache('projects', updated)
+    // 刷新列表并更新缓存
+    const projects = await getProjects()
+    setCache('projects', projects)
     return result
   } catch (error) {
     console.error('更新项目失败:', error)
@@ -213,7 +212,7 @@ export async function deleteProject(id) {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/project`, {
+    const res = await fetch(`${API_BASE}/delete-project`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id: id })
@@ -237,7 +236,7 @@ export async function getAwards() {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/award`)
+    const res = await fetch(`${API_BASE}/get-awards`)
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const awards = data.data || data || []
@@ -254,24 +253,23 @@ export async function getAwards() {
 
 export async function addAward(awardData) {
   if (useMock === true) {
-    const allData = getData()
     const newAward = { _id: generateId(), ...awardData }
-    allData.awards.unshift(newAward)
+    const allData = getData()
+    allData.awards.push(newAward)
     saveData(allData)
     return { success: true, data: newAward }
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/award`, {
+    const res = await fetch(`${API_BASE}/add-award`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(awardData)
     })
     const result = await res.json()
-    // 更新缓存
-    const cached = getFromCache('awards') || []
-    const newAward = { _id: generateId(), ...awardData }
-    setCache('awards', [newAward, ...cached])
+    // 刷新列表并更新缓存
+    const awards = await getAwards()
+    setCache('awards', awards)
     return result
   } catch (error) {
     console.error('添加奖项失败:', error)
@@ -279,10 +277,10 @@ export async function addAward(awardData) {
   }
 }
 
-export async function updateAward(id, awardData) {
+export async function updateAward(awardData) {
   if (useMock === true) {
     const allData = getData()
-    const index = allData.awards.findIndex(a => a._id === id)
+    const index = allData.awards.findIndex(a => a._id === awardData._id)
     if (index !== -1) {
       allData.awards[index] = { ...allData.awards[index], ...awardData }
       saveData(allData)
@@ -291,16 +289,15 @@ export async function updateAward(id, awardData) {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/award`, {
+    const res = await fetch(`${API_BASE}/update-award`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: id, ...awardData })
+      body: JSON.stringify(awardData)
     })
     const result = await res.json()
-    // 更新缓存
-    const cached = getFromCache('awards') || []
-    const updated = cached.map(a => a._id === id ? { ...a, ...awardData } : a)
-    setCache('awards', updated)
+    // 刷新列表并更新缓存
+    const awards = await getAwards()
+    setCache('awards', awards)
     return result
   } catch (error) {
     console.error('更新奖项失败:', error)
@@ -317,7 +314,7 @@ export async function deleteAward(id) {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/award`, {
+    const res = await fetch(`${API_BASE}/delete-award`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id: id })
@@ -333,7 +330,7 @@ export async function deleteAward(id) {
   }
 }
 
-// ==================== 经历管理 ====================
+// ==================== 校园经历 ====================
 
 export async function getExperience() {
   if (useMock === true) {
@@ -341,7 +338,7 @@ export async function getExperience() {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/experience`)
+    const res = await fetch(`${API_BASE}/get-experience`)
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const experience = data.data || data || []
@@ -356,26 +353,25 @@ export async function getExperience() {
   }
 }
 
-export async function addExperience(expData) {
+export async function addExperience(experienceData) {
   if (useMock === true) {
+    const newExperience = { _id: generateId(), ...experienceData }
     const allData = getData()
-    const newExp = { _id: generateId(), ...expData }
-    allData.experience.unshift(newExp)
+    allData.experience.push(newExperience)
     saveData(allData)
-    return { success: true, data: newExp }
+    return { success: true, data: newExperience }
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/experience`, {
+    const res = await fetch(`${API_BASE}/add-experience`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(expData)
+      body: JSON.stringify(experienceData)
     })
     const result = await res.json()
-    // 更新缓存
-    const cached = getFromCache('experience') || []
-    const newExp = { _id: generateId(), ...expData }
-    setCache('experience', [newExp, ...cached])
+    // 刷新列表并更新缓存
+    const experience = await getExperience()
+    setCache('experience', experience)
     return result
   } catch (error) {
     console.error('添加经历失败:', error)
@@ -383,28 +379,27 @@ export async function addExperience(expData) {
   }
 }
 
-export async function updateExperience(id, expData) {
+export async function updateExperience(experienceData) {
   if (useMock === true) {
     const allData = getData()
-    const index = allData.experience.findIndex(e => e._id === id)
+    const index = allData.experience.findIndex(e => e._id === experienceData._id)
     if (index !== -1) {
-      allData.experience[index] = { ...allData.experience[index], ...expData }
+      allData.experience[index] = { ...allData.experience[index], ...experienceData }
       saveData(allData)
     }
     return { success: true }
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/experience`, {
+    const res = await fetch(`${API_BASE}/update-experience`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: id, ...expData })
+      body: JSON.stringify(experienceData)
     })
     const result = await res.json()
-    // 更新缓存
-    const cached = getFromCache('experience') || []
-    const updated = cached.map(e => e._id === id ? { ...e, ...expData } : e)
-    setCache('experience', updated)
+    // 刷新列表并更新缓存
+    const experience = await getExperience()
+    setCache('experience', experience)
     return result
   } catch (error) {
     console.error('更新经历失败:', error)
@@ -421,7 +416,7 @@ export async function deleteExperience(id) {
   }
   
   try {
-    const res = await fetch(`${API_BASE}/api/experience`, {
+    const res = await fetch(`${API_BASE}/delete-experience`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id: id })
@@ -440,30 +435,19 @@ export async function deleteExperience(id) {
 // ==================== 简历管理 ====================
 
 export async function getResume() {
-  if (useMock === true) {
-    return { url: '' }
-  }
-  
-  try {
-    const res = await fetch(`${API_BASE}/api/resume`)
-    if (!res.ok) throw new Error('API error')
-    const data = await res.json()
-    return data.data || data
-  } catch (error) {
-    console.error('获取简历失败:', error)
-    return { url: '' }
-  }
+  return { url: '/resume.pdf' } // 默认简历
 }
 
 export async function uploadResume(file) {
   if (useMock === true) {
-    return { success: true, url: 'mock-resume-url' }
+    return { success: true, message: 'Mock 模式：简历上传已模拟' }
   }
   
   try {
     const formData = new FormData()
     formData.append('file', file)
-    const res = await fetch(`${API_BASE}/api/resume`, {
+    
+    const res = await fetch(`${API_BASE}/upload-resume`, {
       method: 'POST',
       body: formData
     })
@@ -473,4 +457,3 @@ export async function uploadResume(file) {
     throw error
   }
 }
-
