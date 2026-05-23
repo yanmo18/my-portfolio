@@ -12,7 +12,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
  * @returns {object} 动画状态和方法
  */
 export function useScrollAnimation(options = {}) {
-  const { rootMargin = '0px', threshold = 0.1 } = options
+  const { rootMargin = '-80px', threshold = 0.2 } = options
 
   const isVisible = ref(false)
   const hasAnimated = ref(false)
@@ -63,7 +63,7 @@ export function useScrollAnimation(options = {}) {
  * 批量元素滚动动画
  */
 export function useBatchScrollAnimation(count = 1, options = {}) {
-  const { rootMargin = '-50px', threshold = 0.1, staggerDelay = 100 } = options
+  const { rootMargin = '-80px', threshold = 0.15, staggerDelay = 150 } = options
 
   const visibleItems = ref(new Array(count).fill(false).map(() => ({ isVisible: false, hasAnimated: false })))
   let observers = []

@@ -241,21 +241,21 @@
   }
 }
 
-/* 动画类 */
+/* 动画类 - 加长时间让效果更明显 */
 .animate-fadeInRight {
-  animation: fadeInRight 0.7s ease-out;
+  animation: fadeInRight 1s ease-out forwards;
 }
 
 .animate-timelineIn {
-  animation: timelineIn 0.5s ease-out;
+  animation: timelineIn 0.8s ease-out forwards;
 }
 
 .animate-popIn {
-  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .animate-badgeIn {
-  animation: badgeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: badgeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 /* 卡片依次入场 - 带延迟 */
@@ -263,7 +263,7 @@
   opacity: 0;
 }
 .stagger-card.visible {
-  animation: staggerUp 0.5s ease-out forwards;
+  animation: staggerUp 0.8s ease-out forwards;
 }
 
 /* 卡片入场动画 */
