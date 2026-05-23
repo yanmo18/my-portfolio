@@ -145,7 +145,7 @@ const closeModal = () => {
 const saveExperience = async () => {
   try {
     if (isEditing.value) {
-      await updateExperience(editingId.value, formData.value)
+      await updateExperience({ _id: editingId.value, ...formData.value })
     } else {
       await addExperience(formData.value)
     }
