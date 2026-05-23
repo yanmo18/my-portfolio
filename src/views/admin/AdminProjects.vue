@@ -310,7 +310,7 @@ const saveProject = async () => {
   
   try {
     if (isEditing.value) {
-      await updateProject(editingId.value, data)
+      await updateProject({ _id: editingId.value, ...data })
     } else {
       await addProject(data)
     }
