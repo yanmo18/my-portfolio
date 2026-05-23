@@ -267,9 +267,9 @@
     <main class="md:ml-[420px] md:mr-24 pt-16 md:pt-0">
       <div class="p-4 md:p-8 space-y-6 md:space-y-8">
 
-        <!-- 关于我 -->
+        <!-- 关于我 - 淡入上移 -->
         <section id="about" ref="aboutRef" class="scroll-mt-10 transition-all duration-700"
-          :class="aboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          :class="aboutVisible ? 'animate-fadeInUp' : 'opacity-0 translate-y-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
@@ -319,9 +319,9 @@
           </div>
         </section>
 
-        <!-- 校园经历 -->
+        <!-- 校园经历 - 时间线划入 -->
         <section id="experience" ref="experienceRef" class="scroll-mt-10 transition-all duration-700"
-          :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.experience') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
@@ -347,7 +347,7 @@
 
         <!-- 获奖证书 -->
         <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
-          :class="awardsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
+          :class="awardsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
@@ -356,8 +356,8 @@
                 v-for="(award, index) in awards" :key="award._id"
                 :ref="el => setAwardRef(el, index)"
                 class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
-                :style="{ transitionDelay: `${index * 100}ms` }"
-                :class="getAwardVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+                :style="{ transitionDelay: `${index * 150}ms` }"
+                :class="getAwardVisible(index) ? 'opacity-100 scale-100' : 'opacity-0 scale-75'"
               >
                 <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
                 <div>
