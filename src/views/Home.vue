@@ -170,17 +170,14 @@
           <!-- 获奖证书 -->
           <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
-            <h3 class="text-gray-700 font-bold text-xs mb-2">Certifications</h3>
-            <div class="space-y-1.5">
-              <div class="flex items-center gap-2 text-xs">
+            <h3 class="text-gray-700 font-bold text-xs mb-2">{{ $t('nav.awards') }}</h3>
+            <div class="space-y-1.5" v-if="profile.certifications?.length">
+              <div v-for="cert in profile.certifications" :key="cert.title" class="flex items-center gap-2 text-xs">
                 <span class="w-5 h-5 bg-red-100 text-red-600 rounded flex items-center justify-center text-[10px]">🏆</span>
-                <span class="text-gray-600">英语四级证书</span>
-              </div>
-              <div class="flex items-center gap-2 text-xs">
-                <span class="w-5 h-5 bg-red-100 text-red-600 rounded flex items-center justify-center text-[10px]">🏆</span>
-                <span class="text-gray-600">计算机二级 MS Office</span>
+                <span class="text-gray-600">{{ cert.title }}</span>
               </div>
             </div>
+            <p v-else class="text-gray-400 text-xs">暂无证书信息</p>
           </div>
         </div>
 
