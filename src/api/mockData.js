@@ -13,7 +13,7 @@ const defaultData = {
     education: '本科在读',
     politicalStatus: '团员',
     birthDate: '2004.11.13',
-    bio: '热爱前端技术，正在探索全栈开发领域。喜欢将创意转化为可交互的数字产品，对用户体验和界面设计有敏锐的感知。',
+    bio: '热爱前端技术，正在探索全栈开发领域。喜欢将创意转化为可交互的数字产品，对用户体验和界面设计有敏锐的感知。熟练运用 HTML/CSS/JavaScript 与 Vue 框架，可独立完成响应式页面搭建、组件化开发与交互逻辑实现；熟悉若依框架，具备基础的前后端协同开发能力。擅长借助 AI 工具辅助需求梳理、代码编写与项目优化，能高效推进从原型到部署的完整开发流程。在校期间参与实训项目与多个个人作品开发，兼具扎实的技术基础与快速学习能力。我的个人简历网站，前端用 Vue 3 搭建页面、Tailwind CSS 快速实现响应式样式，后端通过 Express 接口与 Prisma + MySQL 实现数据管理，完成了个人信息、项目与奖项的增删改查功能，实现了从数据存储到前端展示的完整流程。',
     tags: ['前端开发者', '全栈探索', '测试工程师'],
     contact: {
       wechat: 'Seren450',
@@ -31,121 +31,126 @@ const defaultData = {
     ],
     certifications: [
       { title: '英语四级证书' },
-      { title: '计算机二级 MS Office' }
+      { title: '计算机二级 MS Office' },
+      { title: '计算机三级数据库' }
     ]
   },
   resumeUrl: null,
   projects: [
     {
       _id: 'proj_1',
-      title: '智能简历管理系统',
-      cover: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
-      techStack: ['Vue3', 'Node.js', 'MongoDB', 'TailwindCSS'],
-      github: 'https://github.com/zhangyalanzyl/resume-manager',
-      features: [
-        '基于 AI 的简历智能匹配',
-        '实时预览编辑效果',
-        '多模板一键切换',
-        '数据可视化统计分析'
+       "title": "有机蔬菜管理系统",
+    "cover": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop",
+    "techStack": ["Spring Boot", "Vue 2", "Element UI", "MyBatis-Plus", "MySQL"],
+    "github": "https://github.com/yanmo18/vegetable-system",
+    "features": [
+      "基于 RuoYi-Vue 框架二次开发，快速构建企业级后台",
+      "完整的 RBAC 权限体系，支持用户、角色、菜单精细化管理",
+      "覆盖生鲜行业订购、库存、订单全流程业务",
+      "前后端分离架构，支持单机与集群部署"
       ],
       screenshots: []
     },
     {
       _id: 'proj_2',
-      title: '电商后台监控系统',
-      cover: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
-      techStack: ['React', 'ECharts', 'Python', 'FastAPI'],
-      github: 'https://github.com/zhangyalanzyl/ecommerce-dashboard',
-      features: [
-        '实时订单数据追踪',
-        '多维度销售报表',
-        '库存预警自动化',
-        '用户行为热力图'
+      "title": "建筑工程可视化管理平台",
+    "cover": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
+    "techStack": ["Vue 3", "TypeScript", "ECharts-GL", "Ant Design Vue", "Pinia"],
+    "github": "https://github.com/yanmo18/structure-system",
+    "features": [
+      "ECharts-GL 实现 3D 地球可视化，展示全球项目分布",
+      "多维度数据看板：进度、成本、质量、环境实时监控",
+      "图表联动响应，支持筛选条件动态刷新数据",
+      "TypeScript 类型校验 + Pinia 状态管理，提升代码健壮性"
       ],
       screenshots: []
     },
     {
       _id: 'proj_3',
-      title: '个人博客系统',
-      cover: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&h=300&fit=crop',
-      techStack: ['Vue3', 'Vite', 'Markdown', 'GitHub Pages'],
-      github: 'https://github.com/zhangyalanzyl/blog',
-      features: [
-        'Markdown 实时编辑',
-        '代码高亮语法支持',
-        '评论系统集成',
-        'SEO 优化配置'
+       "title": "个人简历网站后端服务",
+    "cover": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    "techStack": ["Express", "Prisma ORM", "JWT", "MySQL"],
+    "github": "https://github.com/yanmo18/my-portfolio-backend",
+    "features": [
+      "Prisma ORM 实现类型安全，自动防止 SQL 注入",
+      "JWT 无状态认证，Token 7 天过期支持自动刷新",
+      "bcryptjs 密码加密存储，保障用户数据安全",
+      "RESTful API 设计，覆盖简历、作品、奖项 CRUD"
       ],
       screenshots: []
     },
     {
       _id: 'proj_4',
-      title: '在线协作白板',
-      cover: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop',
-      techStack: ['React', 'Socket.io', 'Canvas', 'Express'],
-      github: 'https://github.com/zhangyalanzyl/collab-whiteboard',
-      features: [
-        '多人实时同步绘制',
-        '多种画笔工具',
-        '历史版本回溯',
-        '实时语音讨论'
+      "title": "个人简历网站前端",
+    "cover": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+    "techStack": ["Vue 3", "Tailwind CSS", "Vue Router", "Axios"],
+    "github": "https://github.com/yanmo18/my-portfolio",
+    "features": [
+      "Vue 3 Composition API 组合式开发，代码结构清晰",
+      "Tailwind CSS 原子化样式，快速构建响应式布局",
+      "集成 AI 面试助手功能，提供个性化面试指导",
+      "国际化支持（vue-i18n），可切换中英文展示"
       ],
       screenshots: []
     },
     {
       _id: 'proj_5',
-      title: '移动端记账 App',
-      cover: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop',
-      techStack: ['React Native', 'Expo', 'Firebase', 'Charts'],
-      github: 'https://github.com/zhangyalanzyl/expense-tracker',
-      features: [
-        '语音快速记账',
+      "title": "移动端记账 App",
+      "cover": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop",
+      "techStack": ["React Native", "Expo", "Firebase", "Charts"],
+      "github": "https://github.com/zhangyalanzyl/expense-tracker",
+      "features": [
+        "语音快速记账",
         '智能账单分类',
         '预算提醒推送',
         '数据导出分享'
       ],
       screenshots: []
     },
-    {
-      _id: 'proj_6',
-      title: '自动化测试平台',
-      cover: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop',
-      techStack: ['Python', 'Selenium', 'Pytest', 'Docker'],
-      github: 'https://github.com/zhangyalanzyl/test-platform',
-      features: [
-        '可视化测试用例编排',
-        '定时自动执行',
-        '失败自动重试机制',
-        '测试报告自动生成'
-      ],
-      screenshots: []
-    }
+   
   ],
   awards: [
     {
-      _id: 'award_1',
-      title: '第十一届「中国软件杯」大学生软件设计大赛',
-      level: '国家级二等奖'
+      "_id": "award_1",
+      "title": "第十一届全国大学生数字媒体科技作品及创意竞赛",
+      "level": "国家级三等奖",
+      "category": "数字媒体"
+    },
+     {
+      "_id": "award_2",
+      "title": "第十一届全国大学生数字媒体科技作品及创意竞赛",
+      "level": "省级二等奖",
+      "category": "数字媒体"
     },
     {
-      _id: 'award_2',
-      title: '蓝桥杯全国软件和信息技术专业人才大赛',
-      level: '省级二等奖'
+      "_id": "award_3",
+      "title": "英语四级",
+      "level": "国家级",
+      "category": "语言能力"
     },
     {
-      _id: 'award_3',
-      title: '「畅想杯」智慧中国无人车专项赛',
-      level: '校级二等奖'
+      "_id": "award_4",
+      "title": "计算机二级 MS Office",
+      "level": "国家级",
+      "category": "专业技能"
     },
     {
-      _id: 'award_4',
-      title: '「挑战杯」中国大学生创业计划竞赛',
-      level: '校级铜奖'
+      "_id": "award_5",
+      "title": "计算机三级数据库",
+      "level": "国家级",
+      "category": "专业技能"
     },
     {
-      _id: 'award_5',
-      title: '大学生创新创业训练计划项目',
-      level: '国家级立项'
+      "_id": "award_6",
+      "title": "普通话二级甲等",
+      "level": "国家级",
+      "category": "语言能力"
+    },
+    {
+      "_id": "award_7",
+      "title": "驾驶证",
+      "level": "国家级",
+      "category": "技能能力"
     }
   ],
   experience: [
