@@ -40,7 +40,7 @@ const defaultData = {
     {
       _id: 'proj_1',
        "title": "有机蔬菜管理系统",
-    "cover": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop",
+    "cover": "/01.png",
     "techStack": ["Spring Boot", "Vue 2", "Element UI", "MyBatis-Plus", "MySQL"],
     "github": "https://github.com/yanmo18/vegetable-system",
     "features": [
@@ -54,7 +54,7 @@ const defaultData = {
     {
       _id: 'proj_2',
       "title": "建筑工程可视化管理平台",
-    "cover": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
+    "cover": "/03.png",
     "techStack": ["Vue 3", "TypeScript", "ECharts-GL", "Ant Design Vue", "Pinia"],
     "github": "https://github.com/yanmo18/structure-system",
     "features": [
@@ -68,7 +68,7 @@ const defaultData = {
     {
       _id: 'proj_3',
        "title": "个人简历网站后端服务",
-    "cover": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+    "cover": "/show (15).png",
     "techStack": ["Express", "Prisma ORM", "JWT", "MySQL"],
     "github": "https://github.com/yanmo18/my-portfolio-backend",
     "features": [
@@ -82,7 +82,7 @@ const defaultData = {
     {
       _id: 'proj_4',
       "title": "个人简历网站前端",
-    "cover": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+    "cover": "/show (1).png",
     "techStack": ["Vue 3", "Tailwind CSS", "Vue Router", "Axios"],
     "github": "https://github.com/yanmo18/my-portfolio",
     "features": [
