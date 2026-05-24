@@ -13,7 +13,7 @@ const defaultData = {
     education: '本科在读',
     politicalStatus: '团员',
     birthDate: '2004.11.13',
-    bio: '热爱前端技术，正在探索全栈开发领域。喜欢将创意转化为可交互的数字产品，对用户体验和界面设计有敏锐的感知。熟练运用 HTML/CSS/JavaScript 与 Vue 框架，可独立完成响应式页面搭建、组件化开发与交互逻辑实现；熟悉若依框架，具备基础的前后端协同开发能力。擅长借助 AI 工具辅助需求梳理、代码编写与项目优化，能高效推进从原型到部署的完整开发流程。在校期间参与实训项目与多个个人作品开发，兼具扎实的技术基础与快速学习能力。我的个人简历网站，前端用 Vue 3 搭建页面、Tailwind CSS 快速实现响应式样式，后端通过 Express 接口与 Prisma + MySQL 实现数据管理，完成了个人信息、项目与奖项的增删改查功能，实现了从数据存储到前端展示的完整流程。',
+    bio: '    热爱前端技术，正在探索全栈开发领域。喜欢将创意转化为可交互的数字产品。\n    熟练运用 HTML/CSS/JavaScript 与 Vue 框架，可独立完成响应式页面搭建、组件化开发与交互逻辑实现；熟悉若依框架，具备基础的前后端协同开发能力。擅长借助 AI 工具辅助需求梳理、代码编写与项目优化，能高效推进从原型到部署的完整开发流程。在校期间参与实训项目与多个个人作品开发，兼具扎实的技术基础与快速学习能力。\n    我的个人简历网站，前端用 Vue 3 搭建页面、Tailwind CSS 快速实现响应式样式，后端通过 Express 接口与 Prisma + MySQL 实现数据管理，完成了个人信息、项目与奖项的增删改查功能，实现了从数据存储到前端展示的完整流程。',
     tags: ['前端开发者', '全栈探索', '测试工程师'],
     contact: {
       wechat: 'Seren450',
@@ -40,7 +40,7 @@ const defaultData = {
     {
       _id: 'proj_1',
        "title": "有机蔬菜管理系统",
-    "cover": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop",
+    "cover": "public/01.png",
     "techStack": ["Spring Boot", "Vue 2", "Element UI", "MyBatis-Plus", "MySQL"],
     "github": "https://github.com/yanmo18/vegetable-system",
     "features": [
@@ -54,7 +54,7 @@ const defaultData = {
     {
       _id: 'proj_2',
       "title": "建筑工程可视化管理平台",
-    "cover": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
+    "cover": "public/03.png",
     "techStack": ["Vue 3", "TypeScript", "ECharts-GL", "Ant Design Vue", "Pinia"],
     "github": "https://github.com/yanmo18/structure-system",
     "features": [
@@ -68,7 +68,7 @@ const defaultData = {
     {
       _id: 'proj_3',
        "title": "个人简历网站后端服务",
-    "cover": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    "cover": "public/show (15).png",
     "techStack": ["Express", "Prisma ORM", "JWT", "MySQL"],
     "github": "https://github.com/yanmo18/my-portfolio-backend",
     "features": [
@@ -82,7 +82,7 @@ const defaultData = {
     {
       _id: 'proj_4',
       "title": "个人简历网站前端",
-    "cover": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+    "cover": "public/show (1).png",
     "techStack": ["Vue 3", "Tailwind CSS", "Vue Router", "Axios"],
     "github": "https://github.com/yanmo18/my-portfolio",
     "features": [
@@ -156,24 +156,24 @@ const defaultData = {
   experience: [
     {
       _id: 'exp_1',
-      period: '2023.09 - 2024.06',
-      organization: '计算机学院学生会',
-      role: '前端开发负责人',
-      description: '负责学院官网及活动页面的前端开发，主导完成了迎新系统、毕业季专题等多个项目。'
+      period: '2025.03 - 至今',
+      organization: '学工部',
+      role: '副部',
+      description: '协助老师处理学生事务，负责迎新季新生信息核对与录入工作，确保 200+ 新生数据准确无误。'
     },
     {
       _id: 'exp_2',
-      period: '2023.06 - 2023.08',
-      organization: '极客工作室',
-      role: '前端开发实习生',
-      description: '参与企业内部管理系统开发，负责数据可视化模块及用户交互优化。'
+      period: '2024.03 - 2024.12',
+      organization: '校心理健康节活动组	',
+      role: '志愿者',
+      description: '参与校园心理健康节活动，负责物资管理及分发，服务 100+ 参与学生，保障活动顺利开展。'
     },
     {
       _id: 'exp_3',
-      period: '2022.09 - 2023.06',
-      organization: 'Web 应用开发课程组',
-      role: '课程助教',
-      description: '协助老师完成实验课教学，指导同学们完成 Vue/React 项目实战。'
+      period: '2023.09 - 2024.06',
+      organization: '校学生会外联部',
+      role: '外联干事',
+      description: '参与校级学生组织联络工作，多次参与跨院系联席会议，锻炼沟通协作能力。'
     }
   ],
   resume: null
