@@ -278,13 +278,23 @@
               <div class="flex-1">
                 <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
               </div>
-              <!-- 右侧图片 -->
-              <div class="flex-1 flex justify-center">
+              <!-- 右侧图片 + Hire Me 按钮 -->
+              <div class="flex-1 flex justify-center relative">
                 <img 
                   src="/电脑.png" 
                   alt="前端开发" 
                   class="w-full max-w-md rounded-xl shadow-lg object-contain"
                 >
+                <!-- Hire Me 按钮 -->
+                <button 
+                  @click="scrollTo('contact')"
+                  class="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-medium text-sm md:text-base shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transition-all flex items-center gap-2"
+                >
+                  <span>Hire Me</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
