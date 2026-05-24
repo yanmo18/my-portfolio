@@ -40,7 +40,7 @@ const defaultData = {
     {
       _id: 'proj_1',
        "title": "有机蔬菜管理系统",
-    "cover": "public/01.png",
+    "cover": "/01.png",
     "techStack": ["Spring Boot", "Vue 2", "Element UI", "MyBatis-Plus", "MySQL"],
     "github": "https://github.com/yanmo18/vegetable-system",
     "features": [
@@ -54,7 +54,7 @@ const defaultData = {
     {
       _id: 'proj_2',
       "title": "建筑工程可视化管理平台",
-    "cover": "public/03.png",
+    "cover": "/03.png",
     "techStack": ["Vue 3", "TypeScript", "ECharts-GL", "Ant Design Vue", "Pinia"],
     "github": "https://github.com/yanmo18/structure-system",
     "features": [
