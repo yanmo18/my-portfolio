@@ -297,7 +297,7 @@
                 <img 
                   :src="'/dev-illustration.png'" 
                   alt="前端开发" 
-                  class="w-full max-w-sm rounded-xl shadow-lg object-contain"
+                  class="w-full max-w-md rounded-lg object-contain"
                 >
               </div>
             </div>
