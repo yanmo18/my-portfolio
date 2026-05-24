@@ -265,7 +265,7 @@
 
     <!-- 中间主内容区 -->
     <main class="md:ml-[420px] md:mr-24 pt-16 md:pt-0">
-      <div class="p-4 md:p-8 space-y-6 md:space-y-8">
+      <div class="p-4 md:p-8 space-y-3 md:space-y-4">
 
         <!-- 关于我 - 淡入上移，左右布局 -->
         <section id="about" ref="aboutRef" class="scroll-mt-10 transition-all duration-700"
