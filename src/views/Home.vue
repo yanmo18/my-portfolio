@@ -267,13 +267,26 @@
     <main class="md:ml-[420px] md:mr-24 pt-16 md:pt-0">
       <div class="p-4 md:p-8 space-y-6 md:space-y-8">
 
-        <!-- 关于我 - 淡入上移 -->
+        <!-- 关于我 - 淡入上移，左右布局 -->
         <section id="about" ref="aboutRef" class="scroll-mt-10 transition-all duration-700"
           :class="aboutVisible ? 'animate-fadeInUp' : 'opacity-0 translate-y-8'">
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
+            <div class="flex flex-col lg:flex-row gap-8 items-center">
+              <!-- 左侧文字 -->
+              <div class="flex-1">
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
+              </div>
+              <!-- 右侧图片 -->
+              <div class="flex-1 flex justify-center">
+                <img 
+                  src="/电脑.png" 
+                  alt="前端开发" 
+                  class="w-full max-w-md rounded-xl shadow-lg object-contain"
+                >
+              </div>
+            </div>
           </div>
         </section>
 
