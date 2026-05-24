@@ -278,7 +278,7 @@
               <!-- 左侧文字 + Hire Me 按钮 -->
               <div class="flex-1 flex flex-col justify-between">
                 <!-- 介绍文字 -->
-                <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed whitespace-pre-wrap">{{ profile.bio }}</p>
                 <!-- Hire Me 按钮 -->
                 <div class="mt-4 self-start">
                   <button 
