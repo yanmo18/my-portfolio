@@ -273,28 +273,33 @@
           <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
             <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div class="flex flex-col lg:flex-row gap-8 items-center">
-              <!-- 左侧文字 -->
-              <div class="flex-1">
-                <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
+            <!-- 左右布局 -->
+            <div class="flex flex-col lg:flex-row gap-8">
+              <!-- 左侧文字 + Hire Me 按钮 -->
+              <div class="flex-1 flex flex-col justify-between">
+                <!-- 介绍文字 -->
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-6">{{ profile.bio }}</p>
+                <!-- Hire Me 按钮 - 放在左下角 -->
+                <div class="self-start">
+                  <button 
+                    @click="scrollTo('contact')"
+                    class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-full font-medium text-sm md:text-base shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transition-all flex items-center gap-2"
+                  >
+                    <span>Hire Me</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <!-- 右侧图片 + Hire Me 按钮 -->
-              <div class="flex-1 flex justify-center relative">
+              <!-- 右侧图片 -->
+              <div class="flex-1 flex justify-center lg:justify-end">
                 <img 
-                  src="/电脑.png" 
+                  :src="'/电脑.png'" 
                   alt="前端开发" 
-                  class="w-full max-w-md rounded-xl shadow-lg object-contain"
+                  class="w-full max-w-sm rounded-xl shadow-lg object-contain"
+                  @error="console.log('图片加载失败')"
                 >
-                <!-- Hire Me 按钮 -->
-                <button 
-                  @click="scrollTo('contact')"
-                  class="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-medium text-sm md:text-base shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transition-all flex items-center gap-2"
-                >
-                  <span>Hire Me</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </button>
               </div>
             </div>
           </div>

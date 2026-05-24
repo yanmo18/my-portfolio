@@ -8,6 +8,7 @@ export default defineConfig({
     vue(),
     tailwindcss(),
   ],
+  publicDir: 'public',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
