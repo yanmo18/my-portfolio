@@ -278,9 +278,9 @@
               <!-- 左侧文字 + Hire Me 按钮 -->
               <div class="flex-1 flex flex-col justify-between">
                 <!-- 介绍文字 -->
-                <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-6">{{ profile.bio }}</p>
-                <!-- Hire Me 按钮 - 放在左下角 -->
-                <div class="self-start">
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ profile.bio }}</p>
+                <!-- Hire Me 按钮 -->
+                <div class="mt-4 self-start">
                   <button 
                     @click="scrollTo('contact')"
                     class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-full font-medium text-sm md:text-base shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transition-all flex items-center gap-2"
@@ -293,7 +293,7 @@
                 </div>
               </div>
               <!-- 右侧图片 -->
-              <div class="flex-1 flex justify-center lg:justify-end">
+              <div class="flex-1 flex items-center lg:justify-end">
                 <img 
                   :src="'/dev-illustration.png'" 
                   alt="前端开发" 
