@@ -68,7 +68,7 @@ const defaultData = {
     {
       _id: 'proj_3',
        "title": "个人简历网站后端服务",
-    "cover": "public/show (15).png",
+    "cover": "/02.png",
     "techStack": ["Express", "Prisma ORM", "JWT", "MySQL"],
     "github": "https://github.com/yanmo18/my-portfolio-backend",
     "features": [
@@ -82,7 +82,7 @@ const defaultData = {
     {
       _id: 'proj_4',
       "title": "个人简历网站前端",
-    "cover": "public/show (1).png",
+    "cover": "/04.png",
     "techStack": ["Vue 3", "Tailwind CSS", "Vue Router", "Axios"],
     "github": "https://github.com/yanmo18/my-portfolio",
     "features": [
