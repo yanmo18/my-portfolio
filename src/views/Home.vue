@@ -295,10 +295,9 @@
               <!-- 右侧图片 -->
               <div class="flex-1 flex justify-center lg:justify-end">
                 <img 
-                  :src="'/电脑.png'" 
+                  :src="'/dev-illustration.png'" 
                   alt="前端开发" 
                   class="w-full max-w-sm rounded-xl shadow-lg object-contain"
-                  @error="console.log('图片加载失败')"
                 >
               </div>
             </div>
