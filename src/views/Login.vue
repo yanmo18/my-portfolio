@@ -1,13 +1,20 @@
 <template>
-  <div class="login-page">
+  <div class="login-page" ref="pageRef">
     <!-- 旋转线条背景 -->
-    <div class="rotating-rings">
-      <div class="ring ring-outer"></div>
-      <div class="ring ring-inner"></div>
+    <div class="rotating-rings" :style="ringsStyle">
+      <div class="ring ring-outer" :style="outerRingStyle"></div>
+      <div class="ring ring-middle" :style="middleRingStyle"></div>
+      <div class="ring ring-inner" :style="innerRingStyle"></div>
     </div>
 
     <!-- 登录卡片 -->
-    <div class="login-card">
+    <div 
+      class="login-card" 
+      :style="cardStyle"
+      @mouseenter="handleMouseEnter"
+      @mousemove="handleMouseMove"
+      @mouseleave="handleMouseLeave"
+    >
       <!-- 锁形图标 -->
       <div class="icon-wrapper">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,13 +64,133 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const username = ref('admin')
 const password = ref('')
 const error = ref('')
+
+// 鼠标位置
+const mouseX = ref(0)
+const mouseY = ref(0)
+const isHovering = ref(false)
+const pageRef = ref(null)
+
+// 卡片偏移
+const cardOffset = ref({ x: 0, y: 0 })
+
+// 渐变色角度（用于旋转变色）
+const hueAngle = ref(0)
+let hueAnimation = null
+
+// 渐变色计算
+const gradientStyle = computed(() => {
+  const baseAngle = hueAngle.value
+  const intensity = isHovering.value ? 1.5 : 1
+  return {
+    outerRing: `
+      linear-gradient(${baseAngle}deg, 
+        #e63946 0%, 
+        #ff6b6b 25%, 
+        #e63946 50%, 
+        #c1121f 75%, 
+        #e63946 100%)
+    `,
+    middleRing: `
+      linear-gradient(${baseAngle + 120}deg, 
+        #f4a261 0%, 
+        #ffd166 33%, 
+        #f4a261 66%, 
+        #e76f51 100%)
+    `,
+    innerRing: `
+      linear-gradient(${baseAngle + 240}deg, 
+        #e63946 0%, 
+        #ff9a9e 30%, 
+        #e63946 60%, 
+        #c1121f 100%)
+    `
+  }
+})
+
+// 鼠标跟随效果
+const handleMouseEnter = () => {
+  isHovering.value = true
+  // 开始颜色动画
+  if (!hueAnimation) {
+    const animate = () => {
+      hueAngle.value = (hueAngle.value + 1) % 360
+      hueAnimation = requestAnimationFrame(animate)
+    }
+    animate()
+  }
+}
+
+const handleMouseMove = (e) => {
+  if (!pageRef.value) return
+  
+  const rect = pageRef.value.getBoundingClientRect()
+  const centerX = rect.width / 2
+  const centerY = rect.height / 2
+  
+  mouseX.value = (e.clientX - rect.left - centerX) / centerX
+  mouseY.value = (e.clientY - rect.top - centerY) / centerY
+
+  // 卡片跟随偏移
+  const maxOffset = 15
+  cardOffset.value = {
+    x: mouseX.value * maxOffset,
+    y: mouseY.value * maxOffset
+  }
+}
+
+const handleMouseLeave = () => {
+  isHovering.value = false
+  cardOffset.value = { x: 0, y: 0 }
+  // 停止颜色动画
+  if (hueAnimation) {
+    cancelAnimationFrame(hueAnimation)
+    hueAnimation = null
+  }
+}
+
+// 卡片样式
+const cardStyle = computed(() => ({
+  transform: `translate(${cardOffset.value.x}px, ${cardOffset.value.y}px)`,
+  transition: isHovering.value ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out'
+}))
+
+// 外层圆环样式
+const outerRingStyle = computed(() => ({
+  width: '520px',
+  height: '520px',
+  background: gradientStyle.value.outerRing,
+  animation: isHovering.value ? 'rotate-outer 15s linear infinite' : 'rotate-outer 25s linear infinite'
+}))
+
+// 中层圆环样式
+const middleRingStyle = computed(() => ({
+  width: '460px',
+  height: '460px',
+  background: gradientStyle.value.middleRing,
+  animation: isHovering.value ? 'rotate-middle 20s linear infinite reverse' : 'rotate-middle 30s linear infinite reverse'
+}))
+
+// 内层圆环样式
+const innerRingStyle = computed(() => ({
+  width: '400px',
+  height: '400px',
+  background: gradientStyle.value.innerRing,
+  animation: isHovering.value ? 'rotate-inner 18s linear infinite' : 'rotate-inner 28s linear infinite'
+}))
+
+// 背景整体偏移
+const ringsStyle = computed(() => ({
+  transform: `translate(${cardOffset.value.x * 0.3}px, ${cardOffset.value.y * 0.3}px)`,
+  transition: 'transform 0.15s ease-out'
+}))
 
 const handleLogin = () => {
   error.value = ''
@@ -98,54 +225,65 @@ const handleLogin = () => {
 /* 旋转线条背景 */
 .rotating-rings {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.15s ease-out;
 }
 
 .ring {
   position: absolute;
-  border: 2px solid;
-  opacity: 0.6;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.3));
 }
 
-/* 外层 - 红色，45° 倾斜 */
+/* 外层 - 红色系 */
 .ring-outer {
-  width: 380px;
-  height: 380px;
-  border-color: #e63946;
-  transform: rotate(45deg);
-  animation: rotate-outer 25s linear infinite;
+  border: 3px solid;
+  background-clip: border-box;
 }
 
-/* 内层 - 橙色，-30° 倾斜，更慢 */
+/* 中层 - 橙色系 */
+.ring-middle {
+  border: 3px solid;
+  background-clip: border-box;
+}
+
+/* 内层 - 红色渐变 */
 .ring-inner {
-  width: 320px;
-  height: 320px;
-  border-color: #f4a261;
-  transform: rotate(-30deg);
-  animation: rotate-inner 35s linear infinite;
+  border: 3px solid;
+  background-clip: border-box;
 }
 
-/* 外层反向旋转 */
 @keyframes rotate-outer {
   from {
-    transform: rotate(45deg);
+    transform: rotate(0deg);
   }
   to {
-    transform: rotate(405deg);
+    transform: rotate(360deg);
   }
 }
 
-/* 内层正向旋转，更慢 */
-@keyframes rotate-inner {
+@keyframes rotate-middle {
   from {
-    transform: rotate(-30deg);
+    transform: rotate(0deg);
   }
   to {
-    transform: rotate(330deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-inner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -172,6 +310,7 @@ const handleLogin = () => {
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
 }
 
 .icon-wrapper svg {
@@ -239,16 +378,17 @@ const handleLogin = () => {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.1s;
   margin-bottom: 20px;
 }
 
 .login-btn:hover {
   background: linear-gradient(135deg, #c1121f, #a4131e);
+  transform: translateY(-1px);
 }
 
 .login-btn:active {
-  transform: none;
+  transform: translateY(0);
 }
 
 /* 返回链接 */
@@ -271,24 +411,29 @@ const handleLogin = () => {
 }
 
 /* 响应式 */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .login-card {
     padding: 30px 24px;
   }
 
   .rotating-rings {
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 400px;
   }
 
   .ring-outer {
-    width: 280px;
-    height: 280px;
+    width: 360px;
+    height: 360px;
+  }
+
+  .ring-middle {
+    width: 310px;
+    height: 310px;
   }
 
   .ring-inner {
-    width: 230px;
-    height: 230px;
+    width: 260px;
+    height: 260px;
   }
 }
 </style>
