@@ -91,6 +91,11 @@ export async function getProfile() {
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const profile = data.data || data
+    // 后端返回空数据时使用 mockData
+    if (!profile || !profile.name) {
+      console.log('后端数据为空，使用默认 Mock 数据')
+      return getData().profile
+    }
     setCache('profile', profile) // 缓存数据
     return profile
   } catch (error) {
@@ -138,6 +143,11 @@ export async function getProjects() {
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const projects = data.data || data || []
+    // 后端返回空数据时使用 mockData
+    if (!projects || projects.length === 0) {
+      console.log('后端数据为空，使用默认 Mock 数据')
+      return getData().projects
+    }
     setCache('projects', projects) // 缓存数据
     return projects
   } catch (error) {
@@ -145,7 +155,7 @@ export async function getProjects() {
     const cached = getFromCache('projects')
     if (cached) return cached
     useMock = true
-    return []
+    return getData().projects
   }
 }
 
@@ -240,6 +250,11 @@ export async function getAwards() {
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const awards = data.data || data || []
+    // 后端返回空数据时使用 mockData
+    if (!awards || awards.length === 0) {
+      console.log('后端数据为空，使用默认 Mock 数据')
+      return getData().awards
+    }
     setCache('awards', awards) // 缓存数据
     return awards
   } catch (error) {
@@ -247,7 +262,7 @@ export async function getAwards() {
     const cached = getFromCache('awards')
     if (cached) return cached
     useMock = true
-    return []
+    return getData().awards
   }
 }
 
@@ -342,6 +357,11 @@ export async function getExperience() {
     if (!res.ok) throw new Error('API error')
     const data = await res.json()
     const experience = data.data || data || []
+    // 后端返回空数据时使用 mockData
+    if (!experience || experience.length === 0) {
+      console.log('后端数据为空，使用默认 Mock 数据')
+      return getData().experience
+    }
     setCache('experience', experience) // 缓存数据
     return experience
   } catch (error) {
@@ -349,7 +369,7 @@ export async function getExperience() {
     const cached = getFromCache('experience')
     if (cached) return cached
     useMock = true
-    return []
+    return getData().experience
   }
 }
 
