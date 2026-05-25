@@ -205,9 +205,9 @@ onUnmounted(() => {
   inset: -3px;
   background: conic-gradient(
     from 0deg, 
-    #e63946, #f4a261, #e9c46a, #2a9d8f, #e63946
+    #e63946, #c1121f, #e63946
   );
-  animation: rotateBorder 4s linear infinite;
+  animation: rotateBorder 10s linear infinite;
   border-radius: 26px;
 }
 
@@ -215,7 +215,7 @@ onUnmounted(() => {
   content: '';
   position: absolute;
   inset: 3px;
-  background: white;
+  background: #FAF8F5;
   border-radius: 22px;
   z-index: 0;
 }
@@ -225,25 +225,28 @@ onUnmounted(() => {
   to { transform: rotate(360deg); }
 }
 
-/* 四角装饰 - 纯 CSS 渐变 */
+/* 四角装饰 - 镂空边框样式 */
 .corner {
   position: absolute;
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, #e63946, #f4a261);
+  width: 28px;
+  height: 28px;
+  border: 3px solid #e63946;
+  background: transparent;
   z-index: 10;
-  animation: cornerRotate 4s linear infinite;
+  animation: cornerColorShift 10s linear infinite;
 }
 
-@keyframes cornerRotate {
-  from { filter: hue-rotate(0deg); }
-  to { filter: hue-rotate(360deg); }
+@keyframes cornerColorShift {
+  0% { border-color: #e63946; }
+  33% { border-color: #c1121f; }
+  66% { border-color: #ff6b6b; }
+  100% { border-color: #e63946; }
 }
 
-.corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
-.corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
-.corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
-.corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
+.corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; border-radius: 10px 0 0 0; }
+.corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; border-radius: 0 10px 0 0; }
+.corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; border-radius: 0 0 0 10px; }
+.corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; border-radius: 0 0 10px 0; }
 
 /* 登录卡片 */
 .login-card {
