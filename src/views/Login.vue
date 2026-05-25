@@ -1,266 +1,294 @@
 <template>
-  <div 
-    class="min-h-screen bg-[#FAF8F5] relative overflow-hidden flex items-center justify-center"
-    @mousemove="handleMouseMove"
-    ref="containerRef"
-  >
-    <!-- 动态边框背景 -->
-    <div class="login-wrapper">
-      <div 
-        class="border-frame"
-        :style="{
-          transform: `translate(${mouseOffset.x * 0.02}px, ${mouseOffset.y * 0.02}px)`
-        }"
-      >
-      </div>
-      
-      <!-- 登录卡片 -->
-      <div 
-        class="login-card"
-        :style="{
-          transform: `translate(${mouseOffset.x * 0.01}px, ${mouseOffset.y * 0.01}px)`
-        }"
-      >
-        <div class="gradient-border">
-          <div class="card-content">
-            <!-- 标题 -->
-            <div class="text-center mb-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-red-400 to-red-600 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h1 class="text-2xl font-bold text-gray-800" style="font-family: 'Georgia', serif;">管理后台</h1>
-              <p class="text-gray-500 text-sm mt-2">请输入管理员凭证登录</p>
-            </div>
-
-            <!-- 登录表单 -->
-            <form @submit.prevent="handleLogin" class="space-y-5">
-              <!-- 用户名 -->
-              <div class="relative">
-                <input
-                  v-model="form.username"
-                  type="text"
-                  placeholder="用户名"
-                  class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all"
-                />
-              </div>
-
-              <!-- 密码 -->
-              <div class="relative">
-                <input
-                  v-model="form.password"
-                  :type="showPassword ? 'text' : 'password'"
-                  placeholder="密码"
-                  class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all pr-12"
-                />
-                <button
-                  type="button"
-                  @click="showPassword = !showPassword"
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                  </svg>
-                </button>
-              </div>
-
-              <!-- 错误提示 -->
-              <p v-if="error" class="text-red-500 text-sm text-center">{{ error }}</p>
-
-              <!-- 登录按钮 -->
-              <button
-                type="submit"
-                :disabled="loading"
-                class="w-full py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-medium rounded-lg hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span v-if="loading" class="flex items-center justify-center gap-2">
-                  <svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  登录中...
-                </span>
-                <span v-else>登 录</span>
-              </button>
-            </form>
-
-            <!-- 返回首页 -->
-            <div class="mt-6 text-center">
-              <router-link 
-                to="/" 
-                class="text-gray-500 hover:text-red-500 text-sm transition-colors flex items-center justify-center gap-1"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                返回首页
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="login-page">
+    <!-- 旋转线条背景 -->
+    <div class="rotating-rings">
+      <div class="ring ring-outer"></div>
+      <div class="ring ring-inner"></div>
     </div>
 
-    <!-- 背景装饰 -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="absolute diamond-float-1 w-3 h-3 bg-red-400/20 rotate-45" style="top: 10%; left: 5%;"></div>
-      <div class="absolute diamond-float-2 w-2 h-2 bg-red-500/30 rotate-45" style="top: 20%; right: 10%;"></div>
-      <div class="absolute diamond-float-3 w-4 h-4 bg-red-400/15 rotate-45" style="top: 60%; left: 8%;"></div>
-      <div class="absolute diamond-float-1 w-2 h-2 bg-red-500/25 rotate-45" style="top: 80%; right: 5%;"></div>
+    <!-- 登录卡片 -->
+    <div class="login-card">
+      <!-- 锁形图标 -->
+      <div class="icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="11" width="14" height="10" rx="2" stroke="white" stroke-width="2"/>
+          <path d="M8 11V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V11" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="16" r="1.5" fill="white"/>
+        </svg>
+      </div>
+
+      <!-- 标题 -->
+      <h2 class="title">管理后台</h2>
+      <p class="subtitle">请输入管理员凭证登录</p>
+
+      <!-- 输入框 -->
+      <form @submit.prevent="handleLogin">
+        <div class="input-group">
+          <input
+            v-model="username"
+            type="text"
+            placeholder="用户名"
+            class="input"
+          />
+        </div>
+        <div class="input-group">
+          <input
+            v-model="password"
+            type="password"
+            placeholder="密码"
+            class="input"
+          />
+        </div>
+
+        <!-- 错误提示 -->
+        <p v-if="error" class="error">{{ error }}</p>
+
+        <!-- 登录按钮 -->
+        <button type="submit" class="login-btn">登录</button>
+      </form>
+
+      <!-- 返回首页 -->
+      <router-link to="/" class="back-link">
+        <span class="back-arrow">←</span>
+        返回首页
+      </router-link>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
-const form = reactive({
-  username: '',
-  password: ''
-})
-
-const showPassword = ref(false)
-const loading = ref(false)
+const username = ref('admin')
+const password = ref('')
 const error = ref('')
-const mouseOffset = ref({ x: 0, y: 0 })
-const containerRef = ref(null)
 
-// 管理员凭证（简单硬编码，实际可用环境变量）
-const ADMIN_CREDENTIALS = {
-  username: 'admin',
-  password: 'Fernoa@2024'
-}
-
-let animationFrame = null
-
-const handleMouseMove = (e) => {
-  if (containerRef.value) {
-    const rect = containerRef.value.getBoundingClientRect()
-    mouseOffset.value = {
-      x: e.clientX - rect.left - rect.width / 2,
-      y: e.clientY - rect.top - rect.height / 2
-    }
-  }
-}
-
-const handleLogin = async () => {
+const handleLogin = () => {
   error.value = ''
   
-  if (!form.username || !form.password) {
-    error.value = '请输入用户名和密码'
+  if (username.value !== 'admin') {
+    error.value = '用户名不正确'
+    return
+  }
+  
+  if (password.value !== 'Fernoa@2024') {
+    error.value = '密码不正确'
     return
   }
 
-  loading.value = true
-
-  // 模拟登录请求
-  await new Promise(resolve => setTimeout(resolve, 800))
-
-  if (form.username === ADMIN_CREDENTIALS.username && form.password === ADMIN_CREDENTIALS.password) {
-    localStorage.setItem('admin_token', 'authenticated')
-    router.push('/admin')
-  } else {
-    error.value = '用户名或密码错误'
-  }
-
-  loading.value = false
+  localStorage.setItem('isAuthenticated', 'true')
+  router.push('/admin')
 }
-
-onUnmounted(() => {
-  if (animationFrame) cancelAnimationFrame(animationFrame)
-})
 </script>
 
 <style scoped>
-.login-wrapper {
-  position: relative;
-  width: 420px;
+.login-page {
+  min-height: 100vh;
+  background-color: #faf7f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* 动态边框框架 */
-.border-frame {
+/* 旋转线条背景 */
+.rotating-rings {
   position: absolute;
-  inset: 0;
-  overflow: visible;
-  border-radius: 24px;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 外边框 - 镂空线条样式 */
-.border-frame::before {
-  content: '';
+.ring {
   position: absolute;
-  inset: 0;
-  border: 3px solid transparent;
-  border-radius: 20px;
-  background: linear-gradient(white, white) padding-box,
-              conic-gradient(
-                from 0deg, 
-                #e63946, #f4a261, #e63946
-              ) border-box;
-  animation: rotateBorder 8s linear infinite;
+  border: 2px solid;
+  opacity: 0.6;
 }
 
-.border-frame::after {
-  display: none;
+/* 外层 - 红色，45° 倾斜 */
+.ring-outer {
+  width: 380px;
+  height: 380px;
+  border-color: #e63946;
+  transform: rotate(45deg);
+  animation: rotate-outer 25s linear infinite;
 }
 
-@keyframes rotateBorder {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* 内层 - 橙色，-30° 倾斜，更慢 */
+.ring-inner {
+  width: 320px;
+  height: 320px;
+  border-color: #f4a261;
+  transform: rotate(-30deg);
+  animation: rotate-inner 35s linear infinite;
+}
+
+/* 外层反向旋转 */
+@keyframes rotate-outer {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+/* 内层正向旋转，更慢 */
+@keyframes rotate-inner {
+  from {
+    transform: rotate(-30deg);
+  }
+  to {
+    transform: rotate(330deg);
+  }
 }
 
 /* 登录卡片 */
 .login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 1;
-  transition: transform 0.15s ease-out;
+  text-align: center;
 }
 
-.gradient-border {
-  background: white;
-  border-radius: 20px;
-  padding: 2px;
-  box-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15), 
-              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+/* 锁形图标 */
+.icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
 }
 
-.card-content {
-  background: white;
-  border-radius: 18px;
-  padding: 40px;
+.icon-wrapper svg {
+  width: 32px;
+  height: 32px;
 }
 
-/* 输入框焦点效果 */
-input:focus {
+/* 标题 */
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 30px;
+}
+
+/* 输入框 */
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #e63946;
   box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
 }
 
-/* 背景菱形动画 */
-.diamond-float-1 { animation: float1 6s ease-in-out infinite; }
-.diamond-float-2 { animation: float2 8s ease-in-out infinite; }
-.diamond-float-3 { animation: float3 7s ease-in-out infinite; }
-
-@keyframes float1 {
-  0%, 100% { transform: translateY(0) rotate(45deg); }
-  50% { transform: translateY(-20px) rotate(45deg); }
+/* 错误提示 */
+.error {
+  color: #e63946;
+  font-size: 13px;
+  margin: 0 0 16px;
+  text-align: left;
 }
 
-@keyframes float2 {
-  0%, 100% { transform: translateY(0) rotate(45deg); }
-  50% { transform: translateY(-15px) rotate(45deg); }
+/* 登录按钮 */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 20px;
 }
 
-@keyframes float3 {
-  0%, 100% { transform: translateY(0) rotate(45deg); }
-  50% { transform: translateY(-25px) rotate(45deg); }
+.login-btn:hover {
+  background: linear-gradient(135deg, #c1121f, #a4131e);
+}
+
+.login-btn:active {
+  transform: none;
+}
+
+/* 返回链接 */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #e63946;
+}
+
+.back-arrow {
+  font-size: 16px;
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 24px;
+  }
+
+  .rotating-rings {
+    width: 350px;
+    height: 350px;
+  }
+
+  .ring-outer {
+    width: 280px;
+    height: 280px;
+  }
+
+  .ring-inner {
+    width: 230px;
+    height: 230px;
+  }
 }
 </style>
