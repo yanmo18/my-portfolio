@@ -4,6 +4,7 @@
     @mousemove="handleMouseMove"
     ref="containerRef"
   >
+  <!-- 最外层 容器，@mousemove 监听鼠标移动事件,ref绑定一个引用，方便获取元素信息 -->
     <!-- 动态边框背景 -->
     <div class="login-wrapper">
       <div 
@@ -204,9 +205,9 @@ onUnmounted(() => {
 .border-frame::before {
   content: '';
   position: absolute;
-  width: 440px;
-  height: 540px;
-  border: 4px solid transparent;
+  width: 450px;
+  height: 550px;
+  border: 3px solid transparent;
   border-top-color: #e63946;
   border-right-color: #e63946;
   border-bottom-color: #c1121f;
@@ -220,16 +221,16 @@ onUnmounted(() => {
 .border-frame::after {
   content: '';
   position: absolute;
-  width: 400px;
-  height: 500px;
-  border: 4px solid transparent;
-  border-top-color: #f4a261;
-  border-right-color: #f4a261;
-  border-bottom-color: #e76f51;
-  border-left-color: #e76f51;
+  width: 380px;
+  height: 490px;
+  border: 3px solid transparent;
+  border-top-color: #61d4f4;
+  border-right-color: #61d9f4;
+  border-bottom-color: #5192e7;
+  border-left-color: #5179e7;
   border-radius: 16px;
   animation: rotateInner 15s linear infinite reverse;
-  filter: drop-shadow(0 0 8px rgba(244, 162, 97, 0.4));
+  filter: drop-shadow(0 0 8px rgba(166, 97, 244, 0.4));
 }
 
 @keyframes rotateOuter {
