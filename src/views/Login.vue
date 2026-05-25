@@ -9,7 +9,7 @@
       <div 
         class="border-frame"
         :style="{
-          transform: `translate(${mouseOffset.x * 0.02}px, ${mouseOffset.y * 0.02}px) rotate(${rotation}deg)`
+          transform: `translate(${mouseOffset.x * 0.02}px, ${mouseOffset.y * 0.02}px)`
         }"
       >
         <div class="corner tl"></div>
@@ -135,7 +135,6 @@ const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
 const mouseOffset = ref({ x: 0, y: 0 })
-const rotation = ref(0)
 const containerRef = ref(null)
 
 // 管理员凭证（简单硬编码，实际可用环境变量）
@@ -145,7 +144,6 @@ const ADMIN_CREDENTIALS = {
 }
 
 let animationFrame = null
-let rotationInterval = null
 
 const handleMouseMove = (e) => {
   if (containerRef.value) {
@@ -180,19 +178,7 @@ const handleLogin = async () => {
   loading.value = false
 }
 
-// 渐变旋转动画
-const startRotation = () => {
-  rotationInterval = setInterval(() => {
-    rotation.value = (rotation.value + 1) % 360
-  }, 50)
-}
-
-onMounted(() => {
-  startRotation()
-})
-
 onUnmounted(() => {
-  if (rotationInterval) clearInterval(rotationInterval)
   if (animationFrame) cancelAnimationFrame(animationFrame)
 })
 </script>
@@ -208,26 +194,30 @@ onUnmounted(() => {
 .border-frame {
   position: absolute;
   inset: 0;
-  transition: transform 0.1s ease-out;
+  overflow: hidden;
+  border-radius: 24px;
 }
 
 .border-frame::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border: 2px solid transparent;
-  border-radius: 24px;
-  background: linear-gradient(var(--angle, 0deg), #e63946, #f4a261, #e63946, #f4a261, #e63946) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: rotateGradient 4s linear infinite;
+  inset: -3px;
+  background: conic-gradient(from 0deg, #e63946, #f4a261, #e63946, #f4a261, #e63946);
+  animation: rotateBorder 3s linear infinite;
 }
 
-@keyframes rotateGradient {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+.border-frame::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: white;
+  border-radius: 22px;
+  z-index: 0;
+}
+
+@keyframes rotateBorder {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* 四角装饰 */
