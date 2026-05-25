@@ -220,8 +220,8 @@
       <div class="w-full h-px bg-gray-200 my-2"></div>
 
       <!-- 设置按钮 -->
-      <router-link 
-        to="/admin"
+      <button 
+        @click="goToAdmin"
         class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-colors"
         title="管理后台"
       >
@@ -229,7 +229,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
-      </router-link>
+      </button>
 
       <!-- 语言切换 -->
       <button 
@@ -529,8 +529,10 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { getProfile, getProjects, getAwards, getExperience, getResume, initAPI } from '@/api'
 
+const router = useRouter()
 const { locale } = useI18n({ useScope: 'global' })
 const toggleLang = () => { locale.value = locale.value === 'zh' ? 'en' : 'zh' }
 
@@ -619,6 +621,15 @@ const navItems = [
   { id: 'awards', label: '获奖证书', icon: '🏆' },
   { id: 'contact', label: '联系方式', icon: '💬' }
 ]
+
+const goToAdmin = () => {
+  const isAuthenticated = localStorage.getItem('admin_token') === 'authenticated'
+  if (isAuthenticated) {
+    router.push('/admin')
+  } else {
+    router.push('/login')
+  }
+}
 
 const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })

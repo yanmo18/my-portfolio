@@ -7,10 +7,16 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
     path: '/admin',
     name: 'Admin',
     redirect: '/admin/projects',
     component: () => import('../views/admin/AdminLayout.vue'),
+    meta: { requiresAuth: true },
     children: [
       {
         path: 'projects',
@@ -44,6 +50,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('admin_token') === 'authenticated'
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else if (to.path === '/login' && isAuthenticated) {
+    next('/admin')
+  } else {
+    next()
+  }
 })
 
 export default router
