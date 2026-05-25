@@ -13,7 +13,7 @@
 
 **[👉 在线预览](https://my-portfolio-galxgagi.edgeone.cool/)** | **[👤 管理后台](https://my-portfolio-galxgagi.edgeone.cool/admin/projects)**
 
-![首页预览](assets/show%20(1).png)
+![首页预览](assets/01.png)
 
 ## ✨ 功能特点
 
@@ -26,20 +26,20 @@
 ### 📦 功能模块
 - **首页展示**
   - 左侧固定资料卡片（头像、技能、联系方式）
-  ![项目预览2](assets/资料卡.png)
+  ![项目预览2](assets/00.png)
   - 右侧内容区域（关于我、获奖证书、项目展示、校园经历、联系方式）
   - 右侧悬浮电梯导航 + 语言切换
 - **管理后台**
   - 个人信息管理
-  ![项目预览15](assets/show%20(8).png)
+  ![项目预览15](assets/02.png)
   - 项目管理（增删改查）
-![首页预览](assets/show.png)
+![首页预览](assets/06.png)
   - 奖项管理（增删改查）
-  ![项目预览15](assets/show%20(10).png)
+  ![项目预览15](assets/03.png)
   - 校园经历管理（增删改查）
-  ![项目预览15](assets/show%20(12).png)
+  ![项目预览15](assets/04.png)
   - 简历上传/下载
-![项目预览15](assets/show%20(15).png)
+![项目预览15](assets/05.png)
 ### 🔧 技术特性
 - ⚡ **Vite 构建** - 极快的开发服务器和热更新
 - 🎭 **Tailwind CSS** - 原子化 CSS，快速样式开发
