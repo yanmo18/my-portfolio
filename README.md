@@ -191,7 +191,7 @@ pnpm preview
 
 项目部署在 **腾讯云 EdgeOne Pages**，每次推送到 `main` 分支自动构建部署。
 
-**部署地址：** https://my-portfolio-md5p2rqvt3.edgeone.cool/
+**部署地址：** https://my-portfolio-galxgagi.edgeone.cool/
 
 ### 自动部署
 
