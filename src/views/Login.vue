@@ -187,40 +187,57 @@ onUnmounted(() => {
 .login-wrapper {
   position: relative;
   width: 420px;
+  height: 520px;
   padding: 20px;
 }
 
-/* 动态边框框架 */
+/* 双层镂空边框容器 */
 .border-frame {
   position: absolute;
   inset: 0;
-  overflow: visible;
-  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 外边框渐变动画 */
+/* 外层 - 红色边框 */
 .border-frame::before {
   content: '';
   position: absolute;
-  inset: -3px;
-  background: conic-gradient(
-    from 0deg, 
-    #e63946, #c1121f, #e63946
-  );
-  animation: rotateBorder 10s linear infinite;
-  border-radius: 26px;
+  width: 440px;
+  height: 540px;
+  border: 4px solid transparent;
+  border-top-color: #e63946;
+  border-right-color: #e63946;
+  border-bottom-color: #c1121f;
+  border-left-color: #c1121f;
+  border-radius: 20px;
+  animation: rotateOuter 20s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.4));
 }
 
+/* 内层 - 橙色边框 */
 .border-frame::after {
   content: '';
   position: absolute;
-  inset: 3px;
-  background: #FAF8F5;
-  border-radius: 22px;
-  z-index: 0;
+  width: 400px;
+  height: 500px;
+  border: 4px solid transparent;
+  border-top-color: #f4a261;
+  border-right-color: #f4a261;
+  border-bottom-color: #e76f51;
+  border-left-color: #e76f51;
+  border-radius: 16px;
+  animation: rotateInner 15s linear infinite reverse;
+  filter: drop-shadow(0 0 8px rgba(244, 162, 97, 0.4));
 }
 
-@keyframes rotateBorder {
+@keyframes rotateOuter {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateInner {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
