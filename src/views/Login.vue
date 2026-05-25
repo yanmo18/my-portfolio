@@ -12,10 +12,6 @@
           transform: `translate(${mouseOffset.x * 0.02}px, ${mouseOffset.y * 0.02}px)`
         }"
       >
-        <div class="corner tl"></div>
-        <div class="corner tr"></div>
-        <div class="corner bl"></div>
-        <div class="corner br"></div>
       </div>
       
       <!-- 登录卡片 -->
@@ -198,52 +194,29 @@ onUnmounted(() => {
   border-radius: 24px;
 }
 
-/* 外边框渐变动画 */
+/* 外边框 - 镂空线条样式 */
 .border-frame::before {
   content: '';
   position: absolute;
-  inset: -3px;
-  background: conic-gradient(
-    from 0deg, 
-    #e63946, #f4a261, #e9c46a, #2a9d8f, #e63946
-  );
-  animation: rotateBorder 4s linear infinite;
-  border-radius: 26px;
+  inset: 0;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(white, white) padding-box,
+              conic-gradient(
+                from 0deg, 
+                #e63946, #f4a261, #e63946
+              ) border-box;
+  animation: rotateBorder 8s linear infinite;
 }
 
 .border-frame::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  background: white;
-  border-radius: 22px;
-  z-index: 0;
+  display: none;
 }
 
 @keyframes rotateBorder {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
-/* 四角装饰 - 纯 CSS 渐变 */
-.corner {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, #e63946, #f4a261);
-  z-index: 10;
-  animation: cornerRotate 4s linear infinite;
-}
-
-@keyframes cornerRotate {
-  from { filter: hue-rotate(0deg); }
-  to { filter: hue-rotate(360deg); }
-}
-
-.corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
-.corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
-.corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
-.corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
 
 /* 登录卡片 */
 .login-card {
