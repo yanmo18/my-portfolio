@@ -18,7 +18,7 @@ const defaultData = {
     contact: {
       wechat: 'Seren450',
       email: 'yanqing@outlook.com',
-      github: 'github.com/zhangyalanzyl',
+      github: 'github.com/yanmo18',
       phone: '17377665272'
     },
     skills: [
