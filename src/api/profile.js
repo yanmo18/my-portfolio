@@ -15,14 +15,14 @@ export async function getProfile() {
     return {
       name: 'Fernoa',
       education: '本科在读',
-      politicalStatus: '群众',
+      politicalStatus: '团员',
       birthDate: '2004.11.13',
       bio: '热爱前端技术，正在探索全栈开发领域。喜欢将创意转化为可交互的数字产品，对用户体验和界面设计有敏锐的感知。',
       tags: ['前端开发者', '全栈探索', '测试工程师'],
       contact: {
-        wechat: 'zyl20041113',
-        email: 'zhangyalanzyl@outlook.com',
-        github: 'github.com/zhangyalanzyl'
+        wechat: 'Seren450',
+        email: 'yanqing548X@outlook.com',
+        github: 'https://github.com/yanmo18'
       },
       skills: [
         { name: 'Vue', level: 85 },

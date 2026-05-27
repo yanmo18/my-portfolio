@@ -3,7 +3,7 @@
  * 基于 fetch 的 HTTP 请求工具
  */
 
-const API_BASE = 'https://yfusw1tpgp.sealoshzh.site'
+const API_BASE = 'http://localhost:5000'
 
 /**
  * 通用请求方法
