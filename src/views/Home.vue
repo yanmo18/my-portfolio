@@ -288,25 +288,25 @@
 
     <!-- 中间主内容区 -->
     <main class="md:ml-[420px] md:mr-24 pt-16 md:pt-0">
-      <div class="p-4 md:p-8 space-y-3 md:space-y-4">
+      <div class="p-3 sm:p-4 md:p-8 space-y-2 sm:space-y-3 md:space-y-4">
 
         <!-- 关于我 - 淡入上移，左右布局 -->
         <section id="about" ref="aboutRef" class="scroll-mt-10 transition-all duration-700"
           :class="aboutVisible ? 'animate-fadeInUp' : 'opacity-0 translate-y-8'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
+          <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-lg sm:text-xl md:text-4xl font-bold text-gray-800 mb-1 sm:mb-2" style="font-family: 'Georgia', serif;">{{ $t('about.title') }}</h2>
+            <div class="w-8 sm:w-10 md:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-4 sm:mb-6 md:mb-8"></div>
             <!-- 左右布局 -->
-            <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex flex-col sm:flex-row lg:flex-row gap-3 sm:gap-4 lg:gap-8">
               <!-- 左侧文字 + Hire Me 按钮 -->
               <div class="flex-1 flex flex-col justify-between">
                 <!-- 介绍文字 -->
-                <p class="text-gray-600 text-sm md:text-base leading-relaxed whitespace-pre-wrap">{{ profile.bio }}</p>
+                <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed whitespace-pre-wrap">{{ profile.bio }}</p>
                 <!-- Hire Me 按钮 -->
-                <div class="mt-4 self-start">
+                <div class="mt-3 sm:mt-4 self-start">
                   <button 
                     @click="scrollTo('contact')"
-                    class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-full font-medium text-sm md:text-base shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transition-all flex items-center gap-2"
+                    class="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-xs sm:text-sm md:text-base shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transition-all flex items-center gap-2"
                   >
                     <span>Hire Me</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -316,11 +316,11 @@
                 </div>
               </div>
               <!-- 右侧图片 -->
-              <div class="flex-1 flex items-center lg:justify-end">
+              <div class="flex-1 flex items-center sm:justify-end">
                 <img 
                   :src="'/dev-illustration.png'" 
                   alt="前端开发" 
-                  class="w-full max-w-md rounded-lg object-contain"
+                  class="w-full sm:max-w-[200px] md:max-w-md rounded-lg object-contain"
                 >
               </div>
             </div>
@@ -330,10 +330,10 @@
         <!-- 项目展示 -->
         <section id="projects" ref="projectsRef" class="scroll-mt-10 transition-all duration-700"
           :class="projectsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.projects') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-lg sm:text-xl md:text-4xl font-bold text-gray-800 mb-1 sm:mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.projects') }}</h2>
+            <div class="w-8 sm:w-10 md:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-4 sm:mb-6 md:mb-8"></div>
+            <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               <div 
                 v-for="(project, index) in projects" :key="project._id"
                 @click="selectedProject = project"
@@ -342,7 +342,7 @@
                 :style="{ transitionDelay: `${index * 100}ms` }"
                 :class="getProjectVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
               >
-                <div class="h-32 md:h-40 bg-gray-100 overflow-hidden relative">
+                <div class="h-28 sm:h-32 md:h-40 bg-gray-100 overflow-hidden relative">
                   <img 
                     v-if="project.cover" 
                     loading="lazy"
@@ -350,11 +350,11 @@
                     :alt="project.title + '项目封面'"
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div v-else class="w-full h-full flex items-center justify-center text-red-200 text-3xl md:text-4xl font-bold">
+                  <div v-else class="w-full h-full flex items-center justify-center text-red-200 text-2xl sm:text-3xl md:text-4xl font-bold">
                     {{ project.title?.charAt(0) }}
                   </div>
                 </div>
-                <div class="p-3 md:p-5">
+                <div class="p-2 sm:p-3 md:p-5">
                   <h3 class="text-gray-800 font-bold text-sm md:text-base mb-2 group-hover:text-red-600 transition-colors">{{ project.title }}</h3>
                   <div class="flex flex-wrap gap-1">
                     <span 
@@ -372,21 +372,21 @@
         <!-- 校园经历 - 时间线划入 -->
         <section id="experience" ref="experienceRef" class="scroll-mt-10 transition-all duration-700"
           :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.experience') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div v-if="experience.length > 0" class="relative pl-6 md:pl-8">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-lg sm:text-xl md:text-4xl font-bold text-gray-800 mb-1 sm:mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.experience') }}</h2>
+            <div class="w-8 sm:w-10 md:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-4 sm:mb-6 md:mb-8"></div>
+            <div v-if="experience.length > 0" class="relative pl-5 sm:pl-6 md:pl-8">
               <div class="absolute left-0 top-2 bottom-2 w-0.5 bg-gradient-to-b from-red-400 to-red-600"></div>
-              <div class="space-y-4 md:space-y-6">
+              <div class="space-y-3 sm:space-y-4 md:space-y-6">
                 <div v-for="(exp, index) in experience" :key="exp._id" class="relative"
                   :ref="el => setExpRef(el, index)"
                   :class="getExpVisible(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'">
-                  <div class="absolute -left-6 md:-left-8 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 border-2 border-white -translate-x-[5px] transition-all duration-300 hover:scale-125"></div>
-                  <div class="rounded-xl p-4 md:p-6 border border-gray-200 transition-all duration-500 hover:shadow-md bg-gray-50 hover:bg-white">
-                    <span class="text-red-500 text-xs md:text-sm font-medium">{{ exp.period }}</span>
-                    <h3 class="text-gray-800 font-bold text-base md:text-lg mt-1">{{ exp.organization }}</h3>
-                    <p class="text-gray-600 text-xs md:text-sm">{{ exp.role }}</p>
-                    <p class="text-gray-400 text-xs md:text-sm mt-1">{{ exp.description }}</p>
+                  <div class="absolute -left-5 sm:-left-6 md:-left-8 top-1 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 border-2 border-white -translate-x-[5px] transition-all duration-300 hover:scale-125"></div>
+                  <div class="rounded-xl p-3 sm:p-4 md:p-6 border border-gray-200 transition-all duration-500 hover:shadow-md bg-gray-50 hover:bg-white">
+                    <span class="text-red-500 text-xs font-medium">{{ exp.period }}</span>
+                    <h3 class="text-gray-800 font-bold text-sm sm:text-base md:text-lg mt-1">{{ exp.organization }}</h3>
+                    <p class="text-gray-600 text-xs sm:text-sm">{{ exp.role }}</p>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1">{{ exp.description }}</p>
                   </div>
                 </div>
               </div>
@@ -398,20 +398,20 @@
         <!-- 获奖证书 -->
         <section id="awards" ref="awardsRef" class="scroll-mt-10 transition-all duration-700"
           :class="awardsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div v-if="awards.length > 0" class="space-y-3 md:space-y-4">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-lg sm:text-xl md:text-4xl font-bold text-gray-800 mb-1 sm:mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.awards') }}</h2>
+            <div class="w-8 sm:w-10 md:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-4 sm:mb-6 md:mb-8"></div>
+            <div v-if="awards.length > 0" class="space-y-2 sm:space-y-3 md:space-y-4">
               <div 
                 v-for="(award, index) in awards" :key="award._id"
                 :ref="el => setAwardRef(el, index)"
-                class="rounded-xl p-4 md:p-6 border border-gray-100 flex items-start gap-3 md:gap-4 pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
+                class="rounded-xl p-3 sm:p-4 md:p-6 border border-gray-100 flex items-start gap-2 sm:gap-3 md:gap-4 pl-3 sm:pl-4 md:pl-6 bg-gray-50 transition-all duration-500 hover:shadow-md hover:-translate-y-1 hover:bg-white group"
                 :style="{ transitionDelay: `${index * 150}ms` }"
                 :class="getAwardVisible(index) ? 'opacity-100 scale-100' : 'opacity-0 scale-75'"
               >
-                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
+                <div class="w-2.5 sm:w-3 h-2.5 sm:w-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 mt-0.5 sm:mt-1 shrink-0 group-hover:scale-110 transition-transform"></div>
                 <div>
-                  <h3 class="text-gray-800 font-bold text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
+                  <h3 class="text-gray-800 font-bold text-xs sm:text-sm md:text-base group-hover:text-red-600 transition-colors">{{ award.title }}</h3>
                   <p class="text-red-500 text-xs md:text-sm mt-1">{{ award.level }}</p>
                 </div>
               </div>
@@ -423,10 +423,10 @@
         <!-- 联系方式 -->
         <section id="contact" ref="contactRef" class="scroll-mt-10 transition-all duration-700"
           :class="contactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-          <div class="bg-white rounded-2xl p-6 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.contact') }}</h2>
-            <div class="w-12 md:w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-6 md:mb-8"></div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
+            <h2 class="text-lg sm:text-xl md:text-4xl font-bold text-gray-800 mb-1 sm:mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.contact') }}</h2>
+            <div class="w-8 sm:w-10 md:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-4 sm:mb-6 md:mb-8"></div>
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
               <!-- GitHub -->
               <a 
                 :href="'https://' + profile.contact?.github" 
