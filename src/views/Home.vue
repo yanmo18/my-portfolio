@@ -197,22 +197,22 @@
 
     <!-- 右侧固定导航栏 - 悬浮在背景上 -->
     <nav 
-      class="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center transition-all duration-300"
-      :class="navCollapsed ? 'right-0' : 'right-6'"
+      class="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center transition-all duration-300"
     >
-      <!-- 收起/展开按钮 -->
+      <!-- 收起/展开按钮 - 半圆在页面边缘 -->
       <button 
         @click="toggleNav"
-        class="w-8 h-16 rounded-l-lg bg-[#e63946] text-white flex items-center justify-center shadow-lg hover:bg-[#d62839] transition-colors"
+        class="w-6 h-12 rounded-l-full rounded-r-none bg-[#e63946] text-white flex items-center justify-center shadow-lg hover:bg-[#d62839] hover:scale-110 transition-all duration-200"
+        :class="navCollapsed ? 'right-0' : 'right-[calc(100%-1.5rem)]'"
         :title="navCollapsed ? '展开导航' : '收起导航'"
       >
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          class="w-4 h-4 transition-transform duration-300" 
-          :class="navCollapsed ? 'rotate-180' : ''"
+          class="w-3 h-3 transition-transform duration-300" 
+          :class="navCollapsed ? 'rotate-0' : 'rotate-180'"
           fill="none" viewBox="0 0 24 24" stroke="currentColor"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
       
