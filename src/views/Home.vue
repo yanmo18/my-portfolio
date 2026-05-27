@@ -196,61 +196,84 @@
     </aside>
 
     <!-- 右侧固定导航栏 - 悬浮在背景上 -->
-    <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1">
-      <!-- 垂直虚线 + 菱形标记 -->
-      <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0">
-        <div class="w-px h-full bg-gray-300 border-dashed"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e63946] rotate-45"></div>
-      </div>
+    <nav 
+      class="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center transition-all duration-300"
+      :class="navCollapsed ? 'right-0' : 'right-6'"
+    >
+      <!-- 收起/展开按钮 -->
+      <button 
+        @click="toggleNav"
+        class="w-8 h-16 rounded-l-lg bg-[#e63946] text-white flex items-center justify-center shadow-lg hover:bg-[#d62839] transition-colors"
+        :title="navCollapsed ? '展开导航' : '收起导航'"
+      >
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="w-4 h-4 transition-transform duration-300" 
+          :class="navCollapsed ? 'rotate-180' : ''"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
       
-      <!-- 导航图标 -->
-      <button 
-        v-for="(item, index) in navItems" :key="item.id"
-        @click="scrollTo(item.id)"
-        class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
-        :class="activeSection === item.id 
-          ? 'bg-[#e63946] text-white shadow-lg scale-110' 
-          : 'bg-white text-gray-500 hover:bg-[#e63946] hover:text-white shadow'"
-        :title="item.label"
+      <div class="flex flex-col items-center gap-1 mt-2 overflow-hidden transition-all duration-300"
+        :class="navCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'"
       >
-        <span class="text-lg">{{ item.icon }}</span>
-      </button>
+        <!-- 垂直虚线 + 菱形标记 -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0">
+          <div class="w-px h-full bg-gray-300 border-dashed"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e63946] rotate-45"></div>
+        </div>
+        
+        <!-- 导航图标 -->
+        <button 
+          v-for="(item, index) in navItems" :key="item.id"
+          @click="scrollTo(item.id)"
+          class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+          :class="activeSection === item.id 
+            ? 'bg-[#e63946] text-white shadow-lg scale-110' 
+            : 'bg-white text-gray-500 hover:bg-[#e63946] hover:text-white shadow'"
+          :title="item.label"
+        >
+          <span class="text-lg">{{ item.icon }}</span>
+        </button>
 
-      <!-- 分隔线 -->
-      <div class="w-full h-px bg-gray-200 my-2"></div>
+        <!-- 分隔线 -->
+        <div class="w-full h-px bg-gray-200 my-2"></div>
 
-      <!-- 设置按钮 -->
-      <button 
-        @click="goToAdmin"
-        class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-colors"
-        title="管理后台"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      </button>
+        <!-- 设置按钮 -->
+        <button 
+          @click="goToAdmin"
+          class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-colors"
+          title="管理后台"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
 
-      <!-- 语言切换 -->
-      <button 
-        @click="toggleLang"
-        class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-colors"
-        title="切换语言"
-      >
-        <span class="text-xs font-bold">{{ locale === 'zh' ? 'EN' : '中' }}</span>
-      </button>
+        <!-- 语言切换 -->
+        <button 
+          @click="toggleLang"
+          class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-colors"
+          title="切换语言"
+        >
+          <span class="text-xs font-bold">{{ locale === 'zh' ? 'EN' : '中' }}</span>
+        </button>
 
-      <!-- 回到顶部 -->
-      <button 
-        v-if="showBackToTop"
-        @click="scrollToTop"
-        class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-all duration-300"
-        title="回到顶部"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-      </button>
+        <!-- 回到顶部 -->
+        <button 
+          v-if="showBackToTop"
+          @click="scrollToTop"
+          class="relative z-10 w-10 h-10 rounded-full bg-white text-gray-500 flex items-center justify-center shadow hover:bg-gray-100 transition-all duration-300"
+          title="回到顶部"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
+      </div>
     </nav>
 
     <!-- 右侧电梯导航（移动端显示在内容底部） -->
@@ -592,6 +615,12 @@ const experience = ref([])
 const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
+const navCollapsed = ref(false)
+
+// 收起/展开导航
+const toggleNav = () => {
+  navCollapsed.value = !navCollapsed.value
+}
 
 // 下载简历
 const downloadResume = async () => {
