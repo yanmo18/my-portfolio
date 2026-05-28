@@ -98,7 +98,7 @@ const defaultData = {
       "title": "移动端记账 App",
       "cover": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop",
       "techStack": ["React Native", "Expo", "Firebase", "Charts"],
-      "github": "https://github.com/zhangyalanzyl/expense-tracker",
+      "github": "https://github.com/yanmo18/expense-tracker",
       "features": [
         "语音快速记账",
         '智能账单分类',
