@@ -137,11 +137,11 @@
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center shrink-0">📧</span>
-                <span class="truncate">yanqing@outlook.com</span>
+                <span class="truncate">{{ profile.contact?.email || '-' }}</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center shrink-0">📱</span>
-                <span class="truncate">17377665272</span>
+                <span class="truncate">{{ profile.contact?.phone || '-' }}</span>
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center shrink-0">🐙</span>
