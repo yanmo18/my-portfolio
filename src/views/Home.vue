@@ -145,7 +145,7 @@
               </div>
               <div class="flex items-center gap-2 text-gray-600">
                 <span class="w-4 text-center shrink-0">🐙</span>
-                <span class="truncate">github.com/zhangyalanzyl</span>
+                <span class="truncate">{{ profile.contact?.github || '-' }}</span>
               </div>
             </div>
           </div>
