@@ -483,8 +483,20 @@
                   </svg>
                 </div>
                 <h3 class="text-sm font-bold text-gray-700 mb-1 group-hover:text-red-500 transition-colors">Phone</h3>
-                <p class="text-xs text-gray-400 break-all text-center leading-tight">17377665272</p>
+                <p class="text-xs text-gray-400 break-all text-center leading-tight">{{ profile.contact?.phone }}</p>
               </a>
+            </div>
+            <!-- 手机端简历下载按钮 -->
+            <div class="mt-6 md:hidden">
+              <button 
+                @click="downloadResume"
+                class="w-full flex items-center justify-center gap-2 bg-[#e63946] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#d62839] transition-colors animate-fadeInUp"
+              >
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                下载简历
+              </button>
             </div>
           </div>
         </section>
@@ -615,7 +627,8 @@ const experience = ref([])
 const selectedProject = ref(null)
 const activeSection = ref('about')
 const showBackToTop = ref(false)
-const navCollapsed = ref(false)
+// 手机端默认收起导航栏
+const navCollapsed = ref(true)
 
 // 收起/展开导航
 const toggleNav = () => {
@@ -626,20 +639,19 @@ const toggleNav = () => {
 const downloadResume = async () => {
   try {
     const resumeData = await getResume()
-    if (resumeData) {
+    if (resumeData && resumeData.url) {
       const link = document.createElement('a')
-      link.href = resumeData
+      link.href = resumeData.url
       link.download = 'resume.pdf'
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
     } else {
-      alert('暂无简历，请先在管理后台上传')
-      window.location.href = '/admin/resume'
+      alert('暂无简历，请稍后再试')
     }
   } catch (e) {
     console.error('下载简历失败:', e)
-    alert('下载简历失败')
+    alert('下载失败，请稍后再试')
   }
 }
 
