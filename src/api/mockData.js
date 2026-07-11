@@ -40,7 +40,7 @@ const defaultData = {
     {
       _id: 'proj_1',
        "title": "有机蔬菜管理系统",
-    "cover": "/01.png",
+    "cover": "/01.jpg",
     "techStack": ["Spring Boot", "Vue 2", "Element UI", "MyBatis-Plus", "MySQL"],
     "github": "https://github.com/yanmo18/vegetable-system",
     "features": [
@@ -54,7 +54,7 @@ const defaultData = {
     {
       _id: 'proj_2',
       "title": "建筑工程可视化管理平台",
-    "cover": "/03.png",
+    "cover": "/03.jpg",
     "techStack": ["Vue 3", "TypeScript", "ECharts-GL", "Ant Design Vue", "Pinia"],
     "github": "https://github.com/yanmo18/structure-system",
     "features": [
@@ -68,7 +68,7 @@ const defaultData = {
     {
       _id: 'proj_3',
        "title": "个人简历网站后端服务",
-    "cover": "/02.png",
+    "cover": "/02.jpg",
     "techStack": ["Express", "Prisma ORM", "JWT", "MySQL"],
     "github": "https://github.com/yanmo18/my-portfolio-backend",
     "features": [
@@ -82,7 +82,7 @@ const defaultData = {
     {
       _id: 'proj_4',
       "title": "个人简历网站前端",
-    "cover": "/04.png",
+    "cover": "/04.jpg",
     "techStack": ["Vue 3", "Tailwind CSS", "Vue Router", "Axios"],
     "github": "https://github.com/yanmo18/my-portfolio",
     "features": [

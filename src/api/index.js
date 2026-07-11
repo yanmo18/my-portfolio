@@ -26,6 +26,7 @@ const CACHE_KEY = 'portfolio_api_cache'
 let useMock = false // 默认尝试使用后端
 
 // localStorage 缓存操作
+// 从 localStorage 获取并解析缓存数据，异常时返回 null
 function getCache() {
   try {
     const cache = localStorage.getItem(CACHE_KEY)
