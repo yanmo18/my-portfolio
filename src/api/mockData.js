@@ -10,10 +10,10 @@ const defaultData = {
   profile: {
     _id: 'profile_1',
     name: '张雅岚',
-    education: '本科在读',
+    education: '27届本科在读',
     politicalStatus: '团员',
     birthDate: '2004.11.13',
-    bio: '    热爱前端技术，专注于 Vue 生态，正在向全栈方向拓展。喜欢把创意变成看得见、可交互的数字产品。\n    熟练运用 HTML/CSS/JavaScript 与 Vue 框架，可独立完成响应式页面搭建、组件化开发与交互逻辑实现；熟悉若依框架，具备基础的前后端协同开发能力。擅长借助 AI 工具辅助需求梳理、代码编写与项目优化，能高效推进从原型到部署的完整开发流程。在校期间参与实训项目与多个个人作品开发，兼具扎实的技术基础与快速学习能力。\n    我的个人简历网站是技术栈的综合实践：前端用 Vue 3 + Tailwind CSS 构建，后端用 Express + Prisma ORM + MySQL 实现数据管理，打通了从数据存储到前端展示的完整流程。\n    认真、负责、爱琢磨——这是身边朋友对我的评价。能一步步把想法变成可交互的产品，是我认为最有成就感的事。也是我坚持在前端方向的动力。INFJ 的特质让我习惯从全局视角思考问题——不只是写功能，更会想「这个交互用户用起来顺不顺手」「这个模块后续好不好维护」。认真负责、不懂就问、喜欢复盘总结，这些习惯让我在校期间能配合团队高效协作完成多个实训项目，也让我有信心快速融入未来的工作环境。',
+    bio: '    热爱前端技术，专注于 Vue 生态，正在向全栈方向拓展。喜欢把创意变成看得见、可交互的数字产品。\n  独立开发并公网部署上线全栈作品集（fernoa.top），具备前端开发+ 后端接口+ 线上项目完整交付能力。\n    我的个人简历网站是技术栈的综合实践：前端用 Vue 3 + Tailwind CSS 构建，后端用 Express + Prisma ORM + MySQL 实现数据管理，打通了从数据存储到前端展示的完整流程。\n  善用AI 辅助工具（Cursor、Copilot）提升效率，注重代码质量和用户体验。\n 学习能力强，可独立从 0 学习后端技术栈完成全栈项目；适应远程协作模式，执行力强，能高效落地开发任务。认真负责、不懂就问、喜欢复盘总结，这些习惯让我在校期间能配合团队高效协作完成多个实训项目，也让我有信心快速融入未来的工作环境。',
     tags: ['前端开发者', '全栈探索'],
     contact: {
       wechat: 'Seren450',
@@ -23,11 +23,15 @@ const defaultData = {
     },
     skills: [
       { name: 'Vue', level: 85 },
-      { name: 'React', level: 70 },
+      { name: 'Html', level: 70 },
       { name: 'JS', level: 80 },
       { name: 'CSS', level: 75 },
       { name: 'Node', level: 60 },
-      { name: 'Python', level: 55 }
+      { name: 'Express', level: 55 },
+      { name: 'Prisma ORM', level: 55 },
+      { name: 'MySQL', level: 55 },
+      { name: 'JWT', level: 55 },
+      { name: 'bcryptjs', level: 55 }
     ],
     certifications: [
       { title: '英语四级证书' },
@@ -88,8 +92,8 @@ const defaultData = {
     "features": [
       "Vue 3 Composition API 组合式开发，代码结构清晰",
       "Tailwind CSS 原子化样式，快速构建响应式布局",
-      "集成 AI 面试助手功能，提供个性化面试指导",
-      "国际化支持（vue-i18n），可切换中英文展示"
+      "国际化支持（vue-i18n），可切换中英文展示",
+      "完整体现独立交付能力"
       ],
       screenshots: []
     },
