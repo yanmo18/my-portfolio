@@ -75,21 +75,21 @@
     </aside>
 
     <!-- 左侧固定信息卡片 -->
-    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[600px] z-40">
+    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[min(680px,calc(100vh-5rem))] z-40">
       <!-- 卡片外层装饰 -->
       <div class="relative h-full">
         <!-- 顶部渐变装饰条 -->
         <div class="absolute -top-1 left-0 right-0 h-2 bg-gradient-to-r from-red-400 via-red-500 to-red-600 rounded-t-2xl"></div>
         
-        <!-- 主卡片 -->
+        <!-- 主卡片：头像/按钮固定，中间信息可滚动，避免底部按钮被裁切 -->
         <div class="relative bg-white/95 backdrop-blur-sm h-full flex flex-col rounded-2xl shadow-xl border border-gray-100 overflow-hidden" style="box-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);">
           
           <!-- 顶部装饰图案 -->
-          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-50 to-transparent rounded-bl-full opacity-60"></div>
-          <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-red-100/50 to-transparent rounded-br-full"></div>
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-50 to-transparent rounded-bl-full opacity-60 pointer-events-none"></div>
+          <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-red-100/50 to-transparent rounded-br-full pointer-events-none"></div>
           
           <!-- 头像区域 -->
-          <div class="pt-5 pb-3 px-6 bg-white shrink-0">
+          <div class="pt-5 pb-3 px-6 bg-white shrink-0 relative z-10">
             <div class="flex justify-center">
               <!-- 头像 - 简洁圆形设计 -->
               <div class="relative">
@@ -107,14 +107,14 @@
           </div>
 
         <!-- 基本信息区域 -->
-        <div class="px-6 space-y-2">
+        <div class="px-6 space-y-2 flex-1 min-h-0 overflow-y-auto relative z-10">
           <!-- 基础信息 -->
           <div>
             <div class="w-full h-px bg-gray-200 mb-2"></div>
             <div class="space-y-2 text-sm">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-500">学历</span>
-                <span class="text-gray-700 font-medium">{{ profile.education }}</span>
+              <div class="flex justify-between items-center gap-3">
+                <span class="text-gray-500 shrink-0">学历</span>
+                <span class="text-gray-700 font-medium text-right">{{ profile.education }}</span>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-500">政治面貌</span>
@@ -168,7 +168,7 @@
           </div>
 
           <!-- 获奖证书 -->
-          <div>
+          <div class="pb-1">
             <div class="w-full h-px bg-gray-200 mb-2"></div>
             <h3 class="text-gray-700 font-bold text-xs mb-2">{{ $t('nav.awards') }}</h3>
             <div class="space-y-1.5" v-if="profile.certifications?.length">
@@ -181,13 +181,13 @@
           </div>
         </div>
 
-        <!-- 简历按钮 -->
-        <div class="px-6 pt-3 pb-3 bg-white shrink-0">
+        <!-- 简历按钮：始终完整显示在卡片底部 -->
+        <div class="px-6 pt-3 pb-4 bg-white shrink-0 border-t border-gray-100 relative z-10">
           <button 
             @click="downloadResume"
-            class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-2.5 rounded-lg font-medium text-sm hover:from-red-600 hover:to-red-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
             下载简历
           </button>
         </div>

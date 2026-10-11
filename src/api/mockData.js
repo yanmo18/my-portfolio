@@ -4,14 +4,14 @@
  */
 
 const STORAGE_KEY = 'portfolio_data'
-const DATA_VERSION = 5
+const DATA_VERSION = 6
 
 const defaultData = {
   version: DATA_VERSION,
   profile: {
     _id: 'profile_1',
     name: '张雅岚',
-    education: '潍坊科技学院 · 软件工程 · 2027届',
+    education: '27届本科-软件工程',
     politicalStatus: '团员',
     birthDate: '2004.11.13',
     bio: '软件工程在读，方向 Vue 全栈前端，并具备 ToB 项目实施与交付经验。习惯把需求推进成可运行、可交接的成品。\n暑期在亿信安泰独立负责「会员商城与门店运营系统」全链路：需求沟通、功能梳理、微信小程序 + Vue 管理端 + Express/MySQL 联调验收，并输出对接/交接文档与上线资料清单。\n另有国外医疗 Web 静态页（Figma → HTML/CSS）短期交付经验；独立完成作品集 fernoa.top（Vue 3 + Express + Prisma + MySQL）并公网部署。\n善用 Cursor 等 AI 工具提升交付效率，沟通协调稳定、执行力强。可全职青岛实习，求职方向覆盖前端开发与软件实施。',

@@ -14,7 +14,7 @@ export async function getProfile() {
     // 返回默认数据
     return {
       name: '张雅岚',
-      education: '潍坊科技学院 · 软件工程 · 2027届',
+      education: '27届本科-软件工程',
       politicalStatus: '团员',
       birthDate: '2004.11.13',
       bio: '软件工程在读，方向 Vue 全栈前端，并具备 ToB 项目实施与交付经验。',
