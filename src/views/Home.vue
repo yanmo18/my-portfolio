@@ -333,16 +333,16 @@
           <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
             <h2 class="text-lg sm:text-xl md:text-4xl font-bold text-gray-800 mb-1 sm:mb-2" style="font-family: 'Georgia', serif;">{{ $t('nav.projects') }}</h2>
             <div class="w-8 sm:w-10 md:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-red-400 to-red-600 rounded mb-4 sm:mb-6 md:mb-8"></div>
-            <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+            <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
               <div 
                 v-for="(project, index) in projects" :key="project._id"
                 @click="selectedProject = project"
                 :ref="el => setProjectRef(el, index)"
-                class="rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group border border-gray-200 hover:border-red-200 hover:bg-red-50/30"
+                class="rounded-xl cursor-pointer transition-all duration-500 hover:shadow-xl hover:-translate-y-1 group border border-gray-200 hover:border-red-200 bg-gray-50/50 hover:bg-white flex flex-col"
                 :style="{ transitionDelay: `${index * 100}ms` }"
                 :class="getProjectVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
               >
-                <div class="h-28 sm:h-32 md:h-40 bg-gray-100 overflow-hidden relative">
+                <div class="h-24 sm:h-28 md:h-32 bg-gray-100 overflow-hidden relative rounded-t-xl shrink-0">
                   <img 
                     v-if="project.cover" 
                     loading="lazy"
@@ -353,14 +353,29 @@
                   <div v-else class="w-full h-full flex items-center justify-center text-red-200 text-2xl sm:text-3xl md:text-4xl font-bold">
                     {{ project.title?.charAt(0) }}
                   </div>
+                  <span
+                    v-if="project.badge"
+                    class="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-medium bg-white/95 text-red-600 border border-red-100 shadow-sm"
+                  >{{ project.badge }}</span>
                 </div>
-                <div class="p-2 sm:p-3 md:p-5">
-                  <h3 class="text-gray-800 font-bold text-sm md:text-base mb-2 group-hover:text-red-600 transition-colors">{{ project.title }}</h3>
-                  <div class="flex flex-wrap gap-1">
+                <div class="p-3 sm:p-4 md:p-5 flex flex-col flex-1">
+                  <h3 class="text-gray-800 font-bold text-sm md:text-base mb-2 group-hover:text-red-600 transition-colors leading-snug">{{ project.title }}</h3>
+                  <ul class="space-y-1 mb-3 flex-1">
+                    <li
+                      v-for="(feature, i) in (project.features || []).slice(0, 3)"
+                      :key="i"
+                      class="text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-2"
+                    >· {{ feature }}</li>
+                  </ul>
+                  <div class="flex flex-wrap gap-1 mt-auto">
                     <span 
-                      v-for="tech in project.techStack" :key="tech"
-                      class="text-xs px-1.5 md:px-2 py-0.5 rounded bg-red-50 text-red-500"
+                      v-for="tech in (project.techStack || []).slice(0, 4)" :key="tech"
+                      class="text-[10px] sm:text-xs px-1.5 md:px-2 py-0.5 rounded bg-red-50 text-red-500"
                     >{{ tech }}</span>
+                    <span
+                      v-if="(project.techStack || []).length > 4"
+                      class="text-[10px] sm:text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-400"
+                    >+{{ project.techStack.length - 4 }}</span>
                   </div>
                 </div>
               </div>
@@ -369,7 +384,7 @@
           </div>
         </section>
 
-        <!-- 校园经历 - 时间线划入 -->
+        <!-- 实习与实践 - 时间线划入 -->
         <section id="experience" ref="experienceRef" class="scroll-mt-10 transition-all duration-700"
           :class="experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'">
           <div class="bg-white rounded-2xl p-4 sm:p-5 md:p-10 border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-500">
@@ -391,7 +406,7 @@
                 </div>
               </div>
             </div>
-            <p v-else class="text-gray-400 text-center py-8">暂无校园经历</p>
+            <p v-else class="text-gray-400 text-center py-8">暂无经历</p>
           </div>
         </section>
 
@@ -513,8 +528,14 @@
       <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 relative overflow-hidden shadow-2xl">
         <button @click="selectedProject = null" class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl">&times;</button>
         
-        <div class="p-8">
-          <h2 class="text-2xl font-bold text-black mb-3">{{ selectedProject.title }}</h2>
+        <div class="p-6 sm:p-8 max-h-[85vh] overflow-y-auto">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span
+              v-if="selectedProject.badge"
+              class="px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-50 text-red-600 border border-red-100"
+            >{{ selectedProject.badge }}</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-black mb-3">{{ selectedProject.title }}</h2>
           
           <div class="flex items-center gap-2 mb-5">
             <span class="text-[#e63946]">✦</span>
@@ -550,11 +571,18 @@
             v-if="selectedProject.github"
             :href="selectedProject.github" 
             target="_blank"
-            class="inline-flex items-center gap-2 bg-[#e63946] text-black px-6 py-2.5 rounded-lg font-medium hover:bg-[#d62839] transition-colors"
+            class="inline-flex items-center gap-2 bg-[#e63946] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-[#d62839] transition-colors"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
+          <div
+            v-else-if="selectedProject.repoNote"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-600 text-sm"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            {{ selectedProject.repoNote }}
+          </div>
         </div>
       </div>
     </div>
@@ -659,7 +687,7 @@ const downloadResume = async () => {
 const navItems = [
   { id: 'about', label: '关于我', icon: '👤' },
   { id: 'projects', label: '项目展示', icon: '📁' },
-  { id: 'experience', label: '校园经历', icon: '📅' },
+  { id: 'experience', label: '实习与实践', icon: '📅' },
   { id: 'awards', label: '获奖证书', icon: '🏆' },
   { id: 'contact', label: '联系方式', icon: '💬' }
 ]

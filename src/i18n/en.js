@@ -3,7 +3,7 @@ export default {
     about: 'About',
     awards: 'Awards',
     projects: 'Projects',
-    experience: 'Experience',
+    experience: 'Internship & Practice',
     contact: 'Contact'
   },
   hero: {

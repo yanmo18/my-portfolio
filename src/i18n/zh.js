@@ -3,7 +3,7 @@ export default {
     about: '关于我',
     awards: '获奖证书',
     projects: '项目展示',
-    experience: '校园经历',
+    experience: '实习与实践',
     contact: '联系方式'
   },
   hero: {

@@ -4,7 +4,7 @@
  */
 
 const STORAGE_KEY = 'portfolio_data'
-const DATA_VERSION = 6
+const DATA_VERSION = 7
 
 const defaultData = {
   version: DATA_VERSION,
@@ -14,7 +14,7 @@ const defaultData = {
     education: '27届本科-软件工程',
     politicalStatus: '团员',
     birthDate: '2004.11.13',
-    bio: '软件工程在读，方向 Vue 全栈前端，并具备 ToB 项目实施与交付经验。习惯把需求推进成可运行、可交接的成品。\n暑期在亿信安泰独立负责「会员商城与门店运营系统」全链路：需求沟通、功能梳理、微信小程序 + Vue 管理端 + Express/MySQL 联调验收，并输出对接/交接文档与上线资料清单。\n另有国外医疗 Web 静态页（Figma → HTML/CSS）短期交付经验；独立完成作品集 fernoa.top（Vue 3 + Express + Prisma + MySQL）并公网部署。\n善用 Cursor 等 AI 工具提升交付效率，沟通协调稳定、执行力强。可全职青岛实习，求职方向覆盖前端开发与软件实施。',
+    bio: '软件工程在读，方向 Vue 全栈前端，并具备 ToB 项目实施与交付经验。习惯把需求推进成可运行、可交接的成品。\n暑期在亿信安泰独立负责「会员商城与门店运营系统」全链路：需求沟通、功能梳理、微信小程序 + Vue 管理端 + Express/MySQL 联调验收，并输出对接/交接文档与上线资料清单。\n另有国外医疗 Web 静态页（HTML/CSS/Astro）短期交付经验；独立完成作品集 fernoa.top（Vue 3 + Express + Prisma + MySQL）并公网部署。\n善用 Cursor 等 AI 工具提升交付效率，沟通协调稳定、执行力强。可全职青岛实习，求职方向覆盖前端开发与软件实施。',
     tags: ['Vue全栈前端', '项目实施', '独立交付'],
     contact: {
       wechat: 'Seren450',
@@ -46,12 +46,14 @@ const defaultData = {
     {
       _id: 'proj_1',
       title: '会员商城与门店运营系统',
+      badge: '实习项目',
       cover: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop',
       techStack: ['uni-app', '微信小程序', 'Vue 管理端', 'Node/Express', 'MySQL', 'RBAC'],
       github: '',
+      repoNote: '公司内部项目，未公开仓库',
       features: [
         '亿信安泰实习（2026.07–2026.09）：独立负责 ToB 全链路交付',
-        '覆盖小程序 + 管理后台 + 后端 API：会员、商城、门店核销/预约/收银、多角色工作台',
+        '交付微信小程序 + 管理后台 + 后端 API：会员、商城、门店核销/预约/收银、多角色工作台',
         '管理后台对接 48+ 业务模块与 RBAC；输出需求/对接/交接/测试文档',
         '梳理上线依赖（域名、云资源、微信支付等），主链达可本地验收与预发条件'
       ],
@@ -59,21 +61,8 @@ const defaultData = {
     },
     {
       _id: 'proj_2',
-      title: '国外医疗 Web 静态页面',
-      cover: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
-      techStack: ['Figma', 'HTML', 'CSS'],
-      github: '',
-      features: [
-        '兼职项目（2026.06，约 2 周）：国外医疗订单相关 Web 页面',
-        '根据 Figma 完成约 10 个页面的 HTML/CSS 静态还原',
-        '统一版式、间距与组件风格，保证多页可验收',
-        '短期项目制协作，按时交付并对接验收反馈'
-      ],
-      screenshots: []
-    },
-    {
-      _id: 'proj_3',
       title: '个人作品集网站',
+      badge: '独立项目',
       cover: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=500&fit=crop',
       techStack: ['Vue 3', 'Vite', 'Tailwind CSS', 'Express', 'Prisma', 'MySQL', 'JWT'],
       github: 'https://github.com/yanmo18/my-portfolio',
@@ -86,16 +75,33 @@ const defaultData = {
       screenshots: []
     },
     {
-      _id: 'proj_4',
-      title: '建筑工程可视化管理平台',
-      cover: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=500&fit=crop',
-      techStack: ['Vue 3', 'TypeScript', 'ECharts-GL', 'Ant Design Vue', 'Pinia'],
-      github: 'https://github.com/yanmo18/structure-system',
+      _id: 'proj_3',
+      title: '国外医疗 Web 静态页面',
+      badge: '兼职项目',
+      cover: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
+      techStack: ['HTML', 'CSS', 'Astro', 'Figma'],
+      github: '',
+      repoNote: '兼职交付项目',
       features: [
-        '校内前端实训：企业级工程数据可视化看板',
-        'ECharts-GL 3D 地球展示项目分布',
-        '进度、成本、质量等多维图表与筛选联动',
-        'TypeScript + Pinia 提升可维护性'
+        '兼职（2026.06，约 2 周）：国外医疗订单相关 Web 页面',
+        '按 Figma 用 HTML/CSS/Astro 完成约 10 个静态页面还原与交付',
+        '统一版式、间距与组件风格，保证多页可验收',
+        '短期项目制协作，按时交付并对接验收反馈'
+      ],
+      screenshots: []
+    },
+    {
+      _id: 'proj_4',
+      title: '有机蔬菜管理系统',
+      badge: '校内实训',
+      cover: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=500&fit=crop',
+      techStack: ['Spring Boot', 'Vue 2', 'Element UI', 'MyBatis-Plus', 'MySQL'],
+      github: 'https://github.com/yanmo18/vegetable-system',
+      features: [
+        '校内实训：基于 RuoYi-Vue 二次开发的企业级后台',
+        'RBAC：用户、角色、菜单分级管理',
+        '覆盖订购、库存、订单等业务流程',
+        '前后端分离，支持单机部署'
       ],
       screenshots: []
     }
@@ -141,20 +147,34 @@ const defaultData = {
   experience: [
     {
       _id: 'exp_1',
+      period: '2026.07 - 2026.09',
+      organization: '亿信安泰',
+      role: '前端全栈实习 · 项目交付',
+      description: '独立负责「会员商城与门店运营」ToB 全链路：需求沟通、小程序/管理后台/后端联调验收，输出对接与交接文档，并同步客户侧上线资料清单。'
+    },
+    {
+      _id: 'exp_2',
+      period: '2026.06（约 2 周）',
+      organization: '国外医疗 Web 页面',
+      role: '前端兼职',
+      description: '根据 Figma 使用 HTML/CSS/Astro 完成约 10 个医疗订单相关静态页面还原与交付，按设计规范保证多页风格统一、可验收。'
+    },
+    {
+      _id: 'exp_3',
       period: '2025.03 - 至今',
       organization: '学工部',
       role: '副部长',
       description: '负责 2025 级迎新数据统计与整理，完成新生信息核对 500+；参与两届校运动会开幕相关组织工作，习惯多线程事务推进与责任闭环。'
     },
     {
-      _id: 'exp_2',
+      _id: 'exp_4',
       period: '2024.03 - 2024.12',
       organization: '校心理健康节活动组',
       role: '志愿者',
       description: '参与心理健康节系列活动志愿服务，对接参与学生 300+，负责现场组织与协调。'
     },
     {
-      _id: 'exp_3',
+      _id: 'exp_5',
       period: '2023.09 - 2024.06',
       organization: '校学生会外联部',
       role: '外联干事',
