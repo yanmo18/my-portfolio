@@ -14,23 +14,24 @@ export async function getProfile() {
     // 返回默认数据
     return {
       name: '张雅岚',
-      education: '本科在读',
+      education: '潍坊科技学院 · 软件工程 · 2027届',
       politicalStatus: '团员',
-      birthDate: '2004.11',
-      bio: '热爱前端技术，正在探索全栈开发领域。喜欢将创意转化为可交互的数字产品，对用户体验和界面设计有敏锐的感知。',
-      tags: ['前端开发者', '全栈探索'],
+      birthDate: '2004.11.13',
+      bio: '软件工程在读，方向 Vue 全栈前端，并具备 ToB 项目实施与交付经验。',
+      tags: ['Vue全栈前端', '项目实施', '独立交付'],
       contact: {
         wechat: 'Seren450',
-        email: 'yanqing548X@outlook.com',
-        github: 'github.com/yanmo18'
+        email: 'moyan548@foxmail.com',
+        github: 'github.com/yanmo18',
+        phone: '17377665272'
       },
       skills: [
-        { name: 'Vue', level: 85 },
-        { name: 'React', level: 70 },
-        { name: 'JS', level: 80 },
-        { name: 'CSS', level: 75 },
-        { name: 'Node', level: 60 },
-        { name: 'Python', level: 55 }
+        { name: 'Vue 3', level: 85 },
+        { name: 'JavaScript', level: 80 },
+        { name: 'HTML/CSS', level: 80 },
+        { name: 'Node.js / Express', level: 65 },
+        { name: 'MySQL', level: 62 },
+        { name: 'Git', level: 70 }
       ]
     }
   }

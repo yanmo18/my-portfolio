@@ -7,12 +7,12 @@ export default {
     contact: 'Contact'
   },
   hero: {
-    name: 'Your Name',
-    roles: 'Frontend Developer | Fullstack Explorer | Test Engineer',
+    name: 'Zhang Yalan',
+    roles: 'Vue Full-stack · Implementation · Independent delivery',
     downloadResume: 'Download Resume'
   },
   about: {
     title: 'About Me',
-    bio: 'Self evaluation content'
+    bio: 'Software engineering student with Vue full-stack and ToB delivery practice.'
   }
 }

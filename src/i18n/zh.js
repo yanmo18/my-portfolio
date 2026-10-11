@@ -7,12 +7,12 @@ export default {
     contact: '联系方式'
   },
   hero: {
-    name: '你的真名',
-    roles: '前端开发者 | 全栈探索 | 测试工程师',
+    name: '张雅岚',
+    roles: 'Vue全栈前端 | 项目实施 | 独立交付',
     downloadResume: '下载简历'
   },
   about: {
     title: '关于我',
-    bio: '自我评价内容'
+    bio: '软件工程在读，Vue 全栈与 ToB 实施交付实践。'
   }
 }

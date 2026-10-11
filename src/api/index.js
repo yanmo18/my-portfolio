@@ -13,8 +13,9 @@ import { getData, saveData, generateId } from './mockData'
 // ============ API 配置 ============
 // 切换后端时只需要改这里
 //
-// 当前：Laf 后端
-const API_BASE = 'https://lcnmaohntx.sealosbja.site'
+// 线上站点不请求云后端，只使用 mockData。
+// 本地联调请使用 my-portfolio-local，不要改这份线上前端去打 Sealos。
+const API_BASE = ''
 //
 // 未来切换到 Express 后端时：
 // 1. 把 API_BASE 改为 Express 地址
@@ -54,29 +55,8 @@ function getFromCache(key) {
 
 // 初始化：尝试连接后端，如果失败则加载缓存
 export async function initAPI() {
-  try {
-    const response = await fetch(`${API_BASE}/get-profile`, { 
-      timeout: 5000 
-    })
-    if (response.ok) {
-      useMock = false
-      console.log('后端连接成功，使用真实 API')
-      return 'success'
-    }
-  } catch (e) {
-    console.log('后端不可用，尝试使用缓存数据')
-  }
-  
-  // 后端不可用，检查是否有缓存
-  const cache = getCache()
-  if (cache && (cache.projects || cache.awards || cache.experience)) {
-    console.log('使用 localStorage 缓存数据')
-    useMock = 'cache' // 使用缓存模式
-    return 'cache'
-  }
-  
   useMock = true
-  console.log('无缓存，使用默认 Mock 数据')
+  console.log('线上使用内置简历数据，不依赖云后端')
   return 'mock'
 }
 

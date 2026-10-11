@@ -566,6 +566,7 @@ import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { getProfile, getProjects, getAwards, getExperience, getResume, initAPI } from '@/api'
+import { defaultData } from '@/api/mockData'
 
 const router = useRouter()
 const { locale } = useI18n({ useScope: 'global' })
@@ -577,7 +578,7 @@ const showMobileNav = ref(false)
 // 复制微信
 const showWechatCopied = ref(false)
 const copyWechat = async () => {
-  const wechat = profile.value.contact?.wechat || 'zyl20041113'
+  const wechat = profile.value.contact?.wechat || 'Seren450'
   await navigator.clipboard.writeText(wechat)
   showWechatCopied.value = true
   setTimeout(() => { showWechatCopied.value = false }, 2000)
@@ -758,10 +759,13 @@ onMounted(async () => {
     getAwards(),
     getExperience()
   ])
-  profile.value = profileData
-  projects.value = projectsData?.filter(p => p.title) || []
-  awards.value = awardsData?.filter(a => a.title) || []
-  experience.value = experienceData?.filter(e => e.period) || []
+  profile.value = profileData?.name ? profileData : defaultData.profile
+  const nextProjects = projectsData?.filter(p => p.title) || []
+  const nextAwards = awardsData?.filter(a => a.title) || []
+  const nextExperience = experienceData?.filter(e => e.period) || []
+  projects.value = nextProjects.length ? nextProjects : defaultData.projects
+  awards.value = nextAwards.length ? nextAwards : defaultData.awards
+  experience.value = nextExperience.length ? nextExperience : defaultData.experience
 
   await nextTick()
   
