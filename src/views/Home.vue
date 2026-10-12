@@ -75,14 +75,14 @@
     </aside>
 
     <!-- 左侧固定信息卡片 -->
-    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-[min(680px,calc(100vh-5rem))] z-40">
-      <!-- 卡片外层装饰 -->
-      <div class="relative h-full">
+    <aside class="hidden md:block fixed left-14 top-1/2 -translate-y-1/2 w-[364px] h-auto max-h-[calc(100vh-5rem)] z-40">
+      <!-- 卡片外层装饰：高度随内容，短屏才滚中间区 -->
+      <div class="relative h-auto max-h-[calc(100vh-5rem)]">
         <!-- 顶部渐变装饰条 -->
         <div class="absolute -top-1 left-0 right-0 h-2 bg-gradient-to-r from-red-400 via-red-500 to-red-600 rounded-t-2xl"></div>
         
-        <!-- 主卡片：头像/按钮固定，中间信息可滚动，避免底部按钮被裁切 -->
-        <div class="relative bg-white/95 backdrop-blur-sm h-full flex flex-col rounded-2xl shadow-xl border border-gray-100 overflow-hidden" style="box-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);">
+        <!-- 主卡片：头像/按钮固定，中间信息在超出 max-height 时滚动 -->
+        <div class="relative bg-white/95 backdrop-blur-sm h-auto max-h-[calc(100vh-5rem)] flex flex-col rounded-2xl shadow-xl border border-gray-100 overflow-hidden" style="box-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);">
           
           <!-- 顶部装饰图案 -->
           <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-50 to-transparent rounded-bl-full opacity-60 pointer-events-none"></div>
@@ -336,7 +336,7 @@
             <div v-if="projects.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
               <div 
                 v-for="(project, index) in projects" :key="project._id"
-                @click="selectedProject = project"
+                @click="openProject(project)"
                 :ref="el => setProjectRef(el, index)"
                 class="rounded-xl cursor-pointer transition-all duration-500 hover:shadow-xl hover:-translate-y-1 group border border-gray-200 hover:border-red-200 bg-gray-50/50 hover:bg-white flex flex-col"
                 :style="{ transitionDelay: `${index * 100}ms` }"
@@ -344,11 +344,12 @@
               >
                 <div class="h-24 sm:h-28 md:h-32 bg-gray-100 overflow-hidden relative rounded-t-xl shrink-0">
                   <img 
-                    v-if="project.cover" 
+                    v-if="project.cover && !coverBroken[project._id]" 
                     loading="lazy"
                     :src="project.cover" 
                     :alt="project.title + '项目封面'"
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    @error="coverBroken[project._id] = true"
                   />
                   <div v-else class="w-full h-full flex items-center justify-center text-red-200 text-2xl sm:text-3xl md:text-4xl font-bold">
                     {{ project.title?.charAt(0) }}
@@ -397,8 +398,19 @@
                   :ref="el => setExpRef(el, index)"
                   :class="getExpVisible(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'">
                   <div class="absolute -left-5 sm:-left-6 md:-left-8 top-1 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 border-2 border-white -translate-x-[5px] transition-all duration-300 hover:scale-125"></div>
-                  <div class="rounded-xl p-3 sm:p-4 md:p-6 border border-gray-200 transition-all duration-500 hover:shadow-md bg-gray-50 hover:bg-white">
-                    <span class="text-red-500 text-xs font-medium">{{ exp.period }}</span>
+                  <div
+                    class="rounded-xl p-3 sm:p-4 md:p-6 border transition-all duration-500 hover:shadow-md"
+                    :class="exp.highlight
+                      ? 'bg-red-50/90 border-red-200 border-l-4 border-l-red-500 hover:bg-red-50'
+                      : 'bg-gray-50 border-gray-200 hover:bg-white'"
+                  >
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="text-red-500 text-xs font-medium">{{ exp.period }}</span>
+                      <span
+                        v-if="exp.tag"
+                        class="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-red-500 text-white"
+                      >{{ exp.tag }}</span>
+                    </div>
                     <h3 class="text-gray-800 font-bold text-sm sm:text-base md:text-lg mt-1">{{ exp.organization }}</h3>
                     <p class="text-gray-600 text-xs sm:text-sm">{{ exp.role }}</p>
                     <p class="text-gray-400 text-xs sm:text-sm mt-1">{{ exp.description }}</p>
@@ -522,66 +534,102 @@
     <!-- 项目详情弹窗 -->
     <div 
       v-if="selectedProject" 
-      @click.self="selectedProject = null"
-      class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center backdrop-blur-sm"
+      @click.self="closeProject"
+      class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center backdrop-blur-sm p-4"
     >
-      <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 relative overflow-hidden shadow-2xl">
-        <button @click="selectedProject = null" class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl">&times;</button>
+      <div class="bg-white rounded-2xl max-w-3xl w-full relative overflow-hidden shadow-2xl">
+        <button @click="closeProject" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/90 text-gray-400 hover:text-black text-2xl leading-none shadow-sm">&times;</button>
         
-        <div class="p-6 sm:p-8 max-h-[85vh] overflow-y-auto">
-          <div class="flex flex-wrap items-center gap-2 mb-2">
-            <span
-              v-if="selectedProject.badge"
-              class="px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-50 text-red-600 border border-red-100"
-            >{{ selectedProject.badge }}</span>
-          </div>
-          <h2 class="text-xl sm:text-2xl font-bold text-black mb-3">{{ selectedProject.title }}</h2>
-          
-          <div class="flex items-center gap-2 mb-5">
-            <span class="text-[#e63946]">✦</span>
-            <div class="flex-1 h-px bg-[#e63946]"></div>
-            <span class="text-[#e63946]">✦</span>
+        <div class="max-h-[85vh] overflow-y-auto">
+          <!-- 截图主图 + 缩略图 -->
+          <div v-if="selectedProject.screenshots?.length" class="bg-gray-100">
+            <div class="relative aspect-[16/9] bg-gray-200">
+              <img
+                v-show="!shotBroken[activeShot]"
+                :src="selectedProject.screenshots[activeShot]"
+                :alt="selectedProject.title + ' 截图'"
+                class="w-full h-full object-cover object-top"
+                @error="markShotBroken(activeShot)"
+              />
+              <div
+                v-if="shotBroken[activeShot]"
+                class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 gap-1"
+              >
+                <span class="text-sm">待添加截图 {{ activeShot + 1 }}</span>
+                <span class="text-xs text-gray-300">public{{ selectedProject.screenshots[activeShot] }}</span>
+              </div>
+            </div>
+            <div class="flex gap-2 p-3 overflow-x-auto">
+              <button
+                v-for="(img, i) in selectedProject.screenshots"
+                :key="i"
+                type="button"
+                @click="activeShot = i"
+                class="relative h-14 w-20 rounded-md overflow-hidden shrink-0 border-2 transition-colors"
+                :class="activeShot === i ? 'border-red-500' : 'border-transparent opacity-80 hover:opacity-100'"
+              >
+                <img
+                  v-show="!shotBroken[i]"
+                  :src="img"
+                  class="w-full h-full object-cover"
+                  @error="markShotBroken(i)"
+                />
+                <div v-if="shotBroken[i]" class="absolute inset-0 bg-gray-300 flex items-center justify-center text-[10px] text-gray-500">{{ i + 1 }}</div>
+              </button>
+            </div>
           </div>
 
-          <div class="flex flex-wrap gap-2 mb-5">
-            <span 
-              v-for="tech in selectedProject.techStack" :key="tech"
-              class="px-3 py-1 rounded-full text-sm border border-[#e63946] text-[#e63946]"
-            >{{ tech }}</span>
-          </div>
+          <div class="p-6 sm:p-8">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span
+                v-if="selectedProject.badge"
+                class="px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-50 text-red-600 border border-red-100"
+              >{{ selectedProject.badge }}</span>
+              <span v-if="selectedProject.period" class="text-xs text-gray-500">{{ selectedProject.period }}</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-black mb-1">{{ selectedProject.title }}</h2>
+            <p v-if="selectedProject.role" class="text-sm text-gray-500 mb-3">{{ selectedProject.role }}</p>
+            <p v-if="selectedProject.summary" class="text-sm text-gray-600 leading-relaxed mb-4">{{ selectedProject.summary }}</p>
+            
+            <div class="flex items-center gap-2 mb-5">
+              <span class="text-[#e63946]">✦</span>
+              <div class="flex-1 h-px bg-[#e63946]"></div>
+              <span class="text-[#e63946]">✦</span>
+            </div>
 
-          <div v-if="selectedProject.screenshots?.length" class="flex gap-3 mb-5 overflow-x-auto">
-            <img 
-              v-for="(img, i) in selectedProject.screenshots" :key="i"
-              :src="img" 
-              class="h-32 rounded-lg object-cover shrink-0"
-            />
-          </div>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span 
+                v-for="tech in selectedProject.techStack" :key="tech"
+                class="px-3 py-1 rounded-full text-sm border border-[#e63946] text-[#e63946]"
+              >{{ tech }}</span>
+            </div>
 
-          <div class="bg-gray-50 rounded-lg p-5 mb-5">
-            <ul class="space-y-2">
-              <li 
-                v-for="(feature, i) in selectedProject.features" :key="i"
-                class="text-gray-600 text-sm"
-              >{{ i + 1 }}. {{ feature }}</li>
-            </ul>
-          </div>
+            <div class="bg-gray-50 rounded-lg p-5 mb-5">
+              <p class="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">亮点</p>
+              <ul class="space-y-2">
+                <li 
+                  v-for="(feature, i) in selectedProject.features" :key="i"
+                  class="text-gray-600 text-sm"
+                >{{ i + 1 }}. {{ feature }}</li>
+              </ul>
+            </div>
 
-          <a 
-            v-if="selectedProject.github"
-            :href="selectedProject.github" 
-            target="_blank"
-            class="inline-flex items-center gap-2 bg-[#e63946] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-[#d62839] transition-colors"
-          >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <div
-            v-else-if="selectedProject.repoNote"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-600 text-sm"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-            {{ selectedProject.repoNote }}
+            <a 
+              v-if="selectedProject.github"
+              :href="selectedProject.github" 
+              target="_blank"
+              class="inline-flex items-center gap-2 bg-[#e63946] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-[#d62839] transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <div
+              v-else-if="selectedProject.repoNote"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-600 text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+              {{ selectedProject.repoNote }}
+            </div>
           </div>
         </div>
       </div>
@@ -654,6 +702,20 @@ const projects = ref([])
 const awards = ref([])
 const experience = ref([])
 const selectedProject = ref(null)
+const activeShot = ref(0)
+const shotBroken = reactive({})
+const coverBroken = reactive({})
+const openProject = (project) => {
+  Object.keys(shotBroken).forEach((k) => delete shotBroken[k])
+  activeShot.value = 0
+  selectedProject.value = project
+}
+const closeProject = () => {
+  selectedProject.value = null
+}
+const markShotBroken = (i) => {
+  shotBroken[i] = true
+}
 const activeSection = ref('about')
 const showBackToTop = ref(false)
 // 手机端默认收起导航栏

@@ -4,7 +4,7 @@
  */
 
 const STORAGE_KEY = 'portfolio_data'
-const DATA_VERSION = 7
+const DATA_VERSION = 8
 
 const defaultData = {
   version: DATA_VERSION,
@@ -47,7 +47,10 @@ const defaultData = {
       _id: 'proj_1',
       title: '会员商城与门店运营系统',
       badge: '实习项目',
-      cover: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop',
+      period: '2026.07 – 2026.09',
+      role: '前端全栈 · 独立交付',
+      summary: '亿信安泰 ToB 会员商城与门店运营全链路：小程序 + 管理后台 + 后端 API，覆盖会员、商城、核销预约收银与多角色工作台。',
+      cover: '/projects/mall/1.jpg',
       techStack: ['uni-app', '微信小程序', 'Vue 管理端', 'Node/Express', 'MySQL', 'RBAC'],
       github: '',
       repoNote: '公司内部项目，未公开仓库',
@@ -57,13 +60,16 @@ const defaultData = {
         '管理后台对接 48+ 业务模块与 RBAC；输出需求/对接/交接/测试文档',
         '梳理上线依赖（域名、云资源、微信支付等），主链达可本地验收与预发条件'
       ],
-      screenshots: []
+      screenshots: ['/projects/mall/1.jpg', '/projects/mall/2.jpg', '/projects/mall/3.jpg']
     },
     {
       _id: 'proj_2',
       title: '个人作品集网站',
       badge: '独立项目',
-      cover: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=500&fit=crop',
+      period: '2025 – 至今',
+      role: '独立开发 · 部署维护',
+      summary: 'fernoa.top 个人作品集：前台展示 + 管理后台，Vue 3 + Express + Prisma + MySQL，支持中英切换与数据维护。',
+      cover: '/projects/portfolio/1.jpg',
       techStack: ['Vue 3', 'Vite', 'Tailwind CSS', 'Express', 'Prisma', 'MySQL', 'JWT'],
       github: 'https://github.com/yanmo18/my-portfolio',
       features: [
@@ -72,13 +78,16 @@ const defaultData = {
         'Express + Prisma + MySQL：JWT 鉴权与项目/奖项/经历 CRUD',
         '接口三级降级：后端不可用时仍用内置数据保证首页可用'
       ],
-      screenshots: []
+      screenshots: ['/projects/portfolio/1.jpg', '/projects/portfolio/2.jpg', '/projects/portfolio/3.jpg']
     },
     {
       _id: 'proj_3',
       title: '国外医疗 Web 静态页面',
       badge: '兼职项目',
-      cover: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
+      period: '2026.06（约 2 周）',
+      role: '前端兼职 · 静态页交付',
+      summary: '按 Figma 用 HTML/CSS/Astro 还原并交付约 10 个国外医疗订单相关静态页面，统一版式与组件风格。',
+      cover: '/projects/medical/1.jpg',
       techStack: ['HTML', 'CSS', 'Astro', 'Figma'],
       github: '',
       repoNote: '兼职交付项目',
@@ -88,13 +97,16 @@ const defaultData = {
         '统一版式、间距与组件风格，保证多页可验收',
         '短期项目制协作，按时交付并对接验收反馈'
       ],
-      screenshots: []
+      screenshots: ['/projects/medical/1.jpg', '/projects/medical/2.jpg', '/projects/medical/3.jpg']
     },
     {
       _id: 'proj_4',
       title: '有机蔬菜管理系统',
       badge: '校内实训',
-      cover: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=500&fit=crop',
+      period: '校内实训',
+      role: '前后端分离 · RuoYi 二次开发',
+      summary: '基于 RuoYi-Vue 的企业级后台：RBAC 与订购/库存/订单流程，支持单机部署。',
+      cover: '/projects/vegetable/1.jpg',
       techStack: ['Spring Boot', 'Vue 2', 'Element UI', 'MyBatis-Plus', 'MySQL'],
       github: 'https://github.com/yanmo18/vegetable-system',
       features: [
@@ -103,7 +115,7 @@ const defaultData = {
         '覆盖订购、库存、订单等业务流程',
         '前后端分离，支持单机部署'
       ],
-      screenshots: []
+      screenshots: ['/projects/vegetable/1.jpg', '/projects/vegetable/2.jpg', '/projects/vegetable/3.jpg']
     }
   ],
   awards: [
@@ -150,6 +162,8 @@ const defaultData = {
       period: '2026.07 - 2026.09',
       organization: '亿信安泰',
       role: '前端全栈实习 · 项目交付',
+      tag: '实习',
+      highlight: true,
       description: '独立负责「会员商城与门店运营」ToB 全链路：需求沟通、小程序/管理后台/后端联调验收，输出对接与交接文档，并同步客户侧上线资料清单。'
     },
     {
@@ -157,6 +171,8 @@ const defaultData = {
       period: '2026.06（约 2 周）',
       organization: '国外医疗 Web 页面',
       role: '前端兼职',
+      tag: '兼职',
+      highlight: true,
       description: '根据 Figma 使用 HTML/CSS/Astro 完成约 10 个医疗订单相关静态页面还原与交付，按设计规范保证多页风格统一、可验收。'
     },
     {
