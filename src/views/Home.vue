@@ -342,13 +342,13 @@
                 :style="{ transitionDelay: `${index * 100}ms` }"
                 :class="getProjectVisible(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
               >
-                <div class="h-24 sm:h-28 md:h-32 bg-gray-100 overflow-hidden relative rounded-t-xl shrink-0">
+                <div class="h-36 sm:h-40 md:h-44 bg-gradient-to-b from-gray-100 to-gray-50 overflow-hidden relative rounded-t-xl shrink-0 flex items-center justify-center">
                   <img 
                     v-if="project.cover && !coverBroken[project._id]" 
                     loading="lazy"
                     :src="project.cover" 
                     :alt="project.title + '项目封面'"
-                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    class="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-700 group-hover:scale-[1.03]"
                     @error="coverBroken[project._id] = true"
                   />
                   <div v-else class="w-full h-full flex items-center justify-center text-red-200 text-2xl sm:text-3xl md:text-4xl font-bold">
@@ -541,14 +541,14 @@
         <button @click="closeProject" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/90 text-gray-400 hover:text-black text-2xl leading-none shadow-sm">&times;</button>
         
         <div class="max-h-[85vh] overflow-y-auto">
-          <!-- 截图主图 + 缩略图 -->
+          <!-- 截图主图 + 缩略图：contain 完整显示，适配竖屏/横屏/长页 -->
           <div v-if="selectedProject.screenshots?.length" class="bg-gray-100">
-            <div class="relative aspect-[16/9] bg-gray-200">
+            <div class="relative flex items-center justify-center min-h-[220px] max-h-[min(52vh,420px)] bg-gradient-to-b from-gray-100 to-gray-200 px-3 py-4">
               <img
                 v-show="!shotBroken[activeShot]"
                 :src="selectedProject.screenshots[activeShot]"
                 :alt="selectedProject.title + ' 截图'"
-                class="w-full h-full object-cover object-top"
+                class="max-w-full max-h-[min(48vh,400px)] w-auto h-auto object-contain rounded-md shadow-sm"
                 @error="markShotBroken(activeShot)"
               />
               <div
@@ -565,13 +565,13 @@
                 :key="i"
                 type="button"
                 @click="activeShot = i"
-                class="relative h-14 w-20 rounded-md overflow-hidden shrink-0 border-2 transition-colors"
+                class="relative h-14 w-20 rounded-md overflow-hidden shrink-0 border-2 transition-colors bg-white flex items-center justify-center"
                 :class="activeShot === i ? 'border-red-500' : 'border-transparent opacity-80 hover:opacity-100'"
               >
                 <img
                   v-show="!shotBroken[i]"
                   :src="img"
-                  class="w-full h-full object-cover"
+                  class="max-w-full max-h-full object-contain"
                   @error="markShotBroken(i)"
                 />
                 <div v-if="shotBroken[i]" class="absolute inset-0 bg-gray-300 flex items-center justify-center text-[10px] text-gray-500">{{ i + 1 }}</div>
