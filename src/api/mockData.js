@@ -4,7 +4,7 @@
  */
 
 const STORAGE_KEY = 'portfolio_data'
-const DATA_VERSION = 11
+const DATA_VERSION = 12
 
 const defaultData = {
   version: DATA_VERSION,
