@@ -4,7 +4,7 @@
  */
 
 const STORAGE_KEY = 'portfolio_data'
-const DATA_VERSION = 10
+const DATA_VERSION = 11
 
 const defaultData = {
   version: DATA_VERSION,
@@ -50,7 +50,7 @@ const defaultData = {
       period: '2026.07 – 2026.09',
       role: '前端全栈 · 独立交付',
       summary: '亿信安泰 ToB 会员商城与门店运营全链路：小程序 + 管理后台 + 后端 API，覆盖会员、商城、核销预约收银与多角色工作台。',
-      cover: '/projects/mall/1.jpg',
+      cover: '/projects/mall/1.png',
       techStack: ['uni-app', '微信小程序', 'Vue 管理端', 'Node/Express', 'MySQL', 'RBAC'],
       github: '',
       repoNote: '公司内部项目，未公开仓库',
@@ -60,7 +60,7 @@ const defaultData = {
         '管理后台对接 48+ 业务模块与 RBAC；输出需求/对接/交接/测试文档',
         '梳理上线依赖（域名、云资源、微信支付等），主链达可本地验收与预发条件'
       ],
-      screenshots: ['/projects/mall/1.jpg', '/projects/mall/2.jpg', '/projects/mall/3.jpg']
+      screenshots: ['/projects/mall/1.png', '/projects/mall/2.png', '/projects/mall/3.png']
     },
     {
       _id: 'proj_2',
@@ -69,7 +69,7 @@ const defaultData = {
       period: '2025 – 至今',
       role: '独立开发 · 部署维护',
       summary: 'fernoa.top 个人作品集：前台展示 + 管理后台，Vue 3 + Express + Prisma + MySQL，支持中英切换与数据维护。',
-      cover: '/projects/portfolio/1.jpg',
+      cover: '/projects/portfolio/1.png',
       techStack: ['Vue 3', 'Vite', 'Tailwind CSS', 'Express', 'Prisma', 'MySQL', 'JWT'],
       github: 'https://github.com/yanmo18/my-portfolio',
       features: [
@@ -78,7 +78,7 @@ const defaultData = {
         'Express + Prisma + MySQL：JWT 鉴权与项目/奖项/经历 CRUD',
         '接口三级降级：后端不可用时仍用内置数据保证首页可用'
       ],
-      screenshots: ['/projects/portfolio/1.jpg', '/projects/portfolio/2.jpg', '/projects/portfolio/3.jpg']
+      screenshots: ['/projects/portfolio/1.png', '/projects/portfolio/2.png', '/projects/portfolio/3.png']
     },
     {
       _id: 'proj_3',
@@ -87,7 +87,7 @@ const defaultData = {
       period: '2026.06（约 2 周）',
       role: '前端兼职 · 静态页交付',
       summary: '按 Figma 用 HTML/CSS/Astro 还原并交付约 10 个国外医疗订单相关静态页面，统一版式与组件风格。',
-      cover: '/projects/medical/1.jpg',
+      cover: '/projects/medical/1.png',
       techStack: ['HTML', 'CSS', 'Astro', 'Figma'],
       github: '',
       repoNote: '兼职交付项目',
@@ -97,7 +97,7 @@ const defaultData = {
         '统一版式、间距与组件风格，保证多页可验收',
         '短期项目制协作，按时交付并对接验收反馈'
       ],
-      screenshots: ['/projects/medical/1.jpg', '/projects/medical/2.jpg', '/projects/medical/3.jpg']
+      screenshots: ['/projects/medical/1.png', '/projects/medical/2.png', '/projects/medical/3.png']
     },
     {
       _id: 'proj_4',
@@ -106,7 +106,7 @@ const defaultData = {
       period: '校内实训',
       role: '小程序前端 · 管理后端联调',
       summary: '校内实训电商项目：微信原生小程序（首页/分类/订单/我的/详情）+ 管理后端，UI 用 Vant Weapp，对接登录与商品订单链路。',
-      cover: '/projects/market/1.jpg',
+      cover: '/projects/market/1.png',
       techStack: ['微信小程序', 'Vant Weapp', 'JavaScript', 'CloudBase'],
       github: 'https://github.com/yanmo18/market',
       features: [
@@ -115,7 +115,7 @@ const defaultData = {
         '管理端：商品、分类、订单、用户管理；后端含 wx 登录与订单 API',
         '仓库已合并：github.com/yanmo18/market（miniprogram / admin / server）'
       ],
-      screenshots: ['/projects/market/1.jpg', '/projects/market/2.jpg', '/projects/market/3.jpg']
+      screenshots: ['/projects/market/1.png', '/projects/market/2.png', '/projects/market/3.png']
     }
   ],
   awards: [
