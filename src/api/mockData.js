@@ -4,7 +4,7 @@
  */
 
 const STORAGE_KEY = 'portfolio_data'
-const DATA_VERSION = 8
+const DATA_VERSION = 10
 
 const defaultData = {
   version: DATA_VERSION,
@@ -101,21 +101,21 @@ const defaultData = {
     },
     {
       _id: 'proj_4',
-      title: '有机蔬菜管理系统',
+      title: '微信小程序商城',
       badge: '校内实训',
       period: '校内实训',
-      role: '前后端分离 · RuoYi 二次开发',
-      summary: '基于 RuoYi-Vue 的企业级后台：RBAC 与订购/库存/订单流程，支持单机部署。',
-      cover: '/projects/vegetable/1.jpg',
-      techStack: ['Spring Boot', 'Vue 2', 'Element UI', 'MyBatis-Plus', 'MySQL'],
-      github: 'https://github.com/yanmo18/vegetable-system',
+      role: '小程序前端 · 管理后端联调',
+      summary: '校内实训电商项目：微信原生小程序（首页/分类/订单/我的/详情）+ 管理后端，UI 用 Vant Weapp，对接登录与商品订单链路。',
+      cover: '/projects/market/1.jpg',
+      techStack: ['微信小程序', 'Vant Weapp', 'JavaScript', 'CloudBase'],
+      github: 'https://github.com/yanmo18/market',
       features: [
-        '校内实训：基于 RuoYi-Vue 二次开发的企业级后台',
-        'RBAC：用户、角色、菜单分级管理',
-        '覆盖订购、库存、订单等业务流程',
-        '前后端分离，支持单机部署'
+        '校内实训 monorepo：微信小程序 + Vue 管理端 + Spring Boot 后端',
+        '小程序：首页/分类/订单/我的/详情（Vant Weapp）',
+        '管理端：商品、分类、订单、用户管理；后端含 wx 登录与订单 API',
+        '仓库已合并：github.com/yanmo18/market（miniprogram / admin / server）'
       ],
-      screenshots: ['/projects/vegetable/1.jpg', '/projects/vegetable/2.jpg', '/projects/vegetable/3.jpg']
+      screenshots: ['/projects/market/1.jpg', '/projects/market/2.jpg', '/projects/market/3.jpg']
     }
   ],
   awards: [
